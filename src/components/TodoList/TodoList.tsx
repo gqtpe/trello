@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent} from "react";
+import React, {KeyboardEvent, useState} from "react";
 import {FilterTypeValuesType} from "../../App";
 import styles from './TodoList.module.scss'
 
@@ -19,8 +19,9 @@ export type TaskType = {
 
 }
 
-export function Todolist({title, tasks, removeTask, changeFilter, addTask}: PropsType) {
+export function Todolist({title, tasks, removeTask, changeFilter, addTask, changeStatus, filter}: PropsType) {
     let [newTaskTitle, setTaskNewTitle] = useState<string>('');
+    let [error, setError] = useState<string|null>('')
     const enterKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             addTask(newTaskTitle)
@@ -30,24 +31,33 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask}: Prop
         <div>
             <h3>{title}</h3>
             <input
-                onChange={(e) => setTaskNewTitle(e.currentTarget.value)}
+                onChange={onChangeHandler}
                 type="text"
                 onKeyUp={enterKeyPressHandler}
                 value={newTaskTitle}
                 className={error?styles.error:""}
             />
-            <button onClick={() => addTask(newTaskTitle)}>+</button>
+            <button onClick={addTaskCallback}>+</button>
+            {error && <div className={styles.errorMessage}>{error}</div>}
             <ul>
 
                 {
-                    tasks.map(t => <li key={t.id}>
-                        <input
-                            type="checkbox"
-                            checked={t.isDone}
-                        />
-                        <span>{t.title}</span>
-                        <button onClick={() => removeTask(t.id)}>x</button>
-                    </li>)
+                    tasks.map(t => {
+                        const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) =>{
+                            changeStatus(t.id, e.currentTarget.checked)
+                        }
+                        return <li key={t.id} className={t.isDone?styles.isDone:''}>
+
+                            <input
+                                type="checkbox"
+                                checked={t.isDone}
+                                onChange={onChangeHandler}
+
+                            />
+                            <span>{t.title}</span>
+                            <button onClick={() => removeTask(t.id)}>x</button>
+                        </li>
+                    })
                 }
             </ul>
             <div>
