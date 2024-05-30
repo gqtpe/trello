@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
+import './App.scss';
 import {TaskType, Todolist} from "./components/TodoList/TodoList";
 import {v4 as uuid} from "uuid";
 
@@ -23,7 +23,14 @@ function App() {
     const addTask = (title: string) => {
         let newTask: TaskType = {id: uuid(), title: title, isDone: false}
         let newTasks: TaskType[] = [newTask, ...tasks]
-        setTasks(newTasks)
+        setTasks([...newTasks])
+    }
+    const changeStatus = (taskID: string, isDone: boolean) => {
+        let task = tasks.find(t=>t.id === taskID)
+        if(task){
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
     }
     let resultTasks = tasks
     if (filter === "ACTIVE") {
@@ -37,11 +44,13 @@ function App() {
     return (
         <div className="App">
             <Todolist
+                filter={filter}
                 title={"What to learn"}
                 tasks={resultTasks}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeStatus={changeStatus}
             />
         </div>
     );
