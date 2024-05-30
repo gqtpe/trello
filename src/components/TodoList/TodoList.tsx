@@ -8,6 +8,7 @@ type PropsType = {
     removeTask: (id: string) => void
     changeFilter: (filter: FilterTypeValuesType) => void
     addTask: (title: string) => void
+    changeStatus: (taskID: string, isDone:boolean) => void
 }
 
 export type TaskType = {
