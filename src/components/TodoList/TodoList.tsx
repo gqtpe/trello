@@ -24,8 +24,25 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask, chang
     let [error, setError] = useState<string|null>('')
     const enterKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            addTask(newTaskTitle)
+            addTaskCallback()
         }
+    }
+    const addTaskCallback = () =>{
+        if(newTaskTitle.trim() === ''){
+            setTaskNewTitle('')
+            setError('Title is required')
+            return;
+        }
+        addTask(newTaskTitle)
+        setTaskNewTitle('')
+
+    }
+    const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+        if(error){
+            console.log('error')
+            setError('')
+        }
+        setTaskNewTitle(e.currentTarget.value)
     }
     return (
         <div>
