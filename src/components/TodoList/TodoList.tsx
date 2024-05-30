@@ -5,6 +5,7 @@ import styles from './TodoList.module.scss'
 type PropsType = {
     title: string
     tasks: TaskType[]
+    filter: FilterTypeValuesType
     removeTask: (id: string) => void
     changeFilter: (filter: FilterTypeValuesType) => void
     addTask: (title: string) => void
@@ -32,6 +33,8 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask}: Prop
                 onChange={(e) => setTaskNewTitle(e.currentTarget.value)}
                 type="text"
                 onKeyUp={enterKeyPressHandler}
+                value={newTaskTitle}
+                className={error?styles.error:""}
             />
             <button onClick={() => addTask(newTaskTitle)}>+</button>
             <ul>
@@ -48,9 +51,9 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask}: Prop
                 }
             </ul>
             <div>
-                <button onClick={() => changeFilter("ALL")}>All</button>
-                <button onClick={() => changeFilter("ACTIVE")}>Active</button>
-                <button onClick={() => changeFilter("COMPLETED")}>Completed</button>
+                <button className={filter === "ALL"? styles.activeFilter:''} onClick={() => changeFilter("ALL")}>All</button>
+                <button className={filter === "ACTIVE"? styles.activeFilter:''} onClick={() => changeFilter("ACTIVE")}>Active</button>
+                <button className={filter === "COMPLETED"? styles.activeFilter:''} onClick={() => changeFilter("COMPLETED")}>Completed</button>
             </div>
         </div>
     )
