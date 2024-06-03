@@ -3,13 +3,15 @@ import {FilterTypeValuesType} from "../../App";
 import styles from './TodoList.module.scss'
 
 type PropsType = {
+    id: string
     title: string
-    tasks: TaskType[]
     filter: FilterTypeValuesType
-    removeTask: (id: string) => void
-    changeFilter: (filter: FilterTypeValuesType) => void
-    addTask: (title: string) => void
-    changeStatus: (taskID: string, isDone:boolean) => void
+    removeTodoList: (todoListID: string) => void
+    changeStatus: (todoListID: string, taskID: string, isDone: boolean) => void
+    tasks: TaskType[]
+    removeTask: (todoListID: string, taskID: string) => void
+    changeFilter: (todoListID: string, filter: FilterTypeValuesType) => void
+    addTask: (todoListID: string, title: string) => void
 }
 
 export type TaskType = {
@@ -19,26 +21,36 @@ export type TaskType = {
 
 }
 
-export function Todolist({title, tasks, removeTask, changeFilter, addTask, changeStatus, filter}: PropsType) {
+export function TodoList({
+                             title,
+                             tasks,
+                             removeTodoList,
+                             removeTask,
+                             changeFilter,
+                             addTask,
+                             changeStatus,
+                             filter,
+                             id
+                         }: PropsType) {
     let [newTaskTitle, setTaskNewTitle] = useState<string>('');
-    let [error, setError] = useState<string|null>('')
+    let [error, setError] = useState<string | null>('')
     const enterKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             addTaskCallback()
         }
     }
-    const addTaskCallback = () =>{
-        if(newTaskTitle.trim() === ''){
+    const addTaskCallback = () => {
+        if (newTaskTitle.trim() === '') {
             setTaskNewTitle('')
             setError('Title is required')
             return;
         }
-        addTask(newTaskTitle)
+        addTask(id, newTaskTitle)
         setTaskNewTitle('')
 
     }
     const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        if(error){
+        if (error) {
             console.log('error')
             setError('')
         }
@@ -46,13 +58,15 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask, chang
     }
     return (
         <div>
-            <h3>{title}</h3>
+            <h3>{title}
+                <button onClick={() => removeTodoList(id)}>x</button>
+            </h3>
             <input
                 onChange={onChangeHandler}
                 type="text"
                 onKeyUp={enterKeyPressHandler}
                 value={newTaskTitle}
-                className={error?styles.error:""}
+                className={error ? styles.error : ""}
             />
             <button onClick={addTaskCallback}>+</button>
             {error && <div className={styles.errorMessage}>{error}</div>}
@@ -60,10 +74,10 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask, chang
 
                 {
                     tasks.map(t => {
-                        const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) =>{
-                            changeStatus(t.id, e.currentTarget.checked)
+                        const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+                            changeStatus(id, t.id, e.currentTarget.checked)
                         }
-                        return <li key={t.id} className={t.isDone?styles.isDone:''}>
+                        return <li key={t.id} className={t.isDone ? styles.isDone : ''}>
 
                             <input
                                 type="checkbox"
@@ -72,15 +86,21 @@ export function Todolist({title, tasks, removeTask, changeFilter, addTask, chang
 
                             />
                             <span>{t.title}</span>
-                            <button onClick={() => removeTask(t.id)}>x</button>
+                            <button onClick={() => removeTask(id, t.id)}>x</button>
                         </li>
                     })
                 }
             </ul>
             <div>
-                <button className={filter === "ALL"? styles.activeFilter:''} onClick={() => changeFilter("ALL")}>All</button>
-                <button className={filter === "ACTIVE"? styles.activeFilter:''} onClick={() => changeFilter("ACTIVE")}>Active</button>
-                <button className={filter === "COMPLETED"? styles.activeFilter:''} onClick={() => changeFilter("COMPLETED")}>Completed</button>
+                <button className={filter === "ALL" ? styles.activeFilter : ''}
+                        onClick={() => changeFilter(id, "ALL")}>All
+                </button>
+                <button className={filter === "ACTIVE" ? styles.activeFilter : ''}
+                        onClick={() => changeFilter(id, "ACTIVE")}>Active
+                </button>
+                <button className={filter === "COMPLETED" ? styles.activeFilter : ''}
+                        onClick={() => changeFilter(id, "COMPLETED")}>Completed
+                </button>
             </div>
         </div>
     )
