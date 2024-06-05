@@ -9,6 +9,22 @@
 .activeFilter {
   background-color: lightgreen;
 }
-.isDone {
-  opacity: 0.5;
+
+.todolist {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+
+  h6 {
+    align-self: center;
+  }
+
+  &__list {
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
 }

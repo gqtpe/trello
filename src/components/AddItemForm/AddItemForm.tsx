@@ -1,5 +1,8 @@
 import React, {KeyboardEvent, useState} from "react";
-import styles from "../TodoList/TodoList.module.scss";
+import IconButton from "@mui/material/IconButton/IconButton";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import TextField from "@mui/material/TextField/TextField";
+
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -7,39 +10,38 @@ type AddItemFormPropsType = {
 export const AddItemForm = ({addItem}: AddItemFormPropsType) => {
     let [title, setTitle] = useState<string>('');
     let [error, setError] = useState<string | null>(null)
-
     const addItemCallback = () => {
         if (title.trim() !== '') {
             addItem(title)
             setTitle('')
-
-        } else{
+        } else {
             setError('Title is required')
         }
-
-
     }
     const enterKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-
         if (event.key === 'Enter') {
             addItemCallback()
         }
     }
-    const changeItemHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    const changeItemHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (error) {
             setError(null)
         }
         setTitle(e.currentTarget.value)
     }
     return <div>
-        <input
-            onChange={changeItemHandler}
-            type="text"
-            onKeyUp={enterKeyPressHandler}
+        <TextField
+            label="Add Item"
+            variant={'outlined'}
             value={title}
-            className={error ? styles.error : ""}
+            size={'small'}
+            error={!!error}
+            helperText={error}
+            onChange={changeItemHandler}
+            onKeyUp={enterKeyPressHandler}
         />
-        <button onClick={addItemCallback}>+</button>
-        {error && <div className={styles.errorMessage}>{error}</div>}
+        <IconButton onClick={addItemCallback} color={'primary'}>
+            <AddCircleIcon/>
+        </IconButton>
     </div>
 }

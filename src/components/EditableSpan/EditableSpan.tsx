@@ -1,24 +1,25 @@
+import TextField from '@mui/material/TextField/TextField';
 import React, {useState} from 'react';
 
 
 type PropsType = {
     value: string
-    setValue: (newTitle: string) =>void
+    setValue: (newTitle: string) => void
 }
-const EditableSpan = ({value,setValue}:PropsType) => {
+const EditableSpan = ({value, setValue}: PropsType) => {
     let [editMode, setEditMode] = useState<boolean>(false)
     let [title, setTitle] = useState<string>(value)
-    const activateEditMode = ()=>setEditMode(true)
-    const deactivateEditMode = ()=>{
+    const activateEditMode = () => setEditMode(true)
+    const deactivateEditMode = () => {
         setEditMode(false)
         setValue(title)
     }
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-    const enterHandler = (e: React.KeyboardEvent<HTMLDivElement>) =>{
-        if(e.key === 'Enter'){
-           deactivateEditMode()
+    const enterHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            deactivateEditMode()
         }
     }
 
@@ -26,15 +27,10 @@ const EditableSpan = ({value,setValue}:PropsType) => {
         deactivateEditMode()
 
     }
-    return editMode?
-        <input
-            value={title}
-            type="text"
-            onChange={onChange}
-            onKeyDown={enterHandler}
-            autoFocus={true}
-            onBlur={onBlurHandler}
-        />
+    return editMode ?
+        <TextField type="text" size={'small'} onKeyDown={enterHandler}
+                   autoFocus={true}
+                   onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}/>
         :
         <span onDoubleClick={activateEditMode}>{title}</span>
 };
