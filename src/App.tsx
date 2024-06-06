@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import './App.scss';
 import {TaskType, TodoList} from "./components/TodoList/TodoList";
 import {v4} from "uuid";
-import {AppBar, Container, Drawer, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Container, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import Grid from "@mui/material/Grid/Grid";
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-
 
 
 export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
@@ -20,6 +19,7 @@ export type TodoListType = {
 }
 
 type ThemeMode = 'dark' | 'light'
+
 function App() {
     let todo1 = v4()
     let todo2 = v4()
@@ -97,7 +97,7 @@ function App() {
         }
 
     }
-    const [themeMode,setThemeMode] = useState<ThemeMode>('light')
+    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
             mode: themeMode,
@@ -107,8 +107,8 @@ function App() {
         },
     })
 
-    const changeThemeHandler = () =>{
-        setThemeMode(themeMode === 'light'?'dark':'light')
+    const changeThemeHandler = () => {
+        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
     }
     return (
         <div className="App">
@@ -128,14 +128,6 @@ function App() {
                         <Switch size="small" onChange={changeThemeHandler}/>
                     </Toolbar>
                 </AppBar>
-                <Drawer
-                    variant="persistent"
-                    anchor="left"
-                >
-                    <Typography>
-                        hello
-                    </Typography>
-                </Drawer>
                 <Container>
                     <Grid container margin={2}><Paper sx={{padding: "5px"}}><AddItemForm addItem={addTodoList}/></Paper></Grid>
                     <Grid container margin={2} direction="row" alignItems={'flex-start'} flexWrap={'wrap'} gap={2}>
