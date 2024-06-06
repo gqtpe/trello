@@ -65,7 +65,7 @@ export const TodoList = ({
             </ListItem>
         })
     return (
-        <Paper elevation={3} className={styles.todolist}>
+        <Paper elevation={6}  className={styles.todolist}>
             <Typography gutterBottom variant="h6">
                 <EditableSpan
                     value={title}
