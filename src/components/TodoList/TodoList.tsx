@@ -3,7 +3,7 @@ import {FilterTypeValuesType} from "../../App";
 import styles from './TodoList.module.scss'
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
-import {List, ListItem, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
+import {Checkbox, List, ListItem, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {RemoveItem} from "../RemoveItem/RemoveItem";
 
 type PropsType = {
@@ -52,9 +52,10 @@ export const TodoList = ({
                 changeStatus(id, t.id, e.currentTarget.checked)
             }
             return <ListItem key={t.id} disableGutters disablePadding className={styles.todolist__item}>
-                <input
-                    type="checkbox"
+                <Checkbox
+                    size="small"
                     checked={t.isDone}
+                    sx={{padding:0}}
                     onChange={onChangeHandler}
 
                 />
