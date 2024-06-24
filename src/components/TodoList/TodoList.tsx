@@ -5,6 +5,7 @@ import {AddItemForm} from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
 import {Checkbox, List, ListItem, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {RemoveItem} from "../RemoveItem/RemoveItem";
+import {TaskType} from "../../state/tasks-reducer";
 
 type PropsType = {
     id: string
@@ -19,13 +20,6 @@ type PropsType = {
     changeStatus: (todoListID: string, taskID: string, isDone: boolean) => void
     changeTaskTitle: (todoListID: string, taskID: string, title: string) => void
     addTask: (todoListID: string, title: string) => void
-}
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-
 }
 
 export const TodoList = ({
