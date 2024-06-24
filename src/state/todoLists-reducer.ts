@@ -7,8 +7,14 @@ type ActionsType = ReturnType<typeof addTodoListAC>
     | ReturnType<typeof changeTodoListFilterAC>
     | ReturnType<typeof changeTodoListTitleAC>
 
+export const todo1 = v4()
+export const todo2 = v4()
+const initialState: TodoListsStateType = [
+    {id: todo1, title: "What to learn", filter: "ACTIVE"},
+    {id: todo2, title: "What to do", filter: "ALL"},
+]
 
-export const todoListsReducer = (state: TodoListsStateType, action: ActionsType): TodoListsStateType => {
+export const todoListsReducer = (state: TodoListsStateType = initialState, action: ActionsType): TodoListsStateType => {
     switch (action.type) {
         case "REMOVE-TODOLIST": {
             let stateCopy = [...state]
