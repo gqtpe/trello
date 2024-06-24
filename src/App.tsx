@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.scss';
-import {TaskType, TodoList} from "./components/TodoList/TodoList";
+import {TodoList} from "./components/TodoList/TodoList";
 import {v4} from "uuid";
 import {AppBar, Container, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid/Grid";
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
+import { TaskType } from './state/tasks-reducer';
 
 
 export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"

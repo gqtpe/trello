@@ -12,10 +12,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Grid from "@mui/material/Grid/Grid";
 import {Container, Paper} from "@mui/material";
 import {AddItemForm} from "./AddItemForm/AddItemForm";
-import {TaskType, TodoList} from "./TodoList/TodoList";
+import { TodoList} from "./TodoList/TodoList";
 import {v4} from "uuid";
 import {FilterTypeValuesType, TodoListType} from "../App";
 import Switch from "@mui/material/Switch";
+import {TaskType} from "../state/tasks-reducer";
 
 const drawerWidth = 240;
 type ThemeMode = 'dark' | 'light'
