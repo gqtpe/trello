@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from 'react';
 import './App.scss';
-import {TodoList} from "./components/TodoList/TodoList";
-import {v4} from "uuid";
+import TodoList from "./components/TodoList/TodoList";
 import {AppBar, Container, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import {AddItemForm} from "./components/AddItemForm/AddItemForm";
+import AddItemForm from "./components/AddItemForm/AddItemForm";
 import Grid from "@mui/material/Grid/Grid";
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
