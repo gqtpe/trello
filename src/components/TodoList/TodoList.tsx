@@ -91,3 +91,41 @@ const TodoList: React.FC<PropsType> = ({
         </Paper>
     )
 }
+type TaskPropsType = {
+    todoListID: string
+    id: string
+    title: string
+    isDone: boolean
+    removeTask: (todoListID: string, id: string,) => void
+    changeTaskTitle: (todoListID: string, id: string, newValue: string) => void
+    changeTaskStatus: (todoListID: string, id: string, newValue: boolean) => void
+}
+const Task: React.FC<TaskPropsType> = ({
+                                           todoListID,
+                                           removeTask,
+                                           changeTaskStatus,
+                                           changeTaskTitle,
+                                           title,
+                                           isDone,
+                                           id
+                                       }) => {
+    const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+        changeTaskStatus(todoListID, id, e.currentTarget.checked)
+    }
+    const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, id, value), [])
+    return <ListItem disableGutters disablePadding className={styles.todolist__item}>
+        <Checkbox
+            size="small"
+            checked={isDone}
+            sx={{padding: 0}}
+            onChange={onChangeHandler}
+
+        />
+        <Typography variant={'subtitle1'}><EditableSpan value={title}
+                                                        setValue={changeTaskTitleC}/></Typography>
+        <RemoveItem removeItem={() => removeTask(todoListID, id)}/>
+    </ListItem>
+}
+
+
+export default React.memo(TodoList);
