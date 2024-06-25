@@ -1,11 +1,11 @@
 import React, {useCallback} from "react";
 import {FilterTypeValuesType} from "../../App";
 import styles from './TodoList.module.scss'
-import {AddItemForm} from "../AddItemForm/AddItemForm";
 import EditableSpan from "../EditableSpan/EditableSpan";
 import {Checkbox, List, ListItem, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import {RemoveItem} from "../RemoveItem/RemoveItem";
 import {TaskType} from "../../state/tasks-reducer";
+import AddItemForm from "../AddItemForm/AddItemForm";
 
 type PropsType = {
     id: string
