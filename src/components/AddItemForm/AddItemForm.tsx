@@ -11,6 +11,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
     console.log('AddItemForm')
     let [title, setTitle] = useState<string>('');
     let [error, setError] = useState<string | null>(null)
+
     const addItemCallback = () => {
         if (title.trim() !== '') {
             addItem(title)
@@ -30,6 +31,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
         }
         setTitle(e.currentTarget.value)
     }
+
     return <div>
         <TextField
             label="Add Item"
