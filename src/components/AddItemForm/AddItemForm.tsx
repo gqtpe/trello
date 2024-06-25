@@ -7,7 +7,8 @@ import TextField from "@mui/material/TextField/TextField";
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-export const AddItemForm = ({addItem}: AddItemFormPropsType) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
+    console.log('AddItemForm')
     let [title, setTitle] = useState<string>('');
     let [error, setError] = useState<string | null>(null)
     const addItemCallback = () => {
@@ -45,3 +46,4 @@ export const AddItemForm = ({addItem}: AddItemFormPropsType) => {
         </IconButton>
     </div>
 }
+export default React.memo(AddItemForm);
