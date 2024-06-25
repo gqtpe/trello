@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {FilterTypeValuesType} from "../../App";
 import styles from './TodoList.module.scss'
 import {AddItemForm} from "../AddItemForm/AddItemForm";
@@ -46,40 +46,40 @@ const TodoList: React.FC<PropsType> = ({
 
     const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
         changeFilter(id, value)
-    }
+    }, [])
+    const addTaskC = useCallback((title: string) => {
+        addTask(id, title)
+    }, [id, addTask])
 
-
-    let todoListsList = tasks.length === 0 ? <Typography variant={"subtitle1"} color={'gray'}>no tasks</Typography> :
-        tasks.map(t => {
-            const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-                changeStatus(id, t.id, e.currentTarget.checked)
-            }
-            return <ListItem key={t.id} disableGutters disablePadding className={styles.todolist__item}>
-                <Checkbox
-                    size="small"
-                    checked={t.isDone}
-                    sx={{padding:0}}
-                    onChange={onChangeHandler}
-
-                />
-                <Typography variant={'subtitle1'}><EditableSpan value={t.title}
-                                                                setValue={(value) => changeTaskTitle(id, t.id, value)}/></Typography>
-                <RemoveItem removeItem={() => removeTask(id, t.id)}/>
-            </ListItem>
-        })
+    const changeTodolistTitle = useCallback((value: string) => {
+        changeTodoListTitle(id, value)
+    }, [])
     return (
-        <Paper elevation={6}  className={styles.todolist}>
+        <Paper elevation={6} className={styles.todolist}>
             <Typography gutterBottom variant="h6">
                 <EditableSpan
                     value={title}
-                    setValue={(value) => changeTodoListTitle(id, value)}
+                    setValue={changeTodolistTitle}
                 />
                 <RemoveItem removeItem={() => removeTodoList(id)}/>
             </Typography>
 
-            <AddItemForm addItem={(title) => addTask(id, title)}/>
+            <AddItemForm addItem={addTaskC}/>
             <List className={`${styles.todolist__list} ${styles.list}`} disablePadding>
-                {todoListsList}
+                {
+                    tasks.length === 0 ? <Typography variant={"subtitle1"} color={'gray'}>no tasks</Typography> :
+                        tasksForTodoList.map(t =>
+                            <Task
+                                todoListID={id}
+                                id={t.id}
+                                key={t.id}
+                                title={t.title}
+                                isDone={t.isDone}
+                                changeTaskStatus={changeStatus}
+                                removeTask={removeTask}
+                                changeTaskTitle={changeTaskTitle}
+                            />)
+                    }
             </List>
             <ToggleButtonGroup
                 fullWidth size={'small'} value={filter} onChange={filterToggleHandler} exclusive color={'primary'}
