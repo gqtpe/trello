@@ -22,20 +22,29 @@ type PropsType = {
     addTask: (todoListID: string, title: string) => void
 }
 
-export const TodoList = ({
-                             title,
-                             changeTodoListTitle,
-                             tasks,
-                             removeTodoList,
-                             removeTask,
-                             changeFilter,
-                             changeTaskTitle,
-                             addTask,
-                             changeStatus,
-                             filter,
-                             id
-                         }: PropsType) => {
-    const filterToggleHandler = (event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
+const TodoList: React.FC<PropsType> = ({
+                                           id,
+                                           title,
+                                           filter,
+                                           removeTodoList,
+                                           changeFilter,
+                                           changeTodoListTitle,
+                                           tasks,
+                                           removeTask,
+                                           changeStatus,
+                                           changeTaskTitle,
+                                           addTask
+                                       }) => {
+    console.log('TodoList')
+    let tasksForTodoList = tasks
+    if (filter === "ACTIVE") {
+        tasksForTodoList = tasks.filter(t => !t.isDone)
+    }
+    if (filter === "COMPLETED") {
+        tasksForTodoList = tasks.filter(t => t.isDone)
+    }
+
+    const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
         changeFilter(id, value)
     }
 

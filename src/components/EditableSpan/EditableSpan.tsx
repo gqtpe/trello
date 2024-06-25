@@ -35,4 +35,4 @@ const EditableSpan = ({value, setValue}: PropsType) => {
         <span onDoubleClick={activateEditMode}>{title}</span>
 };
 
-export default EditableSpan;
+export default React.memo(EditableSpan);
