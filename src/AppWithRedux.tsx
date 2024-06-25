@@ -99,24 +99,17 @@ function App() {
                     <Grid container margin={2} direction="row" alignItems={'flex-start'} flexWrap={'wrap'} gap={2}>
                         {
                             todoLists.map((todoList) => {
-                                let resultTasks = tasks[todoList.id]
-                                if (todoList.filter === "ACTIVE") {
-                                    resultTasks = resultTasks.filter(t => !t.isDone)
-
-                                }
-                                if (todoList.filter === "COMPLETED") {
-                                    resultTasks = resultTasks.filter(t => t.isDone)
-                                }
                                 return <TodoList
                                     key={todoList.id}
                                     id={todoList.id}
                                     title={todoList.title}
                                     filter={todoList.filter}
+                                    tasks={tasks[todoList.id]}
+
                                     changeFilter={changeFilter}
                                     removeTodoList={removeTodoList}
                                     changeTodoListTitle={changeTodoListTitle}
 
-                                    tasks={resultTasks}
                                     removeTask={removeTask}
                                     addTask={addTask}
                                     changeStatus={changeStatus}
