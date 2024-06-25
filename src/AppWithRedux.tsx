@@ -29,15 +29,12 @@ export type TodoListType = {
 type ThemeMode = 'dark' | 'light'
 
 function App() {
-    let todo1 = v4()
-    let todo2 = v4()
-
-    let [todoLists, dispatchTodoLists] = useReducer(todoListsReducer,
-        [
-            {id: todo1, title: "What to learn", filter: "ACTIVE"},
-            {id: todo2, title: "What to do", filter: "ALL"},
-        ])
-    const removeTodoList = (todoListID: string) => {
+    console.log('App is called')
+    const todoLists = useSelector<AppRootStateType, TodoListType[]>(state => state.todoLists)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const dispatch = useDispatch()
+    //---------
+    const removeTodoList = useCallback((todoListID: string) => {
         const action = removeTodoListAC(todoListID)
         dispatch(action)
     }, [])
