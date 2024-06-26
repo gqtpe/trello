@@ -22,7 +22,7 @@ export const Task: React.FC<TaskPropsType> = ({
     const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
         changeTaskStatus(todoListID, task.id, e.currentTarget.checked)
     }
-    const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, task.id, value), [])
+    const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, task.id, value), [task.id, todoListID, changeTaskTitle])
     return <ListItem disableGutters disablePadding className={styles.todolist__item}>
         <Checkbox
             size="small"
