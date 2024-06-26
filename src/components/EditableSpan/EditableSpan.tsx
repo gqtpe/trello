@@ -1,20 +1,33 @@
 import TextField from '@mui/material/TextField/TextField';
 import React, {useState} from 'react';
+import {ErrorType} from "../../app/AppWithRedux";
 
 
 type PropsType = {
     value: string
     setValue: (newTitle: string) => void
+    edit?: boolean
+    error?: ErrorType
+    setError?: (error: ErrorType) => void
 }
-const EditableSpan = ({value, setValue}: PropsType) => {
-    let [editMode, setEditMode] = useState<boolean>(false)
-    let [title, setTitle] = useState<string>(value)
+const EditableSpan = (props: PropsType) => {
+    let [editMode, setEditMode] = useState<boolean>(()=>false)
+    let [title, setTitle] = useState<string>(props.value)
+    let [error, setError] = useState<ErrorType>(null)
     const activateEditMode = () => setEditMode(true)
     const deactivateEditMode = () => {
-        setEditMode(false)
-        setValue(title)
+        if (title.trim() !== '') {
+            setEditMode(false)
+            props.setValue(title)
+        } else {
+            setError('Title is required')
+        }
+
     }
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (error) {
+            setError(null)
+        }
         setTitle(e.currentTarget.value)
     }
     const enterHandler = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -25,11 +38,18 @@ const EditableSpan = ({value, setValue}: PropsType) => {
 
     const onBlurHandler = () => {
         deactivateEditMode()
-
     }
+    if(props.edit){
+        return  <TextField type="text" size={'small'} onKeyDown={enterHandler}
+                           autoFocus={true}
+                           error={Boolean(props.error) || Boolean(error)}
+                           onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}/>
+    }
+
     return editMode ?
         <TextField type="text" size={'small'} onKeyDown={enterHandler}
                    autoFocus={true}
+                   error={Boolean(props.error) || Boolean(error)}
                    onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}/>
         :
         <span onDoubleClick={activateEditMode}>{title}</span>
