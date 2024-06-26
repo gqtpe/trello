@@ -2,6 +2,7 @@ import React, {KeyboardEvent, useState} from "react";
 import IconButton from "@mui/material/IconButton/IconButton";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextField from "@mui/material/TextField/TextField";
+import {ErrorType} from "../../app/AppWithRedux";
 
 
 type AddItemFormPropsType = {
@@ -10,7 +11,7 @@ type AddItemFormPropsType = {
 const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
     console.log('AddItemForm')
     let [title, setTitle] = useState<string>('');
-    let [error, setError] = useState<string | null>(null)
+    let [error, setError] = useState<ErrorType>(null)
 
     const addItemCallback = () => {
         if (title.trim() !== '') {
