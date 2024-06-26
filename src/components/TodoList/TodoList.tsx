@@ -72,10 +72,8 @@ const TodoList: React.FC<PropsType> = ({
                         tasksForTodoList.map(t =>
                             <Task
                                 todoListID={id}
-                                id={t.id}
+                                task={t}
                                 key={t.id}
-                                title={t.title}
-                                isDone={t.isDone}
                                 changeTaskStatus={changeStatus}
                                 removeTask={removeTask}
                                 changeTaskTitle={changeTaskTitle}
