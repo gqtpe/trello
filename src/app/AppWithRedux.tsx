@@ -1,9 +1,9 @@
-import React, {useCallback, useReducer, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import './App.scss';
-import TodoList from "./components/TodoList/TodoList";
+import TodoList from "../components/TodoList/TodoList";
 import {AppBar, Container, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import AddItemForm from "./components/AddItemForm/AddItemForm";
+import AddItemForm from "../components/AddItemForm/AddItemForm";
 import Grid from "@mui/material/Grid/Grid";
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
@@ -12,13 +12,13 @@ import {
     addTodoListAC,
     changeTodoListFilterAC,
     changeTodoListTitleAC,
-    removeTodoListAC,
-    todoListsReducer
-} from "./state/todoLists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
-import {v4} from "uuid";
+    removeTodoListAC
+} from "../state/todoLists-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksStateType} from '../state/tasks-reducer';
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "../state/store";
 
-
+export type ErrorType = string|null
 export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
 export type TodoListType = {
     id: string,
@@ -30,59 +30,39 @@ type ThemeMode = 'dark' | 'light'
 
 function App() {
     console.log('App is called')
-    let todo1 = v4()
-    let todo2 = v4()
-
-    let [todoLists, dispatchTodoLists] = useReducer(todoListsReducer,
-        [
-            {id: todo1, title: "What to learn", filter: "ACTIVE"},
-            {id: todo2, title: "What to do", filter: "ALL"},
-        ])
+    const todoLists = useSelector<AppRootStateType, TodoListType[]>(state => state.todoLists)
+    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const dispatch = useDispatch()
+    //---------
     const removeTodoList = useCallback((todoListID: string) => {
         const action = removeTodoListAC(todoListID)
-        dispatchTodoLists(action)
-        dispatchTasks(action)
-    }, [])
+        dispatch(action)
+    }, [dispatch])
     const addTodoList = useCallback((title: string) => {
         const action = addTodoListAC(title)
-        dispatchTodoLists(action)
-        dispatchTasks(action)
-    }, [])
+        dispatch(action)
+    }, [dispatch])
     const changeFilter = useCallback((todoListID: string, filter: FilterTypeValuesType) => {
-        dispatchTodoLists(changeTodoListFilterAC(todoListID, filter))
-    }, [])
+        dispatch(changeTodoListFilterAC(todoListID, filter))
+    }, [dispatch])
     const changeTodoListTitle = useCallback((todoListID: string, title: string) => {
-        dispatchTodoLists(changeTodoListTitleAC(todoListID, title))
-    }, [])
-    let [tasks, dispatchTasks] = useReducer(tasksReducer, {
-        [todo1]: [
-            {id: v4(), title: "CSS", isDone: true},
-            {id: v4(), title: "JS", isDone: true},
-            {id: v4(), title: "React", isDone: false},
-            {id: v4(), title: "React Native", isDone: false},
-        ],
-        [todo2]: [
-            {id: v4(), title: "wakeup", isDone: true},
-            {id: v4(), title: "do 1st", isDone: true},
-            {id: v4(), title: "code", isDone: false},
-            {id: v4(), title: "rest", isDone: false},
-            {id: v4(), title: "sleep", isDone: false},
-        ]
-    })
+        dispatch(changeTodoListTitleAC(todoListID, title))
+    }, [dispatch])
+    //---------
+    //---------
     const changeStatus = useCallback((todoLisID: string, taskID: string, isDone: boolean) => {
-        dispatchTasks(changeTaskStatusAC(todoLisID, taskID, isDone))
-
-    }, [])
+        dispatch(changeTaskStatusAC(todoLisID, taskID, isDone))
+    }, [dispatch])
     const removeTask = useCallback((todoListID: string, taskID: string) => {
-        dispatchTasks(removeTaskAC(todoListID, taskID))
-    }, [])
+        dispatch(removeTaskAC(todoListID, taskID))
+    }, [dispatch])
     const addTask = useCallback((todoListID: string, title: string) => {
-        dispatchTasks(addTaskAC(todoListID, title))
-    }, [])
+        dispatch(addTaskAC(todoListID, title))
+    }, [dispatch])
     const changeTaskTitle = useCallback((todoListID: string, taskID: string, title: string) => {
-        dispatchTasks(changeTaskTitleAC(todoListID, taskID, title))
-    }, [])
-
+        dispatch(changeTaskTitleAC(todoListID, taskID, title))
+    }, [dispatch])
+    //---------
     const [themeMode, setThemeMode] = useState<ThemeMode>('light')
     const theme = createTheme({
         palette: {
@@ -119,24 +99,17 @@ function App() {
                     <Grid container margin={2} direction="row" alignItems={'flex-start'} flexWrap={'wrap'} gap={2}>
                         {
                             todoLists.map((todoList) => {
-                                let resultTasks = tasks[todoList.id]
-                                if (todoList.filter === "ACTIVE") {
-                                    resultTasks = resultTasks.filter(t => !t.isDone)
-
-                                }
-                                if (todoList.filter === "COMPLETED") {
-                                    resultTasks = resultTasks.filter(t => t.isDone)
-                                }
                                 return <TodoList
                                     key={todoList.id}
                                     id={todoList.id}
                                     title={todoList.title}
                                     filter={todoList.filter}
+                                    tasks={tasks[todoList.id]}
+
                                     changeFilter={changeFilter}
                                     removeTodoList={removeTodoList}
                                     changeTodoListTitle={changeTodoListTitle}
 
-                                    tasks={resultTasks}
                                     removeTask={removeTask}
                                     addTask={addTask}
                                     changeStatus={changeStatus}
@@ -152,4 +125,4 @@ function App() {
 }
 
 
-export default App;
+export default React.memo(App);
