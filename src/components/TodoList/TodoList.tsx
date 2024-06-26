@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {FilterTypeValuesType} from "../../App";
+import {FilterTypeValuesType} from "../../app/App";
 import styles from './TodoList.module.scss'
 import EditableSpan from "../EditableSpan/EditableSpan";
 import {List, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
@@ -47,14 +47,14 @@ const TodoList: React.FC<PropsType> = ({
 
     const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
         changeFilter(id, value)
-    }, [])
+    }, [changeFilter, id])
     const addTaskC = useCallback((title: string) => {
         addTask(id, title)
     }, [id, addTask])
 
     const changeTodolistTitle = useCallback((value: string) => {
         changeTodoListTitle(id, value)
-    }, [])
+    }, [changeTodoListTitle, id])
     return (
         <Paper elevation={6} className={styles.todolist}>
             <Typography gutterBottom variant="h6">
@@ -90,41 +90,5 @@ const TodoList: React.FC<PropsType> = ({
         </Paper>
     )
 }
-type TaskPropsType = {
-    todoListID: string
-    id: string
-    title: string
-    isDone: boolean
-    removeTask: (todoListID: string, id: string,) => void
-    changeTaskTitle: (todoListID: string, id: string, newValue: string) => void
-    changeTaskStatus: (todoListID: string, id: string, newValue: boolean) => void
-}
-const Task: React.FC<TaskPropsType> = ({
-                                           todoListID,
-                                           removeTask,
-                                           changeTaskStatus,
-                                           changeTaskTitle,
-                                           title,
-                                           isDone,
-                                           id
-                                       }) => {
-    const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        changeTaskStatus(todoListID, id, e.currentTarget.checked)
-    }
-    const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, id, value), [])
-    return <ListItem disableGutters disablePadding className={styles.todolist__item}>
-        <Checkbox
-            size="small"
-            checked={isDone}
-            sx={{padding: 0}}
-            onChange={onChangeHandler}
-
-        />
-        <Typography variant={'subtitle1'}><EditableSpan value={title}
-                                                        setValue={changeTaskTitleC}/></Typography>
-        <RemoveItem removeItem={() => removeTask(todoListID, id)}/>
-    </ListItem>
-}
-
 
 export default React.memo(TodoList);

@@ -6,7 +6,7 @@ import {
     todoListsReducer,
     TodoListsStateType
 } from "./todoLists-reducer";
-import {FilterTypeValuesType} from "../App";
+import {FilterTypeValuesType} from "../app/App";
 let todolistID1:string;
 let todolistID2:string;
 let startState: TodoListsStateType;

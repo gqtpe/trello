@@ -1,4 +1,4 @@
-import {FilterTypeValuesType, TodoListType} from "../App";
+import {FilterTypeValuesType, TodoListType} from "../app/App";
 import {v4} from "uuid";
 
 export type TodoListsStateType = TodoListType[]
