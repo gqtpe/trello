@@ -1,38 +1,16 @@
-import React, {KeyboardEvent, useState} from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton/IconButton";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextField from "@mui/material/TextField/TextField";
-import {ErrorType} from "../../app/AppWithRedux";
+import {useAddItemForm} from "./hooks/AddItemForm";
 
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
-const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
+const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     console.log('AddItemForm')
-    let [title, setTitle] = useState<string>('');
-    let [error, setError] = useState<ErrorType>(null)
-
-    const addItemCallback = () => {
-        if (title.trim() !== '') {
-            addItem(title)
-            setTitle('')
-        } else {
-            setError('Title is required')
-        }
-    }
-    const enterKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            addItemCallback()
-        }
-    }
-    const changeItemHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (error) {
-            setError(null)
-        }
-        setTitle(e.currentTarget.value)
-    }
-
+    const {title, error, changeItemHandler, enterKeyPressHandler, addItem} = useAddItemForm(props.addItem)
     return <div>
         <TextField
             label="Add Item"
@@ -44,7 +22,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = ({addItem}) => {
             onChange={changeItemHandler}
             onKeyUp={enterKeyPressHandler}
         />
-        <IconButton onClick={addItemCallback} color={'primary'}>
+        <IconButton onClick={addItem} color={'primary'}>
             <AddCircleIcon/>
         </IconButton>
     </div>
