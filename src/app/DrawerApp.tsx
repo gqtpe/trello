@@ -13,7 +13,6 @@ import Grid from "@mui/material/Grid/Grid";
 import {Container, Paper} from "@mui/material";
 import AddItemForm from "../components/AddItemForm/AddItemForm";
 import TodoList from "../components/TodoList/TodoList";
-import {FilterTypeValuesType, TodoListType} from "./App";
 import Switch from "@mui/material/Switch";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksStateType} from "../state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -25,6 +24,7 @@ import {
     removeTodoListAC
 } from "../state/todoLists-reducer";
 import {useTheme} from "./hooks/App/useTheme";
+import {FilterTypeValuesType, TodoListType} from "../common/types";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{

@@ -1,7 +1,8 @@
 import {useState} from "react";
-import {TaskType} from "../../state/tasks-reducer";
+
 import {v4} from "uuid";
-import {todo1, todo2} from "../id-utils";
+import { TaskType } from "../../../common/types";
+import {todo1, todo2} from "../../id-utils";
 
 export function useTasks() {
     let [tasks, setTasks] = useState<{ [key: string]: TaskType[] }>({
