@@ -12,15 +12,6 @@ import {useTasks} from "./hooks/useTasks";
 import {useTheme} from "./hooks/useTheme";
 import {useTodoLists} from "./hooks/useTodoLists";
 
-
-export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
-export type TodoListType = {
-    id: string,
-    title: string,
-    filter: FilterTypeValuesType
-}
-
-
 function App() {
     const {
         tasks,

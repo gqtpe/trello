@@ -3,7 +3,7 @@ import {Checkbox, ListItem, Typography} from "@mui/material";
 import styles from "../TodoList.module.scss";
 import EditableSpan from "../../EditableSpan/EditableSpan";
 import {RemoveItem} from "../../RemoveItem/RemoveItem";
-import {TaskType} from "../../../state/tasks-reducer";
+import {TaskType} from "../../../common/types";
 
 type TaskPropsType = {
     todoListID: string

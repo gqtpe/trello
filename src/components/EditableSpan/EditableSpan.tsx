@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField/TextField';
 import React, {useState} from 'react';
-import {ErrorType} from "../../app/AppWithRedux";
+import {ErrorType} from "../../common/types";
 
 
 type PropsType = {

@@ -18,14 +18,7 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from '../state/tasks-reducer';
 import {v4} from "uuid";
 import {useTheme} from "./hooks/useTheme";
-
-
-export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
-export type TodoListType = {
-    id: string,
-    title: string,
-    filter: FilterTypeValuesType
-}
+import { FilterTypeValuesType } from '../common/types';
 
 
 function App() {

@@ -18,14 +18,7 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksSta
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
 import {useTheme} from "./hooks/useTheme";
-
-export type ErrorType = string | null
-export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
-export type TodoListType = {
-    id: string,
-    title: string,
-    filter: FilterTypeValuesType
-}
+import {FilterTypeValuesType, TodoListType} from "../common/types";
 
 function App() {
     console.log('App is called')

@@ -1,5 +1,5 @@
 import React, {KeyboardEvent, useState} from "react";
-import {ErrorType} from "../../../app/AppWithRedux";
+import {ErrorType} from "../../../common/types";
 
 export const useAddItemForm = (onItemAdded: (title: string)=>void) =>{
     let [title, setTitle] = useState<string>('');

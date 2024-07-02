@@ -1,8 +1,6 @@
 import {v4} from "uuid";
+import { TaskType } from "../common/types";
 import {addTodoListAC, removeTodoListAC, todo1, todo2} from "./todoLists-reducer";
-
-
-export type TaskType = { id: string, title: string, isDone: boolean }
 
 export type TasksStateType = {
     [key: string]: TaskType[]
