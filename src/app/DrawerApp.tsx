@@ -24,7 +24,7 @@ import {
     changeTodoListTitleAC,
     removeTodoListAC
 } from "../state/todoLists-reducer";
-import {useTheme} from "./hooks/useTheme";
+import {useTheme} from "./hooks/App/useTheme";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{

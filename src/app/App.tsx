@@ -8,8 +8,8 @@ import Grid from "@mui/material/Grid/Grid";
 import {ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {useTasks} from "./hooks/useTasks";
-import {useTheme} from "./hooks/useTheme";
+import {useTasks} from "./hooks/App/useTasks";
+import {useTheme} from "./hooks/App/useTheme";
 import {useTodoLists} from "./hooks/useTodoLists";
 
 function App() {

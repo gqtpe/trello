@@ -17,7 +17,7 @@ import {
 } from "../state/todoLists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from '../state/tasks-reducer';
 import {v4} from "uuid";
-import {useTheme} from "./hooks/useTheme";
+import {useTheme} from "./hooks/App/useTheme";
 import { FilterTypeValuesType } from '../common/types';
 
 

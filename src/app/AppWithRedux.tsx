@@ -17,7 +17,7 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksStateType} from '../state/tasks-reducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
-import {useTheme} from "./hooks/useTheme";
+import {useTheme} from "./hooks/App/useTheme";
 import {FilterTypeValuesType, TodoListType} from "../common/types";
 
 function App() {
