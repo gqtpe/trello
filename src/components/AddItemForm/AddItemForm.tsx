@@ -2,7 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton/IconButton";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TextField from "@mui/material/TextField/TextField";
-import {useAddItemForm} from "./hooks/AddItemForm";
+import {useAddItemForm} from "./hooks/useAddItemForm";
 
 
 type AddItemFormPropsType = {
