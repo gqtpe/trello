@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useCallback, useState} from 'react';
-import {createTheme, styled, ThemeProvider} from '@mui/material/styles';
+import {useCallback} from 'react';
+import {styled, ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -24,9 +24,9 @@ import {
     changeTodoListTitleAC,
     removeTodoListAC
 } from "../state/todoLists-reducer";
+import {useTheme} from "./hooks/useTheme";
 
 const drawerWidth = 240;
-type ThemeMode = 'dark' | 'light'
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
     open?: boolean;
 }>(({theme, open}) => ({
@@ -105,20 +105,7 @@ export default function PersistentDrawerLeft() {
     const handleDrawerOpen = () => {
         setOpen(!open);
     };
-
-    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
-    const theme = createTheme({
-        palette: {
-            mode: themeMode,
-            primary: {
-                main: "#1976d2",
-            },
-        },
-    })
-
-    const changeThemeHandler = () => {
-        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
-    }
+    const {theme, changeThemeHandler} = useTheme()
     return (
         <Box sx={{display: 'flex'}}>
             <ThemeProvider theme={theme}>

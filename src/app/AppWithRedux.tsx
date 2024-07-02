@@ -1,11 +1,11 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import './App.scss';
 import TodoList from "../components/TodoList/TodoList";
 import {AppBar, Container, IconButton, Paper, Toolbar} from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import AddItemForm from "../components/AddItemForm/AddItemForm";
 import Grid from "@mui/material/Grid/Grid";
-import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
@@ -17,16 +17,15 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksStateType} from '../state/tasks-reducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../state/store";
+import {useTheme} from "./hooks/useTheme";
 
-export type ErrorType = string|null
+export type ErrorType = string | null
 export type FilterTypeValuesType = "ACTIVE" | "ALL" | "COMPLETED"
 export type TodoListType = {
     id: string,
     title: string,
     filter: FilterTypeValuesType
 }
-
-type ThemeMode = 'dark' | 'light'
 
 function App() {
     console.log('App is called')
@@ -63,19 +62,7 @@ function App() {
         dispatch(changeTaskTitleAC(todoListID, taskID, title))
     }, [dispatch])
     //---------
-    const [themeMode, setThemeMode] = useState<ThemeMode>('light')
-    const theme = createTheme({
-        palette: {
-            mode: themeMode,
-            primary: {
-                main: "#1976d2",
-            },
-        },
-    })
-
-    const changeThemeHandler = () => {
-        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
-    }
+    const {theme, changeThemeHandler} = useTheme()
     return (
         <div className="App">
             <ThemeProvider theme={theme}>
