@@ -18,7 +18,7 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from '../state/tasks-reducer';
 import {v4} from "uuid";
 import {useTheme} from "./hooks/App/useTheme";
-import { FilterTypeValuesType } from '../common/types';
+import {FilterTypeValuesType, TaskPriorities, TaskStatuses} from '../common/types';
 
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
 
     let [todoLists, dispatchTodoLists] = useReducer(todoListsReducer,
         [
-            {id: todo1, title: "What to learn", filter: "ACTIVE"},
-            {id: todo2, title: "What to do", filter: "ALL"},
+            {id: todo1, title: "What to learn", filter: "ACTIVE", addedDate: '', order: -1},
+            {id: todo2, title: "What to do", filter: "ALL", addedDate: '', order: 0},
         ])
     const removeTodoList = useCallback((todoListID: string) => {
         const action = removeTodoListAC(todoListID)
@@ -49,21 +49,108 @@ function App() {
     }, [])
     let [tasks, dispatchTasks] = useReducer(tasksReducer, {
         [todo1]: [
-            {id: v4(), title: "CSS", isDone: true},
-            {id: v4(), title: "JS", isDone: true},
-            {id: v4(), title: "React", isDone: false},
-            {id: v4(), title: "React Native", isDone: false},
+            {
+                id: v4(),
+                title: 'CSS',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.New,
+                todoListId: todo1
+            },
+            {
+                id: v4(),
+                title: 'React',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.Completed,
+                todoListId: todo1
+            },
+            {
+                id: v4(),
+                title: 'TS',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.New,
+                todoListId: todo1
+            },
+            {
+                id: v4(),
+                title: 'Next',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.Completed,
+                todoListId: todo1
+            },
         ],
         [todo2]: [
-            {id: v4(), title: "wakeup", isDone: true},
-            {id: v4(), title: "do 1st", isDone: true},
-            {id: v4(), title: "code", isDone: false},
-            {id: v4(), title: "rest", isDone: false},
-            {id: v4(), title: "sleep", isDone: false},
+            {
+                id: v4(),
+                title: 'wakeup',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.Completed,
+                todoListId: todo2
+            },
+            {
+                id: v4(),
+                title: 'do important',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.New,
+                todoListId: todo2
+            },
+            {
+                id: v4(),
+                title: 'code',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.New,
+                todoListId: todo2
+            },
+            {
+                id: v4(),
+                title: 'Next',
+                addedDate: '',
+                deadline: '',
+                description: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                status: TaskStatuses.Completed,
+                todoListId: todo2
+            },
         ]
     })
-    const changeStatus = useCallback((todoLisID: string, taskID: string, isDone: boolean) => {
-        dispatchTasks(changeTaskStatusAC(todoLisID, taskID, isDone))
+    const changeStatus = useCallback((todoLisID: string, taskID: string, status: TaskStatuses) => {
+        dispatchTasks(changeTaskStatusAC(todoLisID, taskID, status))
 
     }, [])
     const removeTask = useCallback((todoListID: string, taskID: string) => {
