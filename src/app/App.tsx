@@ -10,7 +10,7 @@ import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {useTasks} from "./hooks/App/useTasks";
 import {useTheme} from "./hooks/App/useTheme";
-import {useTodoLists} from "./hooks/useTodoLists";
+import {useTodoLists} from "./hooks/App/useTodoLists";
 
 function App() {
     const {
