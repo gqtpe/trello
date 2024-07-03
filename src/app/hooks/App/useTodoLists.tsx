@@ -1,8 +1,8 @@
 import {useState} from "react";
-import {todo1, todo2} from "../id-utils";
+import {todo1, todo2} from "../../id-utils";
 import {v4} from "uuid";
-import {FilterTypeValuesType} from "../../common/types";
-import {TodoListsDomainType} from "../../state/todoLists-reducer";
+import {FilterTypeValuesType} from "../../../common/types";
+import {TodoListsDomainType} from "../../../state/todoLists-reducer";
 
 export function useTodoLists(onTodoListAdd: (id: string) => void, onTodoListRemoved: (id: string) => void) {
     let [todoLists, setTodoLists] = useState<TodoListsDomainType[]>([
