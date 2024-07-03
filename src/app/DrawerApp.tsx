@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useCallback} from 'react';
 import {styled, ThemeProvider} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -14,17 +13,8 @@ import {Container, Paper} from "@mui/material";
 import AddItemForm from "../components/AddItemForm/AddItemForm";
 import TodoList from "../components/TodoList/TodoList";
 import Switch from "@mui/material/Switch";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, TasksStateType} from "../state/tasks-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../state/store";
-import {
-    addTodoListAC,
-    changeTodoListFilterAC,
-    changeTodoListTitleAC,
-    removeTodoListAC
-} from "../state/todoLists-reducer";
 import {useTheme} from "./hooks/App/useTheme";
-import {FilterTypeValuesType, TodoListType} from "../common/types";
+import {useAppWithRedux} from "./hooks/AppWithRedux/useAppWithRedux";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
@@ -66,40 +56,18 @@ const AppBar = styled(MuiAppBar, {
 
 
 export default function PersistentDrawerLeft() {
-    console.log('App is called')
-    const todoLists = useSelector<AppRootStateType, TodoListType[]>(state => state.todoLists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch()
-    //---------
-    const removeTodoList = useCallback((todoListID: string) => {
-        const action = removeTodoListAC(todoListID)
-        dispatch(action)
-    }, [dispatch])
-    const addTodoList = useCallback((title: string) => {
-        const action = addTodoListAC(title)
-        dispatch(action)
-    }, [dispatch])
-    const changeFilter = useCallback((todoListID: string, filter: FilterTypeValuesType) => {
-        dispatch(changeTodoListFilterAC(todoListID, filter))
-    }, [dispatch])
-    const changeTodoListTitle = useCallback((todoListID: string, title: string) => {
-        dispatch(changeTodoListTitleAC(todoListID, title))
-    }, [dispatch])
-    //---------
-    //---------
-    const changeStatus = useCallback((todoLisID: string, taskID: string, isDone: boolean) => {
-        dispatch(changeTaskStatusAC(todoLisID, taskID, isDone))
-    }, [dispatch])
-    const removeTask = useCallback((todoListID: string, taskID: string) => {
-        dispatch(removeTaskAC(todoListID, taskID))
-    }, [dispatch])
-    const addTask = useCallback((todoListID: string, title: string) => {
-        dispatch(addTaskAC(todoListID, title))
-    }, [dispatch])
-    const changeTaskTitle = useCallback((todoListID: string, taskID: string, title: string) => {
-        dispatch(changeTaskTitleAC(todoListID, taskID, title))
-    }, [dispatch])
-    //---------
+    const {
+        todoLists,
+        addTodoList,
+        removeTodoList,
+        changeTodoListTitle,
+        changeFilter,
+        tasks,
+        changeTaskTitle,
+        removeTask,
+        changeStatus,
+        addTask,
+    } = useAppWithRedux()
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
