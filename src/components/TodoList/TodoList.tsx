@@ -5,7 +5,7 @@ import {List, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/mat
 import {RemoveItem} from "../RemoveItem/RemoveItem";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import {Task} from "./Task/Task";
-import {FilterTypeValuesType, TaskType} from "../../common/types";
+import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../common/types";
 
 type PropsType = {
     id: string
@@ -17,7 +17,7 @@ type PropsType = {
 
     tasks: TaskType[]
     removeTask: (todoListID: string, taskID: string) => void
-    changeStatus: (todoListID: string, taskID: string, isDone: boolean) => void
+    changeStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
     changeTaskTitle: (todoListID: string, taskID: string, title: string) => void
     addTask: (todoListID: string, title: string) => void
 }
@@ -38,12 +38,11 @@ const TodoList: React.FC<PropsType> = ({
     console.log('TodoList')
     let tasksForTodoList = tasks
     if (filter === "ACTIVE") {
-        tasksForTodoList = tasks.filter(t => !t.isDone)
+        tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (filter === "COMPLETED") {
-        tasksForTodoList = tasks.filter(t => t.isDone)
+        tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
-
     const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
         changeFilter(id, value)
     }, [changeFilter, id])

@@ -1,29 +1,116 @@
 import {useState} from "react";
 
 import {v4} from "uuid";
-import { TaskType } from "../../../common/types";
+import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../../../common/types";
 import {todo1, todo2} from "../../id-utils";
 
 export function useTasks() {
-    let [tasks, setTasks] = useState<{ [key: string]: TaskType[] }>({
-        [todo1]: [
-            {id: v4(), title: "CSS", isDone: true},
-            {id: v4(), title: "JS", isDone: true},
-            {id: v4(), title: "React", isDone: false},
-            {id: v4(), title: "React Native", isDone: false},
-        ],
-        [todo2]: [
-            {id: v4(), title: "wakeup", isDone: true},
-            {id: v4(), title: "do 1st", isDone: true},
-            {id: v4(), title: "code", isDone: false},
-            {id: v4(), title: "rest", isDone: false},
-            {id: v4(), title: "sleep", isDone: false},
-        ]
-    })
-    const changeStatus = (todoLisID: string, taskID: string, isDone: boolean) => {
+    let [tasks, setTasks] = useState<TasksStateType>({
+            [todo1]: [
+                {
+                    id: v4(),
+                    title: 'CSS',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.New,
+                    todoListId: todo1
+                },
+                {
+                    id: v4(),
+                    title: 'React',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.Completed,
+                    todoListId: todo1
+                },
+                {
+                    id: v4(),
+                    title: 'TS',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.New,
+                    todoListId: todo1
+                },
+                {
+                    id: v4(),
+                    title: 'Next',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.Completed,
+                    todoListId: todo1
+                },
+            ],
+            [todo2]: [
+                {
+                    id: v4(),
+                    title: 'wakeup',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.Completed,
+                    todoListId: todo2
+                },
+                {
+                    id: v4(),
+                    title: 'do important',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.New,
+                    todoListId: todo2
+                },
+                {
+                    id: v4(),
+                    title: 'code',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.New,
+                    todoListId: todo2
+                },
+                {
+                    id: v4(),
+                    title: 'Next',
+                    addedDate: '',
+                    deadline: '',
+                    description: '',
+                    order: 0,
+                    priority: TaskPriorities.Low,
+                    startDate: '',
+                    status: TaskStatuses.Completed,
+                    todoListId: todo2
+                },
+            ]
+        })
+    const changeStatus = (todoLisID: string, taskID: string, status: TaskStatuses) => {
         let task = tasks[todoLisID].find(t => t.id === taskID)
         if (task) {
-            task.isDone = isDone
+            task.status = status
             setTasks({...tasks})
         }
 
@@ -33,7 +120,18 @@ export function useTasks() {
         setTasks({...tasks})
     }
     const addTask = (todoListID: string, title: string) => {
-        let newTask: TaskType = {id: v4(), title: title, isDone: false}
+        let newTask: TaskType = {
+            id: v4(),
+            title: title,
+            status: TaskStatuses.New,
+            todoListId: todo1,
+            startDate: (new Date().getTime()).toString(),
+            priority: TaskPriorities.Middle,
+            order: 0,
+            description: '',
+            deadline: '',
+            addedDate: (new Date().getTime()).toString(),
+        }
         let currTasks = tasks[todoListID]
         tasks[todoListID] = [newTask, ...currTasks]
         setTasks({...tasks})
@@ -47,18 +145,20 @@ export function useTasks() {
         }
 
     }
-    const completelyRemoveTasksForTodoList = (id: string) =>{
+    const completelyRemoveTasksForTodoList = (id: string) => {
         delete tasks[id]
         setTasks({...tasks})
     }
-    const addTaskForNewTodoList = (id: string) =>{
+    const addTaskForNewTodoList = (id: string) => {
         tasks[id] = []
         setTasks({...tasks})
     }
-    return {tasks,changeStatus,
+    return {
+        tasks, changeStatus,
         removeTask,
         addTask,
         changeTaskTitle,
         completelyRemoveTasksForTodoList,
-        addTaskForNewTodoList}
+        addTaskForNewTodoList
+    }
 }

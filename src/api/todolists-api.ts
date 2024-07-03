@@ -1,4 +1,5 @@
 import axios from "axios";
+import {TaskPriorities, TaskStatuses, TaskType, TodoListType} from "../common/types";
 
 const settings = {
     withCredentials: true,
@@ -12,25 +13,7 @@ const instance = axios.create({
     withCredentials: true,
 
 })
-export type TodoListType = {
-    id: string
-    title: string
-    addedDate: string
-    order: number
-}
-export type TaskType = {
-    description: string
-    title: string
-    completed: boolean
-    status: number
-    priority: number
-    startDate: string
-    deadline: string
-    id: string
-    todoListId: string
-    order: string
-    addedDate: string
-}
+
 type FieldErrorType = {
     error: string
     field: string
@@ -45,9 +28,8 @@ type ResponseType<T> = {
 export type UpdateTaskPayload = {
     title: string
     description: string
-    completed: boolean
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
 }

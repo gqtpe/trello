@@ -2,7 +2,10 @@ import {v4} from "uuid";
 import {FilterTypeValuesType, TodoListType } from "../common/types";
 
 
-export type TodoListsStateType = TodoListType[]
+export type TodoListsDomainType = TodoListType & {
+    filter: FilterTypeValuesType
+}
+export type TodoListsStateType = TodoListsDomainType[]
 type ActionsType = ReturnType<typeof addTodoListAC>
     | ReturnType<typeof removeTodoListAC>
     | ReturnType<typeof changeTodoListFilterAC>
@@ -11,8 +14,8 @@ type ActionsType = ReturnType<typeof addTodoListAC>
 export const todo1 = v4()
 export const todo2 = v4()
 const initialState: TodoListsStateType = [
-    {id: todo1, title: "What to learn", filter: "ACTIVE"},
-    {id: todo2, title: "What to do", filter: "ALL"},
+    {id: todo1, title: "What to learn", filter: "ACTIVE",addedDate:'',order:-1},
+    {id: todo2, title: "What to do", filter: "ALL",addedDate:'',order:0},
 ]
 
 export const todoListsReducer = (state: TodoListsStateType = initialState, action: ActionsType): TodoListsStateType => {
@@ -22,7 +25,14 @@ export const todoListsReducer = (state: TodoListsStateType = initialState, actio
             return stateCopy.filter(t => t.id !== action.todoListID)
         }
         case "ADD-TODOLIST": {
-            let todoList: TodoListType = {id: action.todoListID, title: action.title, filter: "ALL"}
+            let date = new Date()
+            let todoList: TodoListsDomainType = {
+                id: action.todoListID,
+                title: action.title,
+                filter: "ALL",
+                order: state[0]?state[0].order-1:0,
+                addedDate: date.getTime().toString()
+            }
             return [todoList, ...state]
         }
         case "CHANGE-TODOLIST-TITLE": {
