@@ -9,6 +9,8 @@ type ActionsType = ReturnType<typeof addTaskAC>
     | ReturnType<typeof changeTaskStatusAC>
     | ReturnType<typeof addTodoListAC>
     | ReturnType<typeof removeTodoListAC>
+    | ReturnType<typeof setTodoListsAC>
+    | ReturnType<typeof setTasksAC>
 
 
 const initialState: TasksStateType = {}
@@ -56,6 +58,18 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             delete copy[action.todoListID]
             return copy
         }
+        case 'SET-TODOLISTS': {
+            const copy = {...state}
+            action.todoLists.forEach((tl) => {
+                copy[tl.id] = []
+            })
+            return copy
+        }
+        case 'SET-TASKS': {
+            const copy = {...state}
+            copy[action.todoListID] = action.tasks
+            return copy
+        }
         default: {
             return state;
         }
@@ -90,5 +104,13 @@ export const changeTaskStatusAC = (todoListID: string, taskID: string, status: T
         todoListID,
         taskID,
         status,
+    } as const
+}
+
+export const setTasksAC = (todoListID: string, tasks: TaskType[]) => {
+    return {
+        type: 'SET-TASKS',
+        todoListID,
+        tasks,
     } as const
 }
