@@ -8,7 +8,7 @@ import {
     todoListsReducer,
     TodoListsStateType
 } from "./todoLists-reducer";
-import {FilterTypeValuesType} from "../common/types";
+import {FilterTypeValuesType, TodoListType} from "../common/types";
 
 let todolistID1: string;
 let todolistID2: string;
