@@ -15,8 +15,6 @@ type ActionsType = ReturnType<typeof addTodoListAC>
 export const todo1 = v4()
 export const todo2 = v4()
 const initialState: TodoListsStateType = [
-    {id: todo1, title: "What to learn", filter: "ACTIVE",addedDate:'',order:-1},
-    {id: todo2, title: "What to do", filter: "ALL",addedDate:'',order:0},
 ]
 
 export const todoListsReducer = (state: TodoListsStateType = initialState, action: ActionsType): TodoListsStateType => {
