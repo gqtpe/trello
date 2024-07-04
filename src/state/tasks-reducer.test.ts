@@ -137,7 +137,7 @@ test('tasksReducer have to add new task', () => {
 
     expect(startState).not.toBe(endState)
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length + 1)
-    expect(endState[todolistID1][0].title).toBe(newTitle)
+    expect(endState[todolistID1][0].title).toBe(task.title)
     expect(endState[todolistID2].length).toBe(startState[todolistID2].length)
 
 })
