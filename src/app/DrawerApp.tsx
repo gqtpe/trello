@@ -65,7 +65,7 @@ export default function PersistentDrawerLeft() {
         tasks,
         changeTaskTitle,
         removeTask,
-        changeStatus,
+        changeTaskStatus,
         addTask,
     } = useAppWithRedux()
     const [open, setOpen] = React.useState(false);
@@ -126,7 +126,7 @@ export default function PersistentDrawerLeft() {
 
                                         removeTask={removeTask}
                                         addTask={addTask}
-                                        changeStatus={changeStatus}
+                                        changeStatus={changeTaskStatus}
                                         changeTaskTitle={changeTaskTitle}
                                     />
                                 })
