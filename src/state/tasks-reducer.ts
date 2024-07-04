@@ -154,8 +154,7 @@ export const changeTaskTitleTC = (todoListID: string, taskID: string, title: str
 export const addTaskAC = (task: TaskType) => {
     return {
         type: 'ADD-TASK',
-        todoListID,
-        title,
+        task
     } as const
 }
 
