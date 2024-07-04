@@ -1,6 +1,8 @@
-import {v4} from "uuid";
-import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../common/types";
-import {addTodoListAC, removeTodoListAC, todo1, todo2} from "./todoLists-reducer";
+import {TasksStateType, TaskStatuses, TaskType} from "../common/types";
+import {addTodoListAC, removeTodoListAC, setTodoListsAC} from "./todoLists-reducer";
+import {Dispatch} from "redux";
+import {todoListsAPI, UpdateTaskPayload} from "../api/todo-listsAPI";
+import {AppRootStateType} from "./store";
 
 
 type ActionsType = ReturnType<typeof addTaskAC>
