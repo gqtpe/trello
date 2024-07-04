@@ -18,19 +18,9 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
     switch (action.type) {
         case 'ADD-TASK': {
             const copy = {...state}
-            let newTask: TaskType = {
-                id: v4(),
-                title: action.title,
-                status: TaskStatuses.New,
-                todoListId: action.todoListID,
-                startDate: (new Date().getTime()).toString(),
-                priority: TaskPriorities.Middle,
-                order: 0,
-                description: '',
-                deadline: '',
-                addedDate: (new Date().getTime()).toString(),
-            }
-            copy[action.todoListID] = [newTask, ...copy[action.todoListID]]
+            const newTask = action.task
+            const tasks = copy[newTask.todoListId]
+            copy[newTask.todoListId] = [newTask, ...tasks]
             return copy
         }
         case 'REMOVE-TASK': {
