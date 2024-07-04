@@ -113,8 +113,20 @@ beforeEach(() => {
     }
 })
 test('tasksReducer have to add new task', () => {
-    const newTitle = 'newTitle'
-    const endState = tasksReducer(startState, addTaskAC(todolistID1, newTitle))
+
+    const task: TaskType = {
+        todoListId: todolistID1,
+        title: 'new title',
+        startDate: '',
+        order: 0,
+        priority: TaskPriorities.Middle,
+        description: '',
+        deadline:'',
+        status: TaskStatuses.New,
+        addedDate: '',
+        id: '1'
+    }
+    const endState = tasksReducer(startState, addTaskAC(task))
 
     expect(startState).not.toBe(endState)
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length + 1)
