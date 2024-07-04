@@ -39,6 +39,11 @@
     "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration",
     "chromatic": "npx chromatic --project-token=chpt_d179dd16795448e"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
