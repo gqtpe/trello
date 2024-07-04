@@ -7,8 +7,8 @@ import {
     setTasksAC,
     tasksReducer,
 } from "./tasks-reducer";
-import {addTodoListAC, removeTodoListAC} from "./todoLists-reducer";
-import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../common/types";
+import {addTodoListAC, removeTodoListAC, setTodoListsAC} from "./todoLists-reducer";
+import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
 
 let todolistID1: string
 let todolistID2: string
@@ -208,4 +208,13 @@ test('tasksReducer have to add set empty cell for tasks', () => {
     }, setTasksAC(todolistID1, payload))
 
     expect(endState[todolistID1].length).toStrictEqual(payload.length)
+})
+test('tasksReducer have to add set empty cell for tasks', () => {
+    const payload: TodoListType[] = [
+        {id: todolistID1, title: "What to learn", addedDate: '', order: -1},
+        {id: todolistID2, title: "What to do", addedDate: '', order: 0},
+    ]
+    const endState = tasksReducer({}, setTodoListsAC(payload))
+    const keys = Object.keys(endState)
+    expect(keys.length).toBe(2)
 })
