@@ -4,11 +4,11 @@ import {FilterTypeValuesType, TasksStateType, TaskStatuses} from "../../../commo
 import {addTaskTC, changeTaskStatusTC, changeTaskTitleTC, removeTaskTC,} from "../../../state/tasks-reducer";
 import {useCallback, useEffect} from "react";
 import {
-    addTodoListAC,
+    addTodoListTC,
     changeTodoListFilterAC,
-    changeTodoListTitleAC,
+    changeTodoListTitleTC,
     fetchTodoListsThunk,
-    removeTodoListAC,
+    removeTodoListTC,
     TodoListsDomainType
 } from "../../../state/todoLists-reducer";
 
@@ -23,18 +23,18 @@ export function useAppWithRedux() {
     }, [dispatch])
     //---------
     const removeTodoList = useCallback((todoListID: string) => {
-        const action = removeTodoListAC(todoListID)
+        const action = removeTodoListTC(todoListID)
         dispatch(action)
     }, [dispatch])
     const addTodoList = useCallback((title: string) => {
-        const action = addTodoListAC(title)
+        const action = addTodoListTC(title)
         dispatch(action)
     }, [dispatch])
     const changeFilter = useCallback((todoListID: string, filter: FilterTypeValuesType) => {
         dispatch(changeTodoListFilterAC(todoListID, filter))
     }, [dispatch])
     const changeTodoListTitle = useCallback((todoListID: string, title: string) => {
-        dispatch(changeTodoListTitleAC(todoListID, title))
+        dispatch(changeTodoListTitleTC(todoListID, title))
     }, [dispatch])
     //---------
     //---------
