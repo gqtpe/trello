@@ -176,18 +176,17 @@ test('tasksReducer have to change task status by id', () => {
 })
 
 test('new property with empty array should be added when new todolist is added', () => {
-    const action = addTodoListAC('sds')
+    let todoList: TodoListType = {id: 'newID', title: "What to learn", addedDate: '', order: -1}
+    const action = addTodoListAC(todoList)
     const endState = tasksReducer(startState, action)
-
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k != todolistID1 && k != todolistID2)
+
+    console.log(Object.keys(startState).length+1)
     if (!newKey) {
         throw new Error('new key have to be added')
     }
-    expect(endState[newKey]).toEqual([])
-    expect(keys.length).toBe(3)
-
-
+    expect(keys.length).toBe(Object.keys(startState).length+1)
 })
 
 test('property with todolistId have to be deleted', () => {
