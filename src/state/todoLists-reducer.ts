@@ -10,6 +10,7 @@ type ActionsType = ReturnType<typeof addTodoListAC>
     | ReturnType<typeof removeTodoListAC>
     | ReturnType<typeof changeTodoListFilterAC>
     | ReturnType<typeof changeTodoListTitleAC>
+    | ReturnType<typeof setTodoListsAC>
 
 export const todo1 = v4()
 export const todo2 = v4()
@@ -20,11 +21,11 @@ const initialState: TodoListsStateType = [
 
 export const todoListsReducer = (state: TodoListsStateType = initialState, action: ActionsType): TodoListsStateType => {
     switch (action.type) {
-        case "REMOVE-TODOLIST": {
+        case 'REMOVE-TODOLIST': {
             let stateCopy = [...state]
             return stateCopy.filter(t => t.id !== action.todoListID)
         }
-        case "ADD-TODOLIST": {
+        case 'ADD-TODOLIST': {
             let date = new Date()
             let todoList: TodoListsDomainType = {
                 id: action.todoListID,
@@ -35,19 +36,22 @@ export const todoListsReducer = (state: TodoListsStateType = initialState, actio
             }
             return [todoList, ...state]
         }
-        case "CHANGE-TODOLIST-TITLE": {
+        case 'CHANGE-TODOLIST-TITLE': {
             let todoList = state.find(t => t.id === action.todoListID)
             if (todoList) {
                 todoList.title = action.newTitle
             }
             return [...state]
         }
-        case "CHANGE-TODOLIST-FILTER": {
+        case 'CHANGE-TODOLIST-FILTER': {
             let todoList = state.find(t => t.id === action.todoListID)
             if (todoList) {
                 todoList.filter = action.newValue
             }
             return [...state]
+        }
+        case 'SET-TODOLISTS':{
+            return action.todoLists.map(tl=>({...tl, filter: 'ALL'}))
         }
         default: {
             return state
@@ -81,5 +85,11 @@ export const changeTodoListFilterAC = (todoListID: string, newValue: FilterTypeV
         type: 'CHANGE-TODOLIST-FILTER',
         todoListID,
         newValue
+    } as const
+}
+export const setTodoListsAC = (todoLists: TodoListType[]) =>{
+    return {
+        type: 'SET-TODOLISTS',
+        todoLists,
     } as const
 }
