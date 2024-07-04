@@ -75,7 +75,93 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         }
     }
 }
-export const addTaskAC = (todoListID: string, title: string) => {
+
+//Thunk
+export const fetchTasksTC = (todoListID: string) => {
+    return (dispatch: Dispatch) => {
+        todoListsAPI.getTasks(todoListID)
+            .then((response) => {
+                dispatch(setTasksAC(todoListID, response.data.items))
+            })
+    }
+}
+
+export const addTaskTC = (todoListID: string, title: string) => {
+    return (dispatch: Dispatch) => {
+        todoListsAPI.createTask(todoListID, title)
+            .then((response) => {
+                dispatch(addTaskAC(response.data.data.item))
+            })
+    }
+}
+export const removeTaskTC = (todoListID: string, taskID: string) => {
+    return (dispatch: Dispatch) => {
+        todoListsAPI.deleteTask(todoListID, taskID)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(removeTaskAC(todoListID, taskID))
+                }
+            })
+    }
+}
+export const changeTaskStatusTC = (todoListID: string, taskID: string, status: TaskStatuses) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const previousTask = getState().tasks[todoListID].find(t => t.id === taskID)
+
+        if (!previousTask) {
+            console.warn('task not found ins the state')
+            throw new Error('task not found in the state')
+        }
+
+        const payload: UpdateTaskPayload = {
+            title: previousTask.title,
+            deadline: previousTask.deadline,
+            description: previousTask.description,
+            priority: previousTask.priority,
+            startDate: previousTask.startDate,
+            status: status
+        }
+        todoListsAPI.updateTask(todoListID, taskID, payload)
+            .then((response) => {
+
+                const todoID = response.data.data.item.todoListId
+                const id = response.data.data.item.id
+                const status = response.data.data.item.status
+                dispatch(changeTaskStatusAC(todoID, id, status))
+            })
+    }
+
+}
+export const changeTaskTitleTC = (todoListID: string, taskID: string, title: string) => {
+    return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+        const previousTask = getState().tasks[todoListID].find(t => t.id === taskID)
+
+        if (!previousTask) {
+            console.warn('task not found ins the state')
+            throw new Error('task not found in the state')
+        }
+
+        const payload: UpdateTaskPayload = {
+            status: previousTask.status,
+            deadline: previousTask.deadline,
+            description: previousTask.description,
+            priority: previousTask.priority,
+            startDate: previousTask.startDate,
+            title: title
+        }
+        todoListsAPI.updateTask(todoListID, taskID, payload)
+            .then((response) => {
+
+                const todoID = response.data.data.item.todoListId
+                const id = response.data.data.item.id
+                const title = response.data.data.item.title
+                dispatch(changeTaskTitleAC(todoID, id, title))
+            })
+    }
+
+}
+//Action Creators
+export const addTaskAC = (task: TaskType) => {
     return {
         type: 'ADD-TASK',
         todoListID,
