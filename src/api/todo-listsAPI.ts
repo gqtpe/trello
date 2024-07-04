@@ -35,7 +35,7 @@ export type UpdateTaskPayload = {
 }
 
 
-export const todolistsAPI = {
+export const todoListsAPI = {
     getTodoLists() {
         return instance.get<TodoListType[]>(`/todo-lists`, settings)
     },
@@ -52,7 +52,7 @@ export const todolistsAPI = {
         return instance.get<{items: TaskType[]}>(`/todo-lists/${todoListID}/tasks`, settings)
     },
     createTask(todoListID: string,title: string){
-        return instance.post<ResponseType<TaskType>>(`/todo-lists/${todoListID}/tasks`,{title}, settings)
+        return instance.post<ResponseType<{item: TaskType}>>(`/todo-lists/${todoListID}/tasks`,{title}, settings)
     },
     deleteTask(todoListID: string,id: string){
         return instance.delete<ResponseType<{}>>(`/todo-lists/${todoListID}/tasks/${id}`,settings)
