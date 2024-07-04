@@ -77,7 +77,6 @@ export const fetchTasksTC = (todoListID: string) => {
             })
     }
 }
-
 export const addTaskTC = (todoListID: string, title: string) => {
     return (dispatch: Dispatch) => {
         todoListsAPI.createTask(todoListID, title)
