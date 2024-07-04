@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import styles from './TodoList.module.scss'
 import EditableSpan from "../EditableSpan/EditableSpan";
 import {List, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
@@ -6,6 +6,8 @@ import {RemoveItem} from "../RemoveItem/RemoveItem";
 import AddItemForm from "../AddItemForm/AddItemForm";
 import {Task} from "./Task/Task";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../common/types";
+import {useAppDispatch} from "../../state/store";
+import {fetchTasksTC} from "../../state/tasks-reducer";
 
 type PropsType = {
     id: string
@@ -36,6 +38,10 @@ const TodoList: React.FC<PropsType> = ({
                                            addTask
                                        }) => {
     console.log('TodoList')
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(fetchTasksTC(id))
+    }, [dispatch, id])
     let tasksForTodoList = tasks
     if (filter === "ACTIVE") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
@@ -76,7 +82,7 @@ const TodoList: React.FC<PropsType> = ({
                                 removeTask={removeTask}
                                 changeTaskTitle={changeTaskTitle}
                             />)
-                    }
+                }
             </List>
             <ToggleButtonGroup
                 fullWidth size={'small'} value={filter} onChange={filterToggleHandler} exclusive color={'primary'}

@@ -1,5 +1,7 @@
 import {v4} from "uuid";
 import {FilterTypeValuesType, TodoListType } from "../common/types";
+import {Dispatch} from "redux";
+import {todoListsAPI} from "../api/todo-listsAPI";
 
 
 export type TodoListsDomainType = TodoListType & {
@@ -56,8 +58,16 @@ export const todoListsReducer = (state: TodoListsStateType = initialState, actio
         }
     }
 }
+//Thunk
+export const fetchTodoListsThunk = (dispatch: Dispatch) =>{
+    todoListsAPI.getTodoLists()
+        .then((response) => {
+            dispatch(setTodoListsAC(response.data))
+        })
+}
 
 
+//Action Creators
 export const removeTodoListAC = (todoListID: string) => {
     return {
         type: 'REMOVE-TODOLIST',
