@@ -45,3 +45,7 @@ test('todoListReducer have to  change todoList filter', () => {
     expect(endState.length).toBe(startState.length)
     expect(endState[0].filter).toBe(newFilter)
 })
+test('todoListsReducer have to set todoLists', ()=>{
+    const endState = todoListsReducer([],setTodoListsAC(startState))
+    expect(endState.length).toBe(2)
+})
