@@ -7,8 +7,8 @@ import {
     setTasksAC,
     tasksReducer,
 } from "./tasks-reducer";
-import {addTodoListAC, removeTodoListAC, setTodoListsAC} from "./todoLists-reducer";
-import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
+import {addTodoListAC, removeTodoListAC} from "./todoLists-reducer";
+import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../common/types";
 
 let todolistID1: string
 let todolistID2: string
@@ -128,7 +128,7 @@ test('tasksReducer have to add new task', () => {
         order: 0,
         priority: TaskPriorities.Middle,
         description: '',
-        deadline:'',
+        deadline: '',
         status: TaskStatuses.New,
         addedDate: '',
         id: '1'
@@ -198,4 +198,14 @@ test('property with todolistId have to be deleted', () => {
     expect(keys.length).toBe(1)
     expect(endState[todolistID2].length).toBe(startState[todolistID2].length)
     expect(endState[todolistID1]).not.toBeDefined()
+})
+
+test('tasksReducer have to add set empty cell for tasks', () => {
+    const payload: TaskType[] = startState[todolistID1];
+    const endState = tasksReducer({
+        [todolistID1]: [],
+        [todolistID2]: [],
+    }, setTasksAC(todolistID1, payload))
+
+    expect(endState[todolistID1].length).toStrictEqual(payload.length)
 })
