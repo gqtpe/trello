@@ -1,9 +1,9 @@
 import React, {useCallback} from "react";
 import {Checkbox, ListItem, Typography} from "@mui/material";
 import styles from "../TodoList.module.scss";
-import EditableSpan from "../../EditableSpan/EditableSpan";
-import {RemoveItem} from "../../RemoveItem/RemoveItem";
-import {TaskStatuses, TaskType} from "../../../common/types";
+import {RemoveItem} from "../../../../components/RemoveItem/RemoveItem";
+import EditableSpan from "../../../../components/EditableSpan/EditableSpan";
+import {TaskStatuses, TaskType} from "../../../../common/types";
 
 type TaskPropsType = {
     todoListID: string

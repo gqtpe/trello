@@ -1,14 +1,15 @@
 import {v4} from "uuid"
 import {
     addTaskAC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
     removeTaskAC,
     setTasksAC,
-    tasksReducer,
+    tasksReducer, updateTaskAC,
 } from "./tasks-reducer";
 import {addTodoListAC, removeTodoListAC, setTodoListsAC} from "./todoLists-reducer";
 import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
+
+
+
 
 let todolistID1: string
 let todolistID2: string
@@ -151,27 +152,30 @@ test('tasksReducer have to remove', () => {
 
 })
 
-test('tasksReducer have to change task title by id', () => {
-    const taskID = '1'
-    const newTitle = 'new title'
-    const action = changeTaskTitleAC(todolistID1, taskID, newTitle)
+test('tasksReducer have to change update task', () => {
+
+    const task: TaskType =  {
+            id: '3',
+            title: 'code',
+            addedDate: '',
+            deadline: '',
+            description: '',
+            order: 0,
+            priority: TaskPriorities.Low,
+            startDate: '',
+            status: TaskStatuses.New,
+            todoListId: todolistID1
+        }
+    const action = updateTaskAC(task)
     const endState = tasksReducer(startState, action)
 
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length)
     expect(endState[todolistID2].length).toBe(startState[todolistID2].length)
-    expect(endState[todolistID1].find(t => t.id === taskID)!.title).toBe(newTitle)
-
-})
-
-test('tasksReducer have to change task status by id', () => {
-    const taskID = '1'
-    const status: TaskStatuses = TaskStatuses.Completed
-    const action = changeTaskStatusAC(todolistID1, taskID, status)
-    const endState = tasksReducer(startState, action)
-
-    expect(endState[todolistID1].length).toBe(startState[todolistID1].length)
-    expect(endState[todolistID2].length).toBe(startState[todolistID2].length)
-    expect(endState[todolistID1].find(t => t.id === taskID)!.status).toBe(status)
+    expect(endState[todolistID1].find(t => t.id === action.task.id)!.title).toBe(action.task.title)
+    expect(endState[todolistID1].find(t => t.id === action.task.id)!.status).toBe(action.task.status)
+    expect(endState[todolistID1].find(t => t.id === action.task.id)!.id).toBe(action.task.id)
+    expect(endState[todolistID1].find(t => t.id === action.task.id)!.todoListId).toBe(action.task.todoListId)
+    expect(endState[todolistID1].find(t => t.id === action.task.id)!.description).toBe(action.task.description)
 
 })
 
@@ -182,7 +186,6 @@ test('new property with empty array should be added when new todolist is added',
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k != todolistID1 && k != todolistID2)
 
-    console.log(Object.keys(startState).length+1)
     if (!newKey) {
         throw new Error('new key have to be added')
     }
@@ -199,7 +202,7 @@ test('property with todolistId have to be deleted', () => {
     expect(endState[todolistID1]).not.toBeDefined()
 })
 
-test('tasksReducer have to add set empty cell for tasks', () => {
+test('tasksReducer have to add set tasks', () => {
     const payload: TaskType[] = startState[todolistID1];
     const endState = tasksReducer({
         [todolistID1]: [],
@@ -208,6 +211,7 @@ test('tasksReducer have to add set empty cell for tasks', () => {
 
     expect(endState[todolistID1].length).toStrictEqual(payload.length)
 })
+
 test('tasksReducer have to add set empty cell for tasks', () => {
     const payload: TodoListType[] = [
         {id: todolistID1, title: "What to learn", addedDate: '', order: -1},

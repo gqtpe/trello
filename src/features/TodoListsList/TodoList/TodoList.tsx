@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from "react";
+import EditableSpan from "../../../components/EditableSpan/EditableSpan";
+import {List, Paper, ToggleButton, ToggleButtonGroup} from "@mui/material";
+import {fetchTasksTC} from "../../../state/tasks-reducer";
+import {RemoveItem} from "../../../components/RemoveItem/RemoveItem";
+import {useAppDispatch} from "../../../state/store";
+import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";
+import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import styles from './TodoList.module.scss'
-import EditableSpan from "../EditableSpan/EditableSpan";
-import {List, Paper, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
-import {RemoveItem} from "../RemoveItem/RemoveItem";
-import AddItemForm from "../AddItemForm/AddItemForm";
+import Typography from "@mui/material/Typography";
 import {Task} from "./Task/Task";
-import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../common/types";
-import {useAppDispatch} from "../../state/store";
-import {fetchTasksTC} from "../../state/tasks-reducer";
 
 type PropsType = {
     id: string

@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {Provider} from 'react-redux';
 import DrawerApp from "./DrawerApp";
-import {store} from '../state/store';
+import {store} from '../../../state/store';
 
 
 const meta: Meta<typeof DrawerApp> = {

@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Grid from "@mui/material/Grid/Grid";
 import {Container, Paper} from "@mui/material";
-import AddItemForm from "../components/AddItemForm/AddItemForm";
-import TodoList from "../components/TodoList/TodoList";
+import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import Switch from "@mui/material/Switch";
-import {useTheme} from "./hooks/App/useTheme";
-import {useAppWithRedux} from "./hooks/AppWithRedux/useAppWithRedux";
+import {useTheme} from "../../hooks/useTheme";
+import {useTodoLists} from '../../../features/TodoListsList/hooks/useTodoLists';
+import TodoList from "../../../features/TodoListsList/TodoList/TodoList";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
@@ -67,7 +67,7 @@ export default function PersistentDrawerLeft() {
         removeTask,
         changeTaskStatus,
         addTask,
-    } = useAppWithRedux()
+    } = useTodoLists()
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
