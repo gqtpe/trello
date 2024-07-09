@@ -25,10 +25,8 @@ const TodoListsList = () => {
                 {
                     todoLists.map((todoList) => {
                         return <TodoList
+                            todoList={todoList}
                             key={todoList.id}
-                            id={todoList.id}
-                            title={todoList.title}
-                            filter={todoList.filter}
                             tasks={tasks[todoList.id]}
 
                             changeFilter={changeFilter}
