@@ -69,7 +69,8 @@ const TodoList: React.FC<PropsType> = ({
                     value={todoList.title}
                     setValue={changeTodolistTitle}
                 />
-                <RemoveItem removeItem={() => removeTodoList(id)}/>
+                <RemoveItem removeItem={() => removeTodoList(todoList.id)}
+                            disabled={todoList.entityStatus === 'loading'}/>
             </Typography>
 
             <AddItemForm addItem={addTaskC} disabled={todoList.entityStatus === 'loading'}/>
