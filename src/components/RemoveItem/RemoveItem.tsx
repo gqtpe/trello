@@ -3,8 +3,9 @@ import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import React from "react";
 type RemoveItemPropsType = {
     removeItem: () => void
+    disabled?: boolean
 }
-export const RemoveItem = ({removeItem}: RemoveItemPropsType) => {
+export const RemoveItem = ({removeItem, disabled}: RemoveItemPropsType) => {
     const svg = {
         display: 'inline-block',
         fontSize: '1.2rem',
@@ -15,7 +16,7 @@ export const RemoveItem = ({removeItem}: RemoveItemPropsType) => {
         }
     }
 
-    return <IconButton size={"small"} onClick={removeItem}>
+    return <IconButton  disabled={disabled} size={"small"} onClick={removeItem}>
         <RemoveCircleIcon fontSize={"inherit"} sx={svg}/>
     </IconButton>
 }

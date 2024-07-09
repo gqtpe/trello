@@ -7,6 +7,7 @@ import {useAddItemForm} from "./hooks/useAddItemForm";
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     console.log('AddItemForm')
@@ -22,7 +23,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             onChange={changeItemHandler}
             onKeyUp={enterKeyPressHandler}
         />
-        <IconButton onClick={addItem} color={'primary'}>
+        <IconButton disabled={props.disabled}  onClick={addItem} color={'primary'}>
             <AddCircleIcon/>
         </IconButton>
     </div>
