@@ -3,17 +3,16 @@ import EditableSpan from "../../../components/EditableSpan/EditableSpan";
 import {List, Paper, ToggleButton, ToggleButtonGroup} from "@mui/material";
 import {fetchTasksTC} from "./tasks-reducer";
 import {RemoveItem} from "../../../components/RemoveItem/RemoveItem";
-import {useAppDispatch} from "../../../state/store";
+import {useAppDispatch} from "../../../app/store";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";
 import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import styles from './TodoList.module.scss'
 import Typography from "@mui/material/Typography";
 import {Task} from "./Task/Task";
+import {TodoListsDomainType} from "./todoLists-reducer";
 
 type PropsType = {
-    id: string
-    title: string
-    filter: FilterTypeValuesType
+    todoList: TodoListsDomainType
     removeTodoList: (todoListID: string) => void
     changeFilter: (todoListID: string, filter: FilterTypeValuesType) => void
     changeTodoListTitle: (todoListID: string, title: string) => void
@@ -49,39 +48,39 @@ const TodoList: React.FC<PropsType> = ({
         dispatch(fetchTasksTC(todoList.id))
     }, [dispatch, todoList.id])
     let tasksForTodoList = tasks
-    if (filter === "ACTIVE") {
+    if (todoList.filter === "ACTIVE") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
-    if (filter === "COMPLETED") {
+    if (todoList.filter === "COMPLETED") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
     const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
-        changeFilter(id, value)
-    }, [changeFilter, id])
+        changeFilter(todoList.id, value)
+    }, [changeFilter, todoList.id])
     const addTaskC = useCallback((title: string) => {
-        addTask(id, title)
-    }, [id, addTask])
+        addTask(todoList.id, title)
+    }, [todoList.id, addTask])
 
     const changeTodolistTitle = useCallback((value: string) => {
-        changeTodoListTitle(id, value)
-    }, [changeTodoListTitle, id])
+        changeTodoListTitle(todoList.id, value)
+    }, [changeTodoListTitle, todoList.id])
     return (
         <Paper elevation={6} className={styles.todolist}>
             <Typography gutterBottom variant="h6">
                 <EditableSpan
-                    value={title}
+                    value={todoList.title}
                     setValue={changeTodolistTitle}
                 />
                 <RemoveItem removeItem={() => removeTodoList(id)}/>
             </Typography>
 
-            <AddItemForm addItem={addTaskC}/>
+            <AddItemForm addItem={addTaskC} disabled={todoList.entityStatus === 'loading'}/>
             <List className={`${styles.todolist__list} ${styles.list}`} disablePadding>
                 {
                     tasks.length === 0 ? <Typography variant={"subtitle1"} color={'gray'}>no tasks</Typography> :
                         tasksForTodoList.map(t =>
                             <Task
-                                todoListID={id}
+                                todoListID={todoList.id}
                                 task={t}
                                 key={t.id}
                                 changeTaskStatus={changeStatus}
@@ -91,7 +90,8 @@ const TodoList: React.FC<PropsType> = ({
                 }
             </List>
             <ToggleButtonGroup
-                fullWidth size={'small'} value={filter} onChange={filterToggleHandler} exclusive color={'primary'}
+                fullWidth size={'small'} value={todoList.filter} onChange={filterToggleHandler} exclusive
+                color={'primary'}
             >
                 <ToggleButton value={'ALL'}>ALL</ToggleButton>
                 <ToggleButton value={'ACTIVE'}>ACTIVE</ToggleButton>
