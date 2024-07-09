@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {Provider} from 'react-redux';
-import {store} from '../state/store';
 import App from "./App";
+import {storyBookStore} from "./store-sb";
 
 const meta: Meta<typeof App> = {
     title: 'TodoList/App',
@@ -16,8 +16,8 @@ type Story = StoryObj<typeof App>;
 
 export const Example: Story = {
     render: () => {
-        return <Provider store={store}>
-            <App/>
+        return <Provider store={storyBookStore}>
+            <App demo={true}/>
         </Provider>
     }
 }
