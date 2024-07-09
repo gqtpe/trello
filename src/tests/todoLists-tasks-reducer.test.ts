@@ -12,8 +12,8 @@ beforeEach(() => {
     todoListID1 = v4()
     todoListID2 = v4()
     startTodoListsState = [
-        {id: todoListID1, title: "What to learn", filter: "ACTIVE",addedDate:'',order:-1},
-        {id: todoListID2, title: "What to do", filter: "ALL",addedDate:'',order:0},
+        {id: todoListID1, title: "What to learn",entityStatus:'idle', filter: "ACTIVE",addedDate:'',order:-1},
+        {id: todoListID2, title: "What to do",entityStatus:'idle', filter: "ALL",addedDate:'',order:0},
     ]
     startTasksState = {
         [todoListID1]: [
