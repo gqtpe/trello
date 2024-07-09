@@ -8,13 +8,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Grid from "@mui/material/Grid/Grid";
-import {Container, Paper} from "@mui/material";
-import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import Switch from "@mui/material/Switch";
 import {useTheme} from "../../hooks/useTheme";
-import {useTodoLists} from '../../../features/TodoListsList/hooks/useTodoLists';
-import TodoList from "../../../features/TodoListsList/TodoList/TodoList";
+import TodoListsList from "../../../features/TodoListsList/TodoListsList";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
@@ -54,20 +50,10 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-
-export default function PersistentDrawerLeft() {
-    const {
-        todoLists,
-        addTodoList,
-        removeTodoList,
-        changeTodoListTitle,
-        changeFilter,
-        tasks,
-        changeTaskTitle,
-        removeTask,
-        changeTaskStatus,
-        addTask,
-    } = useTodoLists()
+type PropsType = {
+    demo?: boolean
+}
+export default function PersistentDrawerLeft({demo = false}: PropsType) {
     const [open, setOpen] = React.useState(false);
 
     const handleDrawerOpen = () => {
@@ -107,32 +93,7 @@ export default function PersistentDrawerLeft() {
                     <Typography variant={"h4"}>Todolist</Typography>
                 </Drawer>
                 <Main open={open}>
-                    <Container>
-                        <Grid container margin={2}><Paper sx={{padding: "5px"}}><AddItemForm
-                            addItem={addTodoList}/></Paper></Grid>
-                        <Grid container margin={2} direction="row" alignItems={'flex-start'} flexWrap={'wrap'} gap={2}>
-                            {
-                                todoLists.map((todoList) => {
-                                    return <TodoList
-                                        key={todoList.id}
-                                        id={todoList.id}
-                                        title={todoList.title}
-                                        filter={todoList.filter}
-                                        tasks={tasks[todoList.id]}
-
-                                        changeFilter={changeFilter}
-                                        removeTodoList={removeTodoList}
-                                        changeTodoListTitle={changeTodoListTitle}
-
-                                        removeTask={removeTask}
-                                        addTask={addTask}
-                                        changeStatus={changeTaskStatus}
-                                        changeTaskTitle={changeTaskTitle}
-                                    />
-                                })
-                            }
-                        </Grid>
-                    </Container>
+                    <TodoListsList demo={demo}/>
                 </Main>
             </ThemeProvider>
         </Box>
