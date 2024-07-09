@@ -26,9 +26,7 @@ type PropsType = {
 }
 
 const TodoList: React.FC<PropsType> = ({
-                                           id,
-                                           title,
-                                           filter,
+                                           todoList,
                                            removeTodoList,
                                            changeFilter,
                                            changeTodoListTitle,
