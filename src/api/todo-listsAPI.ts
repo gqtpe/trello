@@ -11,7 +11,6 @@ const instance = axios.create({
         "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
     },
     withCredentials: true,
-
 })
 
 type FieldErrorType = {

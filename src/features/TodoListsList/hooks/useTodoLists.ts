@@ -1,7 +1,7 @@
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../../state/store";
 import {FilterTypeValuesType, TasksStateType, TaskStatuses} from "../../../common/types";
-import {addTaskTC, removeTaskTC, updateTaskTC,} from "../../../state/tasks-reducer";
+import {addTaskTC, removeTaskTC, updateTaskTC,} from "../TodoList/tasks-reducer";
 import {useCallback, useEffect} from "react";
 import {
     addTodoListTC,
@@ -10,7 +10,7 @@ import {
     fetchTodoListsThunk,
     removeTodoListTC,
     TodoListsDomainType
-} from "../../../state/todoLists-reducer";
+} from "../TodoList/todoLists-reducer";
 
 
 export function useTodoLists() {

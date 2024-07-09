@@ -1,6 +1,6 @@
-import {FilterTypeValuesType, TodoListType} from "../common/types";
+import {FilterTypeValuesType, TodoListType} from "../../../common/types";
 import {Dispatch} from "redux";
-import {todoListsAPI} from "../api/todo-listsAPI";
+import {todoListsAPI} from "../../../api/todo-listsAPI";
 
 const initialState: TodoListsStateType = []
 

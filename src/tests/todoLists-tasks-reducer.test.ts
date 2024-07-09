@@ -1,6 +1,6 @@
 import {v4} from "uuid";
-import {tasksReducer} from "./tasks-reducer";
-import {addTodoListAC, todoListsReducer, TodoListsStateType} from "./todoLists-reducer";
+import {tasksReducer} from "../features/TodoListsList/TodoList/tasks-reducer";
+import {addTodoListAC, todoListsReducer, TodoListsStateType} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {TaskPriorities, TasksStateType, TaskStatuses, TodoListType} from "../common/types";
 
 let todoListID1: string

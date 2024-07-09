@@ -7,7 +7,7 @@ import {
     setTodoListsAC,
     todoListsReducer,
     TodoListsStateType
-} from "./todoLists-reducer";
+} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {FilterTypeValuesType, TodoListType} from "../common/types";
 
 
