@@ -5,7 +5,11 @@ import {Container, Paper} from "@mui/material";
 import AddItemForm from "../../components/AddItemForm/AddItemForm";
 import TodoList from "./TodoList/TodoList";
 
-const TodoListsList = () => {
+
+type PropsType = {
+    demo?: boolean
+}
+const TodoListsList = ({demo = false}:PropsType) => {
     const {
         todoLists,
         addTodoList,
@@ -17,7 +21,7 @@ const TodoListsList = () => {
         removeTask,
         changeTaskStatus,
         addTask,
-    } = useTodoLists()
+    } = useTodoLists(demo)
     return (
         <Container>
             <Grid container margin={2}><Paper sx={{padding: "5px"}}><AddItemForm addItem={addTodoList}/></Paper></Grid>
@@ -37,6 +41,7 @@ const TodoListsList = () => {
                             addTask={addTask}
                             changeStatus={changeTaskStatus}
                             changeTaskTitle={changeTaskTitle}
+                            demo={demo}
                         />
                     })
                 }
