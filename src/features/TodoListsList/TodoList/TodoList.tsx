@@ -23,6 +23,7 @@ type PropsType = {
     changeStatus: (todoListID: string, taskID: string, status: TaskStatuses) => void
     changeTaskTitle: (todoListID: string, taskID: string, title: string) => void
     addTask: (todoListID: string, title: string) => void
+    demo?: boolean
 }
 
 const TodoList: React.FC<PropsType> = ({
@@ -36,13 +37,17 @@ const TodoList: React.FC<PropsType> = ({
                                            removeTask,
                                            changeStatus,
                                            changeTaskTitle,
-                                           addTask
+                                           addTask,
+                                           demo = false
                                        }) => {
     console.log('TodoList')
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(fetchTasksTC(id))
-    }, [dispatch, id])
+        if (demo) {
+            return;
+        }
+        dispatch(fetchTasksTC(todoList.id))
+    }, [dispatch, todoList.id])
     let tasksForTodoList = tasks
     if (filter === "ACTIVE") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
