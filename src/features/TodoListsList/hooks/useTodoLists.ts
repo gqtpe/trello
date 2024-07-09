@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "../../../state/store";
+import {AppRootStateType, useAppDispatch} from "../../../app/store";
 import {FilterTypeValuesType, TasksStateType, TaskStatuses} from "../../../common/types";
 import {addTaskTC, removeTaskTC, updateTaskTC,} from "../TodoList/tasks-reducer";
 import {useCallback, useEffect} from "react";
@@ -13,11 +13,14 @@ import {
 } from "../TodoList/todoLists-reducer";
 
 
-export function useTodoLists() {
+export function useTodoLists(demo: boolean = false) {
     const todoLists = useSelector<AppRootStateType, TodoListsDomainType[]>(state => state.todoLists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useAppDispatch()
     useEffect(() => {
+        if(demo){
+            return;
+        }
         dispatch(fetchTodoListsThunk)
     }, [dispatch])
     //---------
