@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {Provider} from 'react-redux';
 import DrawerApp from "./DrawerApp";
-import {store} from '../../../state/store';
+import {storyBookStore} from "../../store-sb";
 
 
 const meta: Meta<typeof DrawerApp> = {
@@ -17,8 +17,8 @@ type Story = StoryObj<typeof DrawerApp>;
 
 export const DrawerAppxStory: Story = {
     render: () => {
-        return <Provider store={store}>
-            <DrawerApp/>
+        return <Provider store={storyBookStore}>
+            <DrawerApp demo={true}/>
         </Provider>
     }
 }
