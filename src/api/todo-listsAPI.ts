@@ -17,7 +17,7 @@ type FieldErrorType = {
     error: string
     field: string
 }
-type ResponseType<T> = {
+export type ResponseType<T> = {
     resultCode: number
     messages: string[]
     fieldsErrors: FieldErrorType[]
