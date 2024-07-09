@@ -12,7 +12,7 @@ export const todoListsReducer = (state: TodoListsStateType = initialState, actio
             return state.filter(t => t.id !== action.todoListID)
 
         case 'ADD-TODOLIST':
-            return [{...action.todoList, filter: 'ALL'}, ...state]
+            return [{...action.todoList, filter: 'ALL', entityStatus: 'idle'}, ...state]
 
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(t => t.id === action.todoListID ? {...t, title: action.newTitle} : t)
@@ -21,8 +21,11 @@ export const todoListsReducer = (state: TodoListsStateType = initialState, actio
             return state.map(t => t.id === action.todoListID ? {...t, filter: action.newValue} : t)
 
         case 'SET-TODOLISTS':
-            return action.todoLists.map(tl => ({...tl, filter: 'ALL'}))
+            return action.todoLists.map(tl => ({...tl, filter: 'ALL', entityStatus: 'idle'}))
 
+        case 'CHANGE-TODOLIST-ENTITY-STATUS': {
+            return state.map(t => t.id === action.id ? {...t, entityStatus: action.status} : t)
+        }
         default: {
             return state
         }
@@ -42,6 +45,11 @@ export const changeTodoListFilterAC = (todoListID: string, newValue: FilterTypeV
     newValue
 } as const)
 export const setTodoListsAC = (todoLists: TodoListType[]) => ({type: 'SET-TODOLISTS', todoLists,} as const)
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
+    type: 'CHANGE-TODOLIST-ENTITY-STATUS',
+    id,
+    status,
+} as const)
 //Thunk
 export const fetchTodoListsThunk = (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
     dispatch(setAppStatusAC('loading'))
@@ -105,9 +113,11 @@ export const changeTodoListTitleTC = (todoListID: string, title: string) => {
             })
     }
 }
+
 //types
 export type TodoListsDomainType = TodoListType & {
     filter: FilterTypeValuesType
+    entityStatus: RequestStatusType
 }
 export type TodoListsStateType = TodoListsDomainType[]
 type ActionsType = ReturnType<typeof addTodoListAC>
@@ -115,4 +125,5 @@ type ActionsType = ReturnType<typeof addTodoListAC>
     | ReturnType<typeof changeTodoListFilterAC>
     | ReturnType<typeof changeTodoListTitleAC>
     | ReturnType<typeof setTodoListsAC>
+    | ReturnType<typeof changeTodolistEntityStatusAC>
 
