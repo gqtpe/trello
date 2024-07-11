@@ -15,6 +15,7 @@ const initialGlobalState: AppRootStateType = {
         app: {
             error: null,
             status: 'idle',
+            isInitialized: true,
         },
         tasks: {
             ['todolistID1']: [
@@ -121,7 +122,11 @@ const initialGlobalState: AppRootStateType = {
         todoLists: [
             {id: 'todolistID1', title: "What to learn", entityStatus: 'idle', filter: "ACTIVE", addedDate: '', order: -1},
             {id: 'todolistID2', title: "What to do", entityStatus: 'loading', filter: "ALL", addedDate: '', order: 0},
-        ]
+        ],
+        auth: {
+            isAuth: true,
+
+        }
     }
 
 ;
