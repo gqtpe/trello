@@ -1,7 +1,12 @@
 import {FilterTypeValuesType, TodoListType} from "../../../common/types";
 import {Dispatch} from "redux";
 import {todoListsAPI} from "../../../api/todo-listsAPI";
-import {RequestStatusType, setAppStatusAC, ThunkActions} from "../../../app/app-reducer";
+import {
+    RequestStatusType,
+    SetAppErrorActionType,
+    setAppStatusAC,
+    SetAppStatusActionType
+} from "../../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 const initialState: TodoListsStateType = []
@@ -51,7 +56,7 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
     status,
 } as const)
 //Thunk
-export const fetchTodoListsThunk = (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+export const fetchTodoListsThunk = (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     todoListsAPI.getTodoLists()
         .then((response) => {
@@ -63,7 +68,7 @@ export const fetchTodoListsThunk = (dispatch: Dispatch<ThunkActions<ActionsType>
         })
 }
 export const addTodoListTC = (title: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC('loading'))
         todoListsAPI.createTodoList(title)
             .then((response) => {
@@ -82,7 +87,7 @@ export const addTodoListTC = (title: string) => {
     }
 }
 export const removeTodoListTC = (todoListID: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(changeTodolistEntityStatusAC(todoListID, 'loading'))
         todoListsAPI.deleteTodoList(todoListID)
             .then(response => {
@@ -99,7 +104,7 @@ export const removeTodoListTC = (todoListID: string) => {
     }
 }
 export const changeTodoListTitleTC = (todoListID: string, title: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         todoListsAPI.updateTodoList(todoListID, title)
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -126,4 +131,6 @@ type ActionsType = ReturnType<typeof addTodoListAC>
     | ReturnType<typeof changeTodoListTitleAC>
     | ReturnType<typeof setTodoListsAC>
     | ReturnType<typeof changeTodolistEntityStatusAC>
+    | SetAppErrorActionType
+    | SetAppStatusActionType
 
