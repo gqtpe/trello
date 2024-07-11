@@ -44,7 +44,7 @@ const TodoList: React.FC<PropsType> = ({
             return;
         }
         dispatch(fetchTasksTC(todoList.id))
-    }, [dispatch, todoList.id])
+    }, [demo,dispatch, todoList.id])
     let tasksForTodoList = tasks
     if (todoList.filter === "ACTIVE") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)

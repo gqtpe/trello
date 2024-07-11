@@ -25,7 +25,7 @@ export const Login = () => {
                         <FormLabel>
                             <p>
                                 To log in get registered
-                                <a href={'https://social-network.samuraijs.com/'} target={'_blank'}>
+                                <a href={'https://social-network.samuraijs.com/'}>
                                     here
                                 </a>
                             </p>

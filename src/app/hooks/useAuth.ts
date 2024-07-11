@@ -14,6 +14,6 @@ export const useAuth = () => {
 
     const logout = useCallback(()=>{
         dispatch(logoutTC())
-    },[])
+    },[dispatch])
     return {status, isInitialized,logout}
 }

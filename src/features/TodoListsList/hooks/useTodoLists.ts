@@ -20,7 +20,7 @@ export function useTodoLists(demo: boolean = false) {
             return;
         }
         dispatch(fetchTodoListsThunk)
-    }, [dispatch])
+    }, [demo,dispatch])
     //---------
     const removeTodoList = useCallback((todoListID: string) => dispatch(removeTodoListTC(todoListID)), [dispatch])
     const addTodoList = useCallback((title: string) => dispatch(addTodoListTC(title)), [dispatch])
