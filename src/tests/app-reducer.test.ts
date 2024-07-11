@@ -1,4 +1,11 @@
-import {appReducer, RequestStatusType, setAppErrorAC, setAppStatusAC, StateType} from "../app/app-reducer";
+import {
+    appReducer,
+    RequestStatusType,
+    setAppErrorAC,
+    setAppStatusAC,
+    setIsInitialized,
+    StateType
+} from "../app/app-reducer";
 import {ErrorType} from "../common/types";
 
 
@@ -6,7 +13,8 @@ let startState: StateType
 beforeEach(() => {
     startState = {
         status: 'idle',
-        error: null
+        error: null,
+        isInitialized: false,
     }
 })
 test('app reducer should set app status', () => {
