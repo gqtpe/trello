@@ -45,7 +45,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
 
 //Thunk
 export const fetchTasksTC = (todoListID: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC('loading'))
         todoListsAPI.getTasks(todoListID)
             .then((response) => {
@@ -58,7 +58,7 @@ export const fetchTasksTC = (todoListID: string) => {
     }
 }
 export const addTaskTC = (todoListID: string, title: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC('loading'))
         todoListsAPI.createTask(todoListID, title)
             .then((response) => {
@@ -76,7 +76,7 @@ export const addTaskTC = (todoListID: string, title: string) => {
     }
 }
 export const removeTaskTC = (todoListID: string, taskID: string) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setAppStatusAC('loading'))
         todoListsAPI.deleteTask(todoListID, taskID)
             .then((response) => {
@@ -101,7 +101,7 @@ type UpdateDomainTaskPayload = {
     deadline?: string
 }
 export const updateTaskTC = (todoListID: string, taskID: string, model: UpdateDomainTaskPayload) => {
-    return (dispatch: Dispatch<ThunkActions<ActionsType>>, getState: () => AppRootStateType) => {
+    return (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
         const previousTask = getState().tasks[todoListID].find(t => t.id === taskID)
 
         if (!previousTask) {
@@ -151,3 +151,5 @@ type ActionsType = ReturnType<typeof addTaskAC>
     | ReturnType<typeof removeTodoListAC>
     | ReturnType<typeof setTodoListsAC>
     | ReturnType<typeof setTasksAC>
+    | SetAppErrorActionType
+    | SetAppStatusActionType
