@@ -3,7 +3,7 @@ import {addTodoListAC, removeTodoListAC, setTodoListsAC} from "./todoLists-reduc
 import {Dispatch} from "redux";
 import {todoListsAPI, UpdateTaskPayload} from "../../../api/todo-listsAPI";
 import {AppRootStateType} from "../../../app/store";
-import {setAppStatusAC, ThunkActions} from "../../../app/app-reducer";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 const initialState: TasksStateType = {}
