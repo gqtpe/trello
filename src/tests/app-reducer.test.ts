@@ -30,3 +30,10 @@ test('app reducer should set app error', () => {
 
     expect(endState.error).toBe(error)
 })
+
+
+test('app reducer should set app isInitialized', () => {
+    const endState = appReducer(startState, setIsInitialized(true))
+
+    expect(endState.isInitialized).toBe(true)
+})
