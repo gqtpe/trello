@@ -22,10 +22,10 @@ export function useTodoLists(demo: boolean = false) {
         dispatch(fetchTodoListsThunk)
     }, [demo,dispatch])
     //---------
-    const removeTodoList = useCallback((todoListID: string) => dispatch(removeTodoListTC(todoListID)), [dispatch])
+    const removeTodoList = useCallback((id: string) => dispatch(removeTodoListTC(id)), [dispatch])
     const addTodoList = useCallback((title: string) => dispatch(addTodoListTC(title)), [dispatch])
-    const changeFilter = useCallback((todoListID: string, filter: FilterTypeValuesType) => dispatch(changeTodoListFilterAC(todoListID, filter)), [dispatch])
-    const changeTodoListTitle = useCallback((todoListID: string, title: string) => dispatch(changeTodoListTitleTC(todoListID, title)), [dispatch])
+    const changeFilter = useCallback((id: string, filter: FilterTypeValuesType) => dispatch(changeTodoListFilterAC({id, filter})), [dispatch])
+    const changeTodoListTitle = useCallback((id: string, title: string) => dispatch(changeTodoListTitleTC(id, title)), [dispatch])
     //---------
     //---------
     const changeTaskStatus = useCallback((todoLisID: string, taskID: string, status: TaskStatuses) => dispatch(updateTaskTC(todoLisID, taskID, {status})), [dispatch])

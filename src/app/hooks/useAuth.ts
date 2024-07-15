@@ -13,6 +13,7 @@ export const useAuth = () => {
     const status = useAppSelector(state => state.app.status)
 
     const logout = useCallback(()=>{
+        debugger;
         dispatch(logoutTC())
     },[dispatch])
     return {status, isInitialized,logout}

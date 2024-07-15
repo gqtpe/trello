@@ -17,7 +17,7 @@ type PropsType = {
 }
 
 function App({demo = false}: PropsType) {
-    const {status, isInitialized, } = useAuth()
+    const {status, isInitialized, logout} = useAuth()
     const {theme, changeThemeHandler} = useTheme()
 
 
@@ -48,7 +48,7 @@ function App({demo = false}: PropsType) {
                             <Switch size="small" onChange={changeThemeHandler} />
                         </Box>
 
-                        <Button color="info" size="small" variant="contained" sx={{justifySelf: 'flex-end'}}>Log Out</Button>
+                        <Button onClick={logout} color="info" size="small" variant="contained" sx={{justifySelf: 'flex-end'}}>Log Out</Button>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                     {status === 'failed' && <LinearProgress variant="buffer" value={100} color="error"/>}

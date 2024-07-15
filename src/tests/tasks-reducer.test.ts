@@ -134,7 +134,7 @@ test('tasksReducer have to add new task', () => {
         addedDate: '',
         id: '1'
     }
-    const endState = tasksReducer(startState, addTaskAC(task))
+    const endState = tasksReducer(startState, addTaskAC({task}))
 
     expect(startState).not.toBe(endState)
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length + 1)
@@ -144,7 +144,7 @@ test('tasksReducer have to add new task', () => {
 })
 
 test('tasksReducer have to remove', () => {
-    const action = removeTaskAC(todolistID1, '1')
+    const action = removeTaskAC({todoListID: todolistID1, taskID:'1'})
     const endState = tasksReducer(startState, action)
 
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length - 1)
@@ -166,22 +166,22 @@ test('tasksReducer have to change update task', () => {
             status: TaskStatuses.New,
             todoListId: todolistID1
         }
-    const action = updateTaskAC(task)
+    const action = updateTaskAC({task})
     const endState = tasksReducer(startState, action)
 
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length)
     expect(endState[todolistID2].length).toBe(startState[todolistID2].length)
-    expect(endState[todolistID1].find(t => t.id === action.task.id)!.title).toBe(action.task.title)
-    expect(endState[todolistID1].find(t => t.id === action.task.id)!.status).toBe(action.task.status)
-    expect(endState[todolistID1].find(t => t.id === action.task.id)!.id).toBe(action.task.id)
-    expect(endState[todolistID1].find(t => t.id === action.task.id)!.todoListId).toBe(action.task.todoListId)
-    expect(endState[todolistID1].find(t => t.id === action.task.id)!.description).toBe(action.task.description)
+    expect(endState[todolistID1].find(t => t.id === action.payload.task.id)!.title).toBe(action.payload.task.title)
+    expect(endState[todolistID1].find(t => t.id === action.payload.task.id)!.status).toBe(action.payload.task.status)
+    expect(endState[todolistID1].find(t => t.id === action.payload.task.id)!.id).toBe(action.payload.task.id)
+    expect(endState[todolistID1].find(t => t.id === action.payload.task.id)!.todoListId).toBe(action.payload.task.todoListId)
+    expect(endState[todolistID1].find(t => t.id === action.payload.task.id)!.description).toBe(action.payload.task.description)
 
 })
 
 test('new property with empty array should be added when new todolist is added', () => {
     let todoList: TodoListType = {id: 'newID', title: "What to learn", addedDate: '', order: -1}
-    const action = addTodoListAC(todoList)
+    const action = addTodoListAC({todoList})
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k != todolistID1 && k != todolistID2)
@@ -193,7 +193,7 @@ test('new property with empty array should be added when new todolist is added',
 })
 
 test('property with todolistId have to be deleted', () => {
-    const action = removeTodoListAC(todolistID1)
+    const action = removeTodoListAC({id:todolistID1})
 
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)
@@ -203,21 +203,21 @@ test('property with todolistId have to be deleted', () => {
 })
 
 test('tasksReducer have to add set tasks', () => {
-    const payload: TaskType[] = startState[todolistID1];
+    const tasks: TaskType[] = startState[todolistID1];
     const endState = tasksReducer({
         [todolistID1]: [],
         [todolistID2]: [],
-    }, setTasksAC(todolistID1, payload))
+    }, setTasksAC({todoListID: todolistID1, tasks}))
 
-    expect(endState[todolistID1].length).toStrictEqual(payload.length)
+    expect(endState[todolistID1].length).toStrictEqual(tasks.length)
 })
 
 test('tasksReducer have to add set empty cell for tasks', () => {
-    const payload: TodoListType[] = [
+    const todoLists: TodoListType[] = [
         {id: todolistID1, title: "What to learn", addedDate: '', order: -1},
         {id: todolistID2, title: "What to do", addedDate: '', order: 0},
     ]
-    const endState = tasksReducer({}, setTodoListsAC(payload))
+    const endState = tasksReducer({}, setTodoListsAC({todoLists}))
     const keys = Object.keys(endState)
     expect(keys.length).toBe(2)
 })

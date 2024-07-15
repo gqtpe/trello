@@ -3,7 +3,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../../app/store";
 import {ErrorType} from "../../common/types";
-import {setAppErrorAC} from "../../app/app-reducer";
+import {setAppError} from "../../app/app-reducer";
 
 
 export const ErrorSnackbar = () => {
@@ -14,7 +14,7 @@ export const ErrorSnackbar = () => {
             return;
         }
 
-        dispatch(setAppErrorAC(null))
+        dispatch(setAppError({error: null}))
     };
 
     return <Snackbar open={error !== null} autoHideDuration={3000} onClose={handleClose}>
