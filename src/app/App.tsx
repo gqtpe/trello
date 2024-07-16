@@ -7,24 +7,27 @@ import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
 import {useTheme} from "./hooks/useTheme";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {Outlet} from "react-router-dom";
+import {Outlet, Route, Routes} from "react-router-dom";
 import {useAuth} from "./hooks/useAuth";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import TodoListsList from "../features/TodoListsList/TodoListsList";
+import {Login} from "../features/Login/Login";
+import RequireAuth from "../common/hoc/RequireAuth/RequireAuth";
 
 type PropsType = {
     demo?: boolean
 }
 
 function App({demo = false}: PropsType) {
-    const {status, isInitialized, logout} = useAuth()
+    const {status, isInitialized, logout} = useAuth(demo)
     const {theme, changeThemeHandler} = useTheme()
 
 
     if (!isInitialized) {
         return (
-            <div style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
-                <CircularProgress />
+            <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
             </div>
         )
     }
@@ -33,7 +36,7 @@ function App({demo = false}: PropsType) {
             <ErrorSnackbar/>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <AppBar position="static" sx={{mb: '30px'}} >
+                <AppBar position="static" sx={{mb: '30px'}}>
                     <Toolbar variant={"dense"}>
                         <IconButton
                             color="inherit"
@@ -44,17 +47,24 @@ function App({demo = false}: PropsType) {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Box sx={{flexGrow:1}}>
-                            <Switch size="small" onChange={changeThemeHandler} />
+                        <Box sx={{flexGrow: 1}}>
+                            <Switch size="small" onChange={changeThemeHandler}/>
                         </Box>
 
-                        <Button onClick={logout} color="info" size="small" variant="contained" sx={{justifySelf: 'flex-end'}}>Log Out</Button>
+                        <Button onClick={logout} color="info" size="small" variant="contained"
+                                sx={{justifySelf: 'flex-end'}}>Log Out</Button>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                     {status === 'failed' && <LinearProgress variant="buffer" value={100} color="error"/>}
                 </AppBar>
-                {/*todo: demo throwing in TodoListsList */}
-                <Outlet/>
+                {!demo && <Outlet/>}
+                {demo &&
+                    <Routes>
+                        <Route index path='/' element={<RequireAuth><TodoListsList demo={demo}/></RequireAuth>}/>
+                        <Route index path='/login' element={<Login/>}/>
+                    </Routes>
+                }
+
             </ThemeProvider>
         </div>
     );

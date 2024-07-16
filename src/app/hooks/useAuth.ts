@@ -2,19 +2,20 @@ import {initializeAppTC, logoutTC} from "../../features/Login/auth-reducer";
 import {useAppDispatch, useAppSelector} from "../store";
 import {useCallback, useEffect} from "react";
 
-
-export const useAuth = () => {
+export const useAuth = (demo = false) => {
     console.log('App is called')
     const isInitialized = useAppSelector(state => state.app.isInitialized)
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(initializeAppTC())
-    }, [dispatch])
+        if (!demo) {
+            dispatch(initializeAppTC())
+        }
+    }, [demo, dispatch])
     const status = useAppSelector(state => state.app.status)
 
-    const logout = useCallback(()=>{
+    const logout = useCallback(() => {
         debugger;
         dispatch(logoutTC())
-    },[dispatch])
-    return {status, isInitialized,logout}
+    }, [dispatch])
+    return {status, isInitialized, logout}
 }

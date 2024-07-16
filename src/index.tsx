@@ -16,7 +16,7 @@ const root = ReactDOM.createRoot(
 );
 
 
-const router = createBrowserRouter([
+export const routes = [
     {
         path: '/',
         element: <App/>,
@@ -38,10 +38,12 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path:'/404',
+        path: '/404',
         element: <ErrorPage/>
     }
-])
+
+];
+const router = createBrowserRouter(routes)
 
 root.render(
     <Provider store={store}>
