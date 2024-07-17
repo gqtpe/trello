@@ -136,7 +136,6 @@ const slice = createSlice({
     }
 })
 
-export const {} = slice.actions
 
 export const tasksReducer = slice.reducer
 
