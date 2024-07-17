@@ -6,7 +6,7 @@ import {
     addTodoListTC,
     changeTodoListFilterAC,
     changeTodoListTitleTC,
-    fetchTodoListsThunk,
+    fetchTodoListsTC,
     removeTodoListTC
 } from "../TodoList/todoLists-reducer";
 
@@ -19,19 +19,19 @@ export function useTodoLists(demo: boolean = false) {
         if (demo) {
             return;
         }
-        dispatch(fetchTodoListsThunk)
+        dispatch(fetchTodoListsTC())
     }, [demo,dispatch])
     //---------
     const removeTodoList = useCallback((id: string) => dispatch(removeTodoListTC(id)), [dispatch])
     const addTodoList = useCallback((title: string) => dispatch(addTodoListTC(title)), [dispatch])
     const changeFilter = useCallback((id: string, filter: FilterTypeValuesType) => dispatch(changeTodoListFilterAC({id, filter})), [dispatch])
-    const changeTodoListTitle = useCallback((id: string, title: string) => dispatch(changeTodoListTitleTC(id, title)), [dispatch])
+    const changeTodoListTitle = useCallback((id: string, title: string) => dispatch(changeTodoListTitleTC({id, title})), [dispatch])
     //---------
     //---------
-    const changeTaskStatus = useCallback((todoLisID: string, taskID: string, status: TaskStatuses) => dispatch(updateTaskTC(todoLisID, taskID, {status})), [dispatch])
-    const removeTask = useCallback((todoListID: string, taskID: string) => dispatch(removeTaskTC(todoListID, taskID)), [dispatch])
-    const addTask = useCallback((todoListID: string, title: string) => dispatch(addTaskTC(todoListID, title)), [dispatch])
-    const changeTaskTitle = useCallback((todoListID: string, taskID: string, title: string) => dispatch(updateTaskTC(todoListID, taskID, {title})), [dispatch])
+    const changeTaskStatus = useCallback((todoListID: string, taskID: string, status: TaskStatuses) => dispatch(updateTaskTC({todoListID, taskID, model : {status}})), [dispatch])
+    const removeTask = useCallback((todoListID: string, taskID: string) => dispatch(removeTaskTC({todoListID, taskID})), [dispatch])
+    const addTask = useCallback((todoListID: string, title: string) => dispatch(addTaskTC({todoListID, title})), [dispatch])
+    const changeTaskTitle = useCallback((todoListID: string, taskID: string, title: string) => dispatch(updateTaskTC({todoListID, taskID, model: {title}})), [dispatch])
     return {
         todoLists,
         addTodoList,

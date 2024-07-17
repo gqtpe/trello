@@ -63,7 +63,7 @@ const TodoList: React.FC<PropsType> = ({
         changeTodoListTitle(todoList.id, value)
     }, [changeTodoListTitle, todoList.id])
     return (
-        <Paper elevation={6} className={styles.todolist}>
+        <Paper elevation={6} className={styles.todolist}  variant={todoList.entityStatus === 'failed'?'outlined':'elevation'}>
             <Typography gutterBottom variant="h6">
                 <EditableSpan
                     value={todoList.title}
