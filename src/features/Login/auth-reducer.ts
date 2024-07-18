@@ -1,13 +1,52 @@
-import {authAPI, LoginParamsType} from "../../api/todo-listsAPI";
-import {Dispatch} from "redux";
-import {setAppStatus, setAppIsInitialized} from "../../app/app-reducer";
+import {authAPI, FieldErrorType, LoginParamsType} from "../../api/todo-listsAPI";
+import {setAppStatus} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AxiosError} from "axios";
 
 const initialState = {
     isAuth: false as boolean
 }
+export const loginTC = createAsyncThunk<undefined, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }>('auth/login', async (param, {
+    dispatch,
+    rejectWithValue
+}) => {
+    dispatch(setAppStatus({status: 'loading'}))
+    try {
+        const response = await authAPI.login(param)
+        if (response.data.resultCode === 0) {
+            dispatch(setAppStatus({status: 'succeeded'}))
+            return
+        } else {
+            handleServerAppError(response.data, dispatch)
+            return rejectWithValue({errors: response.data.messages, fieldsErrors: response.data.fieldsErrors})
+        }
+    } catch (e) {
+        const error = e as AxiosError
+        handleServerNetworkError(error, dispatch)
+        return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
 
+    }
+})
+
+
+export const logoutTC = createAsyncThunk('auth/logout', async (param, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus({status: 'loading'}))
+    try {
+        const response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAppStatus({status: 'succeeded'}))
+            return
+        } else {
+            handleServerAppError(response.data, dispatch)
+        }
+    } catch (e) {
+        const error = e as AxiosError
+        handleServerNetworkError(error, dispatch)
+        return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
+
+    }
+})
 const slice = createSlice({
     name: 'auth',
     initialState,
@@ -15,6 +54,14 @@ const slice = createSlice({
         setIsAuth(state, action: PayloadAction<{ value: boolean }>) {
             state.isAuth = action.payload.value
         }
+    },
+    extraReducers: builder => {
+        builder.addCase(loginTC.fulfilled, (state) => {
+            state.isAuth = true
+        })
+        builder.addCase(logoutTC.fulfilled, (state) => {
+            state.isAuth = false
+        })
     }
 })
 
@@ -22,53 +69,4 @@ export const {setIsAuth} = slice.actions
 
 export const authReducer = slice.reducer
 
-export const loginTC = (payload: LoginParamsType) => (dispatch: Dispatch) => {
-    dispatch(setAppStatus({status:'loading'}))
-    authAPI.login(payload)
-        .then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(setIsAuth({value: true}))
-                dispatch(setAppStatus({status:'succeeded'}))
-            } else (
-                handleServerAppError(response.data, dispatch)
-            )
-        })
-        .catch((error) => {
-            handleServerNetworkError(error, dispatch)
-        })
-}
 
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatus({status:'loading'}))
-    authAPI.me()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setIsAuth({value: true}))
-                dispatch(setAppStatus({status:'succeeded'}))
-            } else if(response.data.resultCode === 1) {
-                dispatch(setIsAuth({value: false}))
-                dispatch(setAppStatus({status:'succeeded'}))
-            } else{
-                handleServerAppError(response.data, dispatch)
-            }
-            dispatch(setAppIsInitialized({value:true}))
-        })
-        .catch((error) => {
-            handleServerNetworkError(error, dispatch)
-        })
-}
-export const logoutTC = () => (dispatch: Dispatch) => {
-    dispatch(setAppStatus({status:'loading'}))
-    authAPI.logout()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setIsAuth({value: false}))
-                dispatch(setAppStatus({status:'succeeded'}))
-            } else {
-                handleServerAppError(response.data, dispatch)
-            }
-        })
-        .catch((error) => {
-            handleServerNetworkError(error, dispatch)
-        })
-}
