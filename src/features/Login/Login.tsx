@@ -50,7 +50,6 @@ export const Login = () => {
                                 variant="standard"
                                 size="small"
                                 error={!!formik.errors.password}
-                                helperText={formik.errors.password}
                                 {...formik.getFieldProps('password')}
                             />
                             <FormControlLabel
@@ -61,7 +60,7 @@ export const Login = () => {
                                     />
                                 }
                             />
-                            <Button type={'submit'} variant={'contained'} color={'primary'}>
+                            <Button type={'submit'} variant={'contained'} color={'primary'} disabled={!!(formik.errors.email || formik.errors.password)}>
                                 Login
                             </Button>
                         </FormGroup>

@@ -31,9 +31,17 @@ export const useLogin = () => {
             }
             return errors
         },
-        onSubmit: values => {
-            dispatch(loginTC(values))
-            formik.resetForm()
+        onSubmit: async (values,formikHelper) => {
+            const action = await dispatch(loginTC(values))
+            if(loginTC.rejected.match(action)){
+                if(action.payload?.errors?.length){
+                    const error = action.payload?.errors
+                    formikHelper.setFieldError('email', error[0])
+                    formikHelper.setFieldError('password', error[0])
+                }else{
+
+                }
+            }
         },
     })
 

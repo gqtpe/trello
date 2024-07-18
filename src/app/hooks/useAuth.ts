@@ -1,6 +1,7 @@
-import {initializeAppTC, logoutTC} from "../../features/Login/auth-reducer";
+import {logoutTC} from "../../features/Login/auth-reducer";
 import {useAppDispatch, useAppSelector} from "../store";
 import {useCallback, useEffect} from "react";
+import {initializeAppTC} from "../app-reducer";
 
 export const useAuth = (demo = false) => {
     console.log('App is called')

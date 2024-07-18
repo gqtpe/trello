@@ -13,7 +13,7 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-type FieldErrorType = {
+export type FieldErrorType = {
     error: string
     field: string
 }

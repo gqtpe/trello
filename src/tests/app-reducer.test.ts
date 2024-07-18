@@ -1,10 +1,4 @@
-import {
-    appReducer,
-    RequestStatusType,
-    setAppError,
-    setAppStatus,
-    setAppIsInitialized,
-} from "../app/app-reducer";
+import {appReducer, RequestStatusType, setAppError, setAppStatus,} from "../app/app-reducer";
 import {ErrorType} from "../common/types";
 
 type StateType = ReturnType<typeof appReducer>
@@ -28,11 +22,4 @@ test('app reducer should set app error', () => {
     const endState = appReducer(startState, setAppError({error}))
 
     expect(endState.error).toBe(error)
-})
-
-
-test('app reducer should set app isInitialized', () => {
-    const endState = appReducer(startState, setAppIsInitialized({value: true}))
-
-    expect(endState.isInitialized).toBe(true)
 })
