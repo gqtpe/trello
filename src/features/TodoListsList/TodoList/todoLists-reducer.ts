@@ -33,8 +33,8 @@ export const addTodoListTC = createAsyncThunk('todoLists/addTodoListTC', async (
     rejectWithValue
 }) => {
     dispatch(setAppStatus({status: 'loading'}))
-    const response = await todoListsAPI.createTodoList(title)
     try {
+        const response = await todoListsAPI.createTodoList(title)
         if (response.data.resultCode === 0) {
             dispatch(setAppStatus({status: 'succeeded'}))
             return {todoList: response.data.data.item}
@@ -55,8 +55,8 @@ export const removeTodoListTC = createAsyncThunk('todoLists/removeTodoListTC', a
     rejectWithValue
 }) => {
     dispatch(changeTodolistEntityStatusAC({id, entity: 'loading'}))
-    const response = await todoListsAPI.deleteTodoList(id)
     try {
+        const response = await todoListsAPI.deleteTodoList(id)
         if (response.data.resultCode === 0) {
             dispatch(changeTodolistEntityStatusAC({id, entity: 'succeeded'}))
             return id
@@ -78,8 +78,8 @@ export const changeTodoListTitleTC = createAsyncThunk('todoLists/changeTodoListT
     rejectWithValue
 }) => {
     const {id, title} = param
-    const response = await todoListsAPI.updateTodoList(id, title)
     try {
+        const response = await todoListsAPI.updateTodoList(id, title)
         if (response.data.resultCode === 0) {
             return param
         } else {
