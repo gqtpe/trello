@@ -5,7 +5,7 @@ import {
     removeTaskTC,
     tasksReducer,
     updateTaskTC
-} from "../features/TodoListsList/TodoList/tasks-reducer";
+} from "../features/TodoListsList/TodoList/Task/tasks-reducer";
 import {addTodoListTC, fetchTodoListsTC, removeTodoListTC} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
 

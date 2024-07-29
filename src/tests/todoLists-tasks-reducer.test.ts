@@ -1,5 +1,5 @@
 import {v4} from "uuid";
-import {tasksReducer} from "../features/TodoListsList/TodoList/tasks-reducer";
+import {tasksReducer} from "../features/TodoListsList/TodoList/Task/tasks-reducer";
 import {
     addTodoListTC,
     TodoListsDomainType,

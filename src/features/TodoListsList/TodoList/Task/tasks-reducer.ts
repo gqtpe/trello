@@ -1,9 +1,9 @@
-import {TaskPriorities, TasksStateType, TaskStatuses} from "../../../common/types";
-import {addTodoListTC, fetchTodoListsTC, removeTodoListTC} from "./todoLists-reducer";
-import {todoListsAPI, UpdateTaskPayload} from "../../../api/todo-listsAPI";
-import {AppRootStateType} from "../../../app/store";
-import {setAppStatus} from "../../../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
+import {TaskPriorities, TasksStateType, TaskStatuses} from "../../../../common/types";
+import {addTodoListTC, fetchTodoListsTC, removeTodoListTC} from "../todoLists-reducer";
+import {todoListsAPI, UpdateTaskPayload} from "../../../../api/todo-listsAPI";
+import {AppRootStateType} from "../../../../app/store";
+import {setAppStatus} from "../../../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios from "axios";
 

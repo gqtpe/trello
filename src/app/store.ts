@@ -1,10 +1,10 @@
 import {AnyAction, combineReducers} from 'redux'
-import {tasksReducer} from "../features/TodoListsList/TodoList/tasks-reducer";
+import {tasksReducer} from "../features/TodoListsList/TodoList/Task/tasks-reducer";
 import {todoListsReducer} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunk, ThunkDispatch} from "redux-thunk";
 import {appReducer} from './app-reducer';
-import {authReducer} from "../features/Login/auth-reducer";
+import {authReducer} from "../features/Auth/auth-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 
 

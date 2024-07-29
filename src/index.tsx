@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import {store} from "./app/store";
 import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
 import TodoListsList from "./features/TodoListsList/TodoListsList";
-import {Login} from "./features/Login/Login";
+import {Login} from "./features/Auth/Login";
 import {ErrorPage} from "./components/ErrorPage/ErrorPage";
 import RequireAuth from "./common/hoc/RequireAuth/RequireAuth";
 

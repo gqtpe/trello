@@ -1,11 +1,11 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import {todoListsReducer} from "../features/TodoListsList/TodoList/todoLists-reducer";
-import {tasksReducer} from "../features/TodoListsList/TodoList/tasks-reducer";
+import {tasksReducer} from "../features/TodoListsList/TodoList/Task/tasks-reducer";
 import {appReducer} from "./app-reducer";
 import {AppRootStateType} from "./store";
 import {TaskPriorities, TaskStatuses} from "../common/types";
 import {thunk} from "redux-thunk";
-import { authReducer } from "../features/Login/auth-reducer";
+import { authReducer } from "../features/Auth/auth-reducer";
 
 const rootReducer = combineReducers({
     todoLists: todoListsReducer,

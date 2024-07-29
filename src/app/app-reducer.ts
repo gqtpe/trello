@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {ErrorType} from "../common/types"
 import {authAPI} from "../api/todo-listsAPI";
-import {setIsAuth} from "../features/Login/auth-reducer";
+import {setIsAuth} from "../features/Auth/auth-reducer";
 
 const initialState = {
     status: 'idle' as RequestStatusType,
