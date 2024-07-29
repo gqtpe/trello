@@ -1,0 +1,26 @@
+.login{
+  display: inline-block;
+  padding: 10px;
+  margin: 0 10px;
+  &__description{
+
+  }
+  &__p{
+    display: flex;
+    align-items: center;
+    span{
+      font-family: Digital, Light, serif;
+      font-size: 9px;
+      padding: 2px;
+      background-color: #1976d2;
+      color: white
+    }
+  }
+  &__title{
+    text-align: center;
+  }
+  &__rememberMe{
+    display: flex;
+    align-items: center;
+  }
+}
