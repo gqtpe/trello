@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import EditableSpan from "../../../components/EditableSpan/EditableSpan";
 import {List, Paper, ToggleButton, ToggleButtonGroup} from "@mui/material";
-import {fetchTasksTC} from "./tasks-reducer";
+import {fetchTasksTC} from "./Task/tasks-reducer";
 import {RemoveItem} from "../../../components/RemoveItem/RemoveItem";
 import {useAppDispatch} from "../../../app/store";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";

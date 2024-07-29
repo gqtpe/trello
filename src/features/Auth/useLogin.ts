@@ -2,7 +2,8 @@ import {useLocation} from "react-router-dom";
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {loginTC} from "./auth-reducer";
-import { useState } from "react";
+import {useState} from "react";
+import {selectIsAuth} from "./selectors";
 
 type FormikErrorType = {
     email?: string
@@ -14,7 +15,7 @@ export const useLogin = () => {
     const location = useLocation()
     const fromPage = location.state?.from?.pathname || '/';
     const [clearValues, setClearValues] = useState(false)
-    const isAuth = useAppSelector(state => state.auth).isAuth
+    const isAuth = useAppSelector(selectIsAuth)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -35,34 +36,34 @@ export const useLogin = () => {
             }
             return errors
         },
-        onSubmit: async (values,formikHelper) => {
+        onSubmit: async (values, formikHelper) => {
             const action = await dispatch(loginTC(values))
-            if(loginTC.rejected.match(action)){
-                if(action.payload?.errors?.length){
+            if (loginTC.rejected.match(action)) {
+                if (action.payload?.errors?.length) {
                     const error = action.payload?.errors
                     formikHelper.setFieldError('email', error[0])
                     formikHelper.setFieldError('password', error[0])
-                }else{
+                } else {
 
                 }
             }
         },
     })
-    const paste = () =>{
-        if(!clearValues){
+    const paste = () => {
+        if (!clearValues) {
             formik.setValues({
                 email: 'free@samuraijs.com',
                 password: 'free',
                 rememberMe: false,
             })
-        }else{
+        } else {
             formik.setValues({
                 email: '',
                 password: '',
                 rememberMe: false,
             })
         }
-        setClearValues(state=>!state)
+        setClearValues(state => !state)
     }
     return {formik, fromPage, isAuth, paste}
 }
