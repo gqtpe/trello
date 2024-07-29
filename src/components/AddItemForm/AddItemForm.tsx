@@ -12,7 +12,7 @@ type AddItemFormPropsType = {
 const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     console.log('AddItemForm')
     const {title, error, changeItemHandler, enterKeyPressHandler, addItem} = useAddItemForm(props.addItem)
-    return <div>
+    return <>
         <TextField
             label="Add Item"
             variant={'outlined'}
@@ -20,12 +20,13 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             size={'small'}
             error={!!error}
             helperText={error}
+            sx={{flexGrow: 1}}
             onChange={changeItemHandler}
             onKeyUp={enterKeyPressHandler}
         />
         <IconButton disabled={props.disabled}  onClick={addItem} color={'primary'}>
             <AddCircleIcon/>
         </IconButton>
-    </div>
+    </>
 }
 export default React.memo(AddItemForm);

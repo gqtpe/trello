@@ -1,6 +1,6 @@
 import React, {useCallback} from "react";
 import {Checkbox, ListItem, Typography} from "@mui/material";
-import styles from "../TodoList.module.scss";
+import s from "../TodoList.module.scss";
 import {RemoveItem} from "../../../../components/RemoveItem/RemoveItem";
 import EditableSpan from "../../../../components/EditableSpan/EditableSpan";
 import {TaskStatuses, TaskType} from "../../../../common/types";
@@ -23,7 +23,7 @@ export const Task: React.FC<TaskPropsType> = ({
         changeTaskStatus(todoListID, task.id, e.currentTarget.checked?TaskStatuses.Completed: TaskStatuses.New)
     }
     const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, task.id, value), [task.id, todoListID, changeTaskTitle])
-    return <ListItem disableGutters disablePadding className={styles.todolist__item}>
+    return <ListItem disableGutters disablePadding className={s.todolist__item}>
         <Checkbox
             size="small"
             checked={task.status === TaskStatuses.Completed}
@@ -31,6 +31,6 @@ export const Task: React.FC<TaskPropsType> = ({
             onChange={onChangeHandler}
         />
         <Typography variant={'subtitle1'}><EditableSpan value={task.title} setValue={changeTaskTitleC}/></Typography>
-        <RemoveItem removeItem={() => removeTask(todoListID, task.id)}/>
+        <RemoveItem size="small" removeItem={() => removeTask(todoListID, task.id)}/>
     </ListItem>
 }

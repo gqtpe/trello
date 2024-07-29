@@ -6,7 +6,7 @@ import {RemoveItem} from "../../../components/RemoveItem/RemoveItem";
 import {useAppDispatch} from "../../../app/store";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";
 import AddItemForm from "../../../components/AddItemForm/AddItemForm";
-import styles from './TodoList.module.scss'
+import s from './TodoList.module.scss'
 import Typography from "@mui/material/Typography";
 import {Task} from "./Task/Task";
 import {TodoListsDomainType} from "./todoLists-reducer";
@@ -44,7 +44,7 @@ const TodoList: React.FC<PropsType> = ({
             return;
         }
         dispatch(fetchTasksTC(todoList.id))
-    }, [demo,dispatch, todoList.id])
+    }, [demo, dispatch, todoList.id])
     let tasksForTodoList = tasks
     if (todoList.filter === "ACTIVE") {
         tasksForTodoList = tasks.filter(t => t.status === TaskStatuses.New)
@@ -63,18 +63,21 @@ const TodoList: React.FC<PropsType> = ({
         changeTodoListTitle(todoList.id, value)
     }, [changeTodoListTitle, todoList.id])
     return (
-        <Paper elevation={6} className={styles.todolist}  variant={todoList.entityStatus === 'failed'?'outlined':'elevation'}>
+        <Paper elevation={6} className={s.todolist} sx={{position: 'relative'}}
+               variant={todoList.entityStatus === 'failed' ? 'outlined' : 'elevation'}>
             <Typography gutterBottom variant="h6">
                 <EditableSpan
                     value={todoList.title}
                     setValue={changeTodolistTitle}
                 />
-                <RemoveItem removeItem={() => removeTodoList(todoList.id)}
-                            disabled={todoList.entityStatus === 'loading'}/>
-            </Typography>
 
-            <AddItemForm addItem={addTaskC} disabled={todoList.entityStatus === 'loading'}/>
-            <List className={`${styles.todolist__list} ${styles.list}`} disablePadding>
+            </Typography>
+            <RemoveItem className={s.todolist__remove} sx={{position: 'absolute'}}
+                        removeItem={() => removeTodoList(todoList.id)}
+                        disabled={todoList.entityStatus === 'loading'}/>
+            <div className={s.addForm}><AddItemForm addItem={addTaskC} disabled={todoList.entityStatus === 'loading'}/>
+            </div>
+            <List className={`${s.todolist__list} ${s.list}`} disablePadding>
                 {
                     tasks.length === 0 ? <Typography variant={"subtitle1"} color={'gray'}>no tasks</Typography> :
                         tasksForTodoList.map(t =>

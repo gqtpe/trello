@@ -36,7 +36,7 @@ function App({demo = false}: PropsType) {
             <ErrorSnackbar/>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <AppBar position="static" sx={{mb: '30px'}}>
+                <AppBar position="static" sx={{mb: '10px'}}>
                     <Toolbar variant={"dense"}>
                         <IconButton
                             color="inherit"

@@ -1,4 +1,9 @@
 @import "./common/styles/reset.scss"; //reset styles
+@font-face {
+  font-family: "Light";   /*Can be any text*/
+  src: local("DigitalLight"),
+  url("common/fonts/DIGITALDREAM.ttf") format("truetype");
+}
 /*GLOBAL*/
 body {
   font-size: 14px;

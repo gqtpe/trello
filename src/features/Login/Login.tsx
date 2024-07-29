@@ -1,72 +1,75 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
-import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import {Navigate} from "react-router-dom";
-import {useLogin} from "./useLogin";
-
+import {Navigate} from "react-router-dom"
+import {useLogin} from "./useLogin"
+import {Checkbox, Paper, Typography} from "@mui/material"
+import s from "./Login.module.scss"
+import IconButton from "@mui/material/IconButton";
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 
 export const Login = () => {
-    const {formik, isAuth, fromPage} = useLogin()
+    const {formik, isAuth, fromPage, paste} = useLogin()
     if (isAuth) {
         return <Navigate to={fromPage} replace/>
     }
 
     return (
-        <Grid container justifyContent={'center'}>
-            <Grid item justifyContent={'center'}>
-                <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
-                        <FormLabel>
-                            <p>
-                                To log in get registered
-                                <a href={'https://social-network.samuraijs.com/'}>
-                                    here
-                                </a>
-                            </p>
-                            <p>or use common test account credentials:</p>
-                            <p>Email: free@samuraijs.com</p>
-                            <p>Password: free</p>
-                        </FormLabel>
-                        <FormGroup>
-                            <TextField
-                                label="Email"
-                                margin="dense"
-                                variant="standard"
-                                size="small"
-                                error={!!formik.errors.email}
-                                helperText={formik.errors.email}
-                                {...formik.getFieldProps('email')}
-                            />
-                            <TextField
-                                type="password"
-                                label="Password"
-                                margin="dense"
-                                variant="standard"
-                                size="small"
-                                error={!!formik.errors.password}
-                                {...formik.getFieldProps('password')}
-                            />
-                            <FormControlLabel
-                                label={'Remember me'}
-                                control={
-                                    <Checkbox
-                                        {...formik.getFieldProps('rememberMe')}
-                                    />
-                                }
-                            />
-                            <Button type={'submit'} variant={'contained'} color={'primary'} disabled={!!(formik.errors.email || formik.errors.password)}>
-                                Login
-                            </Button>
-                        </FormGroup>
-                    </FormControl>
-                </form>
-            </Grid>
-        </Grid>
+        <Paper elevation={6} className={s.login}>
+            <form onSubmit={formik.handleSubmit}>
+                <FormControl>
+                    <Typography  variant="h5" gutterBottom className={s.login__title}>Log In</Typography>
+                    <FormLabel className={s.login__description}>
+                        <Typography variant="body2">
+                            Don't have an account? <a href={'https://social-network.samuraijs.com/'}>Sign Up</a>
+                        </Typography>
+                        <Typography variant="body2">or use common test account credentials:</Typography>
+                        <Typography className={s.login__p} variant="body1"><span>Email</span>: free@samuraijs.com</Typography>
+                        <Typography className={s.login__p} variant="body1"><span>Password</span>: free</Typography>
+                        <IconButton color={'primary'} size="small" onClick={paste}>
+                            <ContentPasteGoIcon/>
+                        </IconButton>
+                    </FormLabel>
+                    <FormGroup className={s.login__}>
+                        <TextField
+                            label="Email"
+                            margin="dense"
+                            variant="outlined"
+                            size="small"
+                            error={!!formik.errors.email}
+                            helperText={formik.errors.email}
+                            {...formik.getFieldProps('email')}
+                        />
+                        <TextField
+                            type="password"
+                            label="Password"
+                            margin="dense"
+                            variant="outlined"
+                            size="small"
+                            error={!!formik.errors.password}
+                            {...formik.getFieldProps('password')}
+                        />
+                        <FormControlLabel
+                            label={<Typography variant="body2">Remember me</Typography>}
+                            className={s.login__rememberMe}
+                            control={
+                                <Checkbox
+                                    size="small"
+                                    {...formik.getFieldProps('rememberMe')}
+                                />
+                            }
+                        />
+                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                                disabled={!!(formik.errors.email || formik.errors.password)}>
+                            Login
+                        </Button>
+                    </FormGroup>
+                </FormControl>
+            </form>
+        </Paper>
     )
 }

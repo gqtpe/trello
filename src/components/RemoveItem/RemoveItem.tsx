@@ -1,11 +1,12 @@
-import IconButton from "@mui/material/IconButton/IconButton";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton/IconButton";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import React from "react";
-type RemoveItemPropsType = {
+type RemoveItemPropsType = IconButtonProps & {
     removeItem: () => void
     disabled?: boolean
+
 }
-export const RemoveItem = ({removeItem, disabled}: RemoveItemPropsType) => {
+export const RemoveItem = ({removeItem, disabled, ...rest}: RemoveItemPropsType) => {
     const svg = {
         display: 'inline-block',
         fontSize: '1.2rem',
@@ -16,7 +17,7 @@ export const RemoveItem = ({removeItem, disabled}: RemoveItemPropsType) => {
         }
     }
 
-    return <IconButton  disabled={disabled} size={"small"} onClick={removeItem}>
+    return <IconButton disabled={disabled} onClick={removeItem} {...rest}>
         <RemoveCircleIcon fontSize={"inherit"} sx={svg}/>
     </IconButton>
 }

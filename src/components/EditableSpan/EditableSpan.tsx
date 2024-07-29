@@ -52,7 +52,7 @@ const EditableSpan = (props: PropsType) => {
                    error={Boolean(props.error) || Boolean(error)}
                    onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}/>
         :
-        <span onDoubleClick={activateEditMode}>{props.value}</span>
+        <span onDoubleClick={activateEditMode}>{props.value.length > 20?props.value.slice(0, 15)+'...':props.value}</span>
 };
 
 export default React.memo(EditableSpan);
