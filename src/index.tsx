@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import App from "./app/App";
+import {App, store} from "./app";
 import {Provider} from "react-redux";
-import {store} from "./app/store";
 import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
-import TodoListsList from "./features/TodoListsList/TodoListsList";
-import {Login} from "./features/Auth/Login";
+import {TodoListsList} from "./features/TodoListsList";
+import {Login} from "./features/Auth";
 import {ErrorPage} from "./components/ErrorPage/ErrorPage";
 import RequireAuth from "./common/hoc/RequireAuth/RequireAuth";
 
