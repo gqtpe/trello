@@ -50,7 +50,8 @@ const EditableSpan = (props: PropsType) => {
         <TextField type="text" size={'small'} onKeyDown={enterHandler}
                    autoFocus={true}
                    error={Boolean(props.error) || Boolean(error)}
-                   onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}/>
+                   onBlur={onBlurHandler} variant={'standard'} value={title} onChange={onChange}
+                   inputProps={{style: {textAlign: 'center'}}}/>
         :
         <span onDoubleClick={activateEditMode}>{props.value.length > 20?props.value.slice(0, 15)+'...':props.value}</span>
 };
