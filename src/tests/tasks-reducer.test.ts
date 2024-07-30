@@ -1,15 +1,18 @@
 import {v4} from "uuid"
 import {
-    addTaskTC,
-    fetchTasksTC,
-    removeTaskTC,
+    addTask,
+    fetchTasks,
+    removeTask,
     tasksReducer,
-    updateTaskTC
+    updateTask
 } from "../features/TodoListsList/TodoList/Task/tasks-reducer";
-import {addTodoListTC, fetchTodoListsTC, removeTodoListTC} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
+import {todoListActions} from "../features/TodoListsList";
 
 
+
+
+const {addTodoList, fetchTodoLists, removeTodoList} = todoListActions
 let todolistID1: string
 let todolistID2: string
 let startState: TasksStateType
@@ -134,7 +137,7 @@ test('tasksReducer have to add new task', () => {
         addedDate: '',
         id: taskID
     }
-    const endState = tasksReducer(startState, addTaskTC.fulfilled(task, 'requestId', {todoListID, title: task.title}))
+    const endState = tasksReducer(startState, addTask.fulfilled(task, 'requestId', {todoListID, title: task.title}))
 
     expect(startState).not.toBe(endState)
     expect(endState[todoListID].length).toBe(startState[todolistID1].length + 1)
@@ -145,7 +148,7 @@ test('tasksReducer have to add new task', () => {
 
 test('tasksReducer have to remove', () => {
     const payload = {todoListID: todolistID1, taskID: '1'};
-    const action = removeTaskTC.fulfilled(payload, 'requestId', payload)
+    const action = removeTask.fulfilled(payload, 'requestId', payload)
     const endState = tasksReducer(startState, action)
 
     expect(endState[todolistID1].length).toBe(startState[todolistID1].length - 1)
@@ -167,7 +170,7 @@ test('tasksReducer have to change update task', () => {
         status: TaskStatuses.New,
         todoListId: todolistID1
     }
-    const action = updateTaskTC.fulfilled(task, 'requestId', {
+    const action = updateTask.fulfilled(task, 'requestId', {
         todoListID: task.todoListId,
         taskID: task.id,
         model: task
@@ -189,7 +192,7 @@ test('tasksReducer have to change update task', () => {
 
 test('new property with empty array should be added when new todolist is added', () => {
     let todoList: TodoListType = {id: 'newID', title: "What to learn", addedDate: '', order: -1}
-    const action = addTodoListTC.fulfilled({todoList},'', todoList.title)
+    const action = addTodoList.fulfilled({todoList},'', todoList.title)
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)
     const newKey = keys.find(k => k != todolistID1 && k != todolistID2)
@@ -201,7 +204,7 @@ test('new property with empty array should be added when new todolist is added',
 })
 
 test('property with todolistId have to be deleted', () => {
-    const action = removeTodoListTC.fulfilled(todolistID1,'requestId',todolistID1)
+    const action = removeTodoList.fulfilled(todolistID1,'requestId',todolistID1)
 
     const endState = tasksReducer(startState, action)
     const keys = Object.keys(endState)
@@ -215,7 +218,7 @@ test('tasksReducer have to add set tasks', () => {
     const endState = tasksReducer({
         [todolistID1]: [],
         [todolistID2]: [],
-    }, fetchTasksTC.fulfilled({todoListID: todolistID1, tasks}, 'requestId', todolistID1))
+    }, fetchTasks.fulfilled({todoListID: todolistID1, tasks}, 'requestId', todolistID1))
 
     expect(endState[todolistID1].length).toStrictEqual(tasks.length)
 })
@@ -225,7 +228,7 @@ test('tasksReducer have to add set empty cell for tasks', () => {
         {id: todolistID1, title: "What to learn", addedDate: '', order: -1},
         {id: todolistID2, title: "What to do", addedDate: '', order: 0},
     ]
-    const endState = tasksReducer({}, fetchTodoListsTC.fulfilled({todoLists: todoLists}, 'requestId',))
+    const endState = tasksReducer({}, fetchTodoLists.fulfilled({todoLists: todoLists}, 'requestId',))
     const keys = Object.keys(endState)
     expect(keys.length).toBe(2)
 })

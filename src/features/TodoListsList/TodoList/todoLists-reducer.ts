@@ -8,7 +8,7 @@ import axios from "axios";
 const initialState = [] as TodoListsDomainType[]
 
 
-export const fetchTodoListsTC = createAsyncThunk('todoLists/fetchTodoListsThunk', async (param, {
+const fetchTodoLists = createAsyncThunk('todoLists/fetchTodoListsThunk', async (param, {
     dispatch,
     rejectWithValue
 }) => {
@@ -28,7 +28,7 @@ export const fetchTodoListsTC = createAsyncThunk('todoLists/fetchTodoListsThunk'
 
 
 
-export const addTodoListTC = createAsyncThunk('todoLists/addTodoListTC', async (title: string, {
+const addTodoList = createAsyncThunk('todoLists/addTodoListTC', async (title: string, {
     dispatch,
     rejectWithValue
 }) => {
@@ -50,18 +50,18 @@ export const addTodoListTC = createAsyncThunk('todoLists/addTodoListTC', async (
     }
 
 })
-export const removeTodoListTC = createAsyncThunk('todoLists/removeTodoListTC', async (id: string, {
+const removeTodoList = createAsyncThunk('todoLists/removeTodoListTC', async (id: string, {
     dispatch,
     rejectWithValue
 }) => {
-    dispatch(changeTodolistEntityStatusAC({id, entity: 'loading'}))
+    dispatch(changeTodolistEntityStatus({id, entity: 'loading'}))
     try {
         const response = await todoListsAPI.deleteTodoList(id)
         if (response.data.resultCode === 0) {
-            dispatch(changeTodolistEntityStatusAC({id, entity: 'succeeded'}))
+            dispatch(changeTodolistEntityStatus({id, entity: 'succeeded'}))
             return id
         } else {
-            dispatch(changeTodolistEntityStatusAC({id, entity: 'failed'}))
+            dispatch(changeTodolistEntityStatus({id, entity: 'failed'}))
             handleServerAppError(response.data, dispatch)
             return rejectWithValue(null)
         }
@@ -73,7 +73,7 @@ export const removeTodoListTC = createAsyncThunk('todoLists/removeTodoListTC', a
     }
 
 })
-export const changeTodoListTitleTC = createAsyncThunk('todoLists/changeTodoListTitleTC', async (param: { id: string, title: string }, {
+const changeTodoListTitle = createAsyncThunk('todoLists/changeTodoListTitleTC', async (param: { id: string, title: string }, {
     dispatch,
     rejectWithValue
 }) => {
@@ -92,45 +92,48 @@ export const changeTodoListTitleTC = createAsyncThunk('todoLists/changeTodoListT
         }
         return rejectWithValue(null)
     }
-
 })
 
+export const asyncActions = {
+    fetchTodoLists,
+    addTodoList,
+    removeTodoList,
+    changeTodoListTitle,
+}
 
-const slice = createSlice({
+
+
+export const slice = createSlice({
     name: 'todoLists',
     initialState,
     reducers: {
-        changeTodoListFilterAC(state, action: PayloadAction<{ id: string, filter: FilterTypeValuesType }>) {
+        changeTodoListFilter(state, action: PayloadAction<{ id: string, filter: FilterTypeValuesType }>) {
             const index = state.findIndex(tl => tl.id === action.payload.id)
             state[index].filter = action.payload.filter
         },
-        changeTodolistEntityStatusAC(state, action: PayloadAction<{ id: string, entity: RequestStatusType }>) {
+        changeTodolistEntityStatus(state, action: PayloadAction<{ id: string, entity: RequestStatusType }>) {
             const index = state.findIndex(tl => tl.id === action.payload.id)
             state[index].entityStatus = action.payload.entity
         },
     },
     extraReducers: builder => {
-        builder.addCase(fetchTodoListsTC.fulfilled, (state, action) => {
+        builder.addCase(fetchTodoLists.fulfilled, (state, action) => {
             return action.payload.todoLists.map(tl => ({...tl, filter: 'ALL', entityStatus: 'idle'}))
 
         })
-        builder.addCase(addTodoListTC.fulfilled, (state, action) => {
+        builder.addCase(addTodoList.fulfilled, (state, action) => {
             state.unshift({...action.payload.todoList, filter: 'ALL', entityStatus: 'idle'})
         })
-        builder.addCase(removeTodoListTC.fulfilled, (state, action) => {
+        builder.addCase(removeTodoList.fulfilled, (state, action) => {
             return state.filter(tl => tl.id !== action.payload)
         })
-        builder.addCase(changeTodoListTitleTC.fulfilled, (state, action) => {
+        builder.addCase(changeTodoListTitle.fulfilled, (state, action) => {
             const index = state.findIndex(tl => tl.id === action.payload.id)
             state[index].title = action.payload.title
         })
     }
 })
-export const {
-    changeTodoListFilterAC,
-    changeTodolistEntityStatusAC
-} = slice.actions
-
+const {changeTodolistEntityStatus} = slice.actions
 export const todoListsReducer = slice.reducer
 //Thunk
 
