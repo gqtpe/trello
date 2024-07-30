@@ -11,8 +11,8 @@ import {Outlet, Route, Routes} from "react-router-dom";
 import {useAuth} from "./hooks/useAuth";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import TodoListsList from "../features/TodoListsList/TodoListsList";
-import {Login} from "../features/Auth/Login";
+import {TodoListsList} from "../features/TodoListsList";
+import {Login} from "../features/Auth";
 import RequireAuth from "../common/hoc/RequireAuth/RequireAuth";
 
 type PropsType = {
