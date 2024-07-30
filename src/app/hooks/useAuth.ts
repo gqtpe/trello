@@ -1,24 +1,21 @@
-import {logoutTC} from "../../features/Auth/auth-reducer";
-import {useAppDispatch, useAppSelector} from "../store";
-import {useCallback, useEffect} from "react";
-import {initializeAppTC} from "../app-reducer";
-import {selectAppStatus, selectIsInitialized} from "../selectors";
+import {useEffect} from "react";
+import {initializeApp} from "../app-reducer";
+import {appHooks, appSelectors} from "../";
+import {authActions} from "../../features/Auth";
 
 export const useAuth = (demo = false) => {
     console.log('App is called')
-    const isInitialized = useAppSelector(selectIsInitialized)
-    const status = useAppSelector(selectAppStatus)
+    const {useAppSelector, useActions, useAppDispatch} = appHooks
+    const isInitialized = useAppSelector(appSelectors.selectIsInitialized)
+    const status = useAppSelector(appSelectors.selectAppStatus)
+    const {logout} = useActions(authActions)
+    const dispatch = useAppDispatch()
 
-    const dispatch = useAppDispatch();
     useEffect(() => {
         if (!demo) {
-            dispatch(initializeAppTC())
+            dispatch(initializeApp())
         }
     }, [demo, dispatch])
 
-    const logout = useCallback(() => {
-        debugger;
-        dispatch(logoutTC())
-    }, [dispatch])
     return {status, isInitialized, logout}
 }
