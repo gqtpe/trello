@@ -1,9 +1,8 @@
 import {useLocation} from "react-router-dom";
 import {useFormik} from "formik";
-import {useAppDispatch, useAppSelector} from "../../app/store";
-import {loginTC} from "./auth-reducer";
 import {useState} from "react";
-import {selectIsAuth} from "./selectors";
+import {authActions, authSelectors} from "./";
+import {appHooks} from "../../app";
 
 type FormikErrorType = {
     email?: string
@@ -11,11 +10,14 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 export const useLogin = () => {
-    const dispatch = useAppDispatch()
+    const {useAppSelector, useActions} = appHooks
+    const isAuth = useAppSelector(authSelectors.selectIsAuth)
+    const [clearValues, setClearValues] = useState(false)
+    const {login} = useActions(authActions)
+
+
     const location = useLocation()
     const fromPage = location.state?.from?.pathname || '/';
-    const [clearValues, setClearValues] = useState(false)
-    const isAuth = useAppSelector(selectIsAuth)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -37,8 +39,8 @@ export const useLogin = () => {
             return errors
         },
         onSubmit: async (values, formikHelper) => {
-            const action = await dispatch(loginTC(values))
-            if (loginTC.rejected.match(action)) {
+            const action = await login(values)
+            if (login.rejected.match(action)) {
                 if (action.payload?.errors?.length) {
                     const error = action.payload?.errors
                     formikHelper.setFieldError('email', error[0])
