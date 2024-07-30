@@ -1,4 +1,4 @@
-import IconButton, { IconButtonProps } from "@mui/material/IconButton/IconButton";
+import { IconButton, IconButtonProps } from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import React from "react";
 type RemoveItemPropsType = IconButtonProps & {
