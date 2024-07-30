@@ -8,7 +8,7 @@ const initialState = {
     error: null as ErrorType,
     isInitialized: false as boolean,
 }
-export const initializeAppTC = createAsyncThunk('app/init', async (param, {dispatch}) => {
+export const initializeApp = createAsyncThunk('app/init', async (param, {dispatch}) => {
     const response = await authAPI.me()
     if (response.data.resultCode === 0) {
         dispatch(setIsAuth({value: true}))
@@ -29,7 +29,7 @@ const slice = createSlice({
         },
     },
     extraReducers: builder => {
-        builder.addCase(initializeAppTC.fulfilled, (state) => {
+        builder.addCase(initializeApp.fulfilled, (state) => {
             state.isInitialized = true
         })
     }

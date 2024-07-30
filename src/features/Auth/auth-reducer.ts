@@ -7,7 +7,7 @@ import {AxiosError} from "axios";
 const initialState = {
     isAuth: false as boolean
 }
-export const loginTC = createAsyncThunk<undefined, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }>('auth/login', async (param, {
+export const login = createAsyncThunk<undefined, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }>('auth/login', async (param, {
     dispatch,
     rejectWithValue
 }) => {
@@ -29,8 +29,7 @@ export const loginTC = createAsyncThunk<undefined, LoginParamsType, { rejectValu
     }
 })
 
-
-export const logoutTC = createAsyncThunk('auth/logout', async (param, {dispatch, rejectWithValue}) => {
+export const logout = createAsyncThunk('auth/logout', async (param, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await authAPI.logout()
@@ -47,7 +46,13 @@ export const logoutTC = createAsyncThunk('auth/logout', async (param, {dispatch,
 
     }
 })
-const slice = createSlice({
+
+export const asyncActions = {
+    login,
+    logout
+}
+
+export const slice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -56,10 +61,10 @@ const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(loginTC.fulfilled, (state) => {
+        builder.addCase(login.fulfilled, (state) => {
             state.isAuth = true
         })
-        builder.addCase(logoutTC.fulfilled, (state) => {
+        builder.addCase(logout.fulfilled, (state) => {
             state.isAuth = false
         })
     }

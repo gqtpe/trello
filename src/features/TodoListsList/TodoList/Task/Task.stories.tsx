@@ -13,7 +13,6 @@ const meta: Meta<typeof Task> = {
         changeTaskStatus: action('Status changed inside Task'),
         changeTaskTitle: action('Status changed inside Task'),
         removeTask: action('Status changed inside Task'),
-        todoListID: 'sdaklj823f',
 
     },
 
