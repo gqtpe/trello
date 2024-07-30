@@ -1,7 +1,7 @@
 import {Navigate, useLocation} from 'react-router-dom'
 import React from 'react';
-import {useAppSelector} from "../../../app/store";
-import {selectIsAuth} from "../../../features/Auth/selectors";
+import {appHooks} from "../../../app";
+import {authSelectors} from "../../../features/Auth";
 
 type Props = {
     children: React.ReactNode
