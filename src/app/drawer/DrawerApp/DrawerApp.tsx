@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Switch from "@mui/material/Switch";
 import {useTheme} from "../../hooks/useTheme";
-import TodoListsList from "../../../features/TodoListsList/TodoListsList";
+import {TodoListsList} from "../../../features/TodoListsList";
 
 const drawerWidth = 240;
 const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
