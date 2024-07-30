@@ -7,8 +7,9 @@ type Props = {
     children: React.ReactNode
 }
 const RequireAuth = ({children}: Props) => {
+    const {useAppSelector} = appHooks
     const location = useLocation()
-    const isAuth = useAppSelector(selectIsAuth)
+    const isAuth = useAppSelector(authSelectors.selectIsAuth)
     if (!isAuth) {
         return <Navigate to={'/login'} state={{from: location}}/>
     }
@@ -19,4 +20,4 @@ const RequireAuth = ({children}: Props) => {
     );
 };
 
-export default RequireAuth;
+export default React.memo(RequireAuth);
