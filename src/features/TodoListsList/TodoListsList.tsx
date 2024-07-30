@@ -1,7 +1,6 @@
 import React from 'react';
 import {useTodoLists} from "./hooks/useTodoLists";
-import Grid from "@mui/material/Grid/Grid";
-import {Container, Paper} from "@mui/material";
+import {Container, Grid, Paper} from "@mui/material";
 import AddItemForm from "../../components/AddItemForm/AddItemForm";
 import TodoList from "./TodoList/TodoList";
 
@@ -9,18 +8,11 @@ import TodoList from "./TodoList/TodoList";
 type PropsType = {
     demo?: boolean
 }
-const TodoListsList = ({demo = false}:PropsType) => {
+export const TodoListsList = ({demo = false}: PropsType) => {
     const {
         todoLists,
-        addTodoList,
-        removeTodoList,
-        changeTodoListTitle,
-        changeFilter,
         tasks,
-        changeTaskTitle,
-        removeTask,
-        changeTaskStatus,
-        addTask,
+        addTodoList
     } = useTodoLists(demo)
     return (
         <Container>
@@ -32,15 +24,6 @@ const TodoListsList = ({demo = false}:PropsType) => {
                             todoList={todoList}
                             key={todoList.id}
                             tasks={tasks[todoList.id]}
-
-                            changeFilter={changeFilter}
-                            removeTodoList={removeTodoList}
-                            changeTodoListTitle={changeTodoListTitle}
-
-                            removeTask={removeTask}
-                            addTask={addTask}
-                            changeStatus={changeTaskStatus}
-                            changeTaskTitle={changeTaskTitle}
                             demo={demo}
                         />
                     })
@@ -50,5 +33,3 @@ const TodoListsList = ({demo = false}:PropsType) => {
     )
         ;
 };
-
-export default TodoListsList;
