@@ -6,23 +6,27 @@ import EditableSpan from "../../../../components/EditableSpan/EditableSpan";
 import {TaskStatuses, TaskType} from "../../../../common/types";
 
 type TaskPropsType = {
-    todoListID: string
     task: TaskType
-    removeTask: (todoListID: string, id: string,) => void
-    changeTaskTitle: (todoListID: string, id: string, newValue: string) => void
-    changeTaskStatus: (todoListID: string, id: string, status: TaskStatuses) => void
+    removeTask: ( id: string,) => void
+    changeTaskTitle: ( id: string, newValue: string) => void
+    changeTaskStatus: ( id: string, status: TaskStatuses) => void
 }
 export const Task: React.FC<TaskPropsType> = ({
-                                                  todoListID,
+
                                                   removeTask,
                                                   changeTaskStatus,
                                                   changeTaskTitle,
                                                   task
                                               }) => {
     const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        changeTaskStatus(todoListID, task.id, e.currentTarget.checked?TaskStatuses.Completed: TaskStatuses.New)
+        changeTaskStatus( task.id, e.currentTarget.checked?TaskStatuses.Completed: TaskStatuses.New)
     }
-    const changeTaskTitleC = useCallback((value: string) => changeTaskTitle(todoListID, task.id, value), [task.id, todoListID, changeTaskTitle])
+    const changeTaskTitleC = useCallback((value: string) => {
+        changeTaskTitle( task.id, value)
+    }, [task.id, changeTaskTitle])
+    const removeTaskC = useCallback(()=>{
+        removeTask(task.id)
+    },[task.id])
     return <ListItem disableGutters disablePadding className={s.todolist__item}>
         <Checkbox
             size="small"
@@ -31,6 +35,6 @@ export const Task: React.FC<TaskPropsType> = ({
             onChange={onChangeHandler}
         />
         <Typography variant={'subtitle1'}><EditableSpan value={task.title} setValue={changeTaskTitleC}/></Typography>
-        <RemoveItem size="small" removeItem={() => removeTask(todoListID, task.id)}/>
+        <RemoveItem size="small" removeItem={removeTaskC}/>
     </ListItem>
 }
