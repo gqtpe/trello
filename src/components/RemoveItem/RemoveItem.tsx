@@ -6,7 +6,7 @@ type RemoveItemPropsType = IconButtonProps & {
     disabled?: boolean
 
 }
-export const RemoveItem = ({removeItem, disabled, ...rest}: RemoveItemPropsType) => {
+export const RemoveItem = React.memo(({removeItem, disabled, ...rest}: RemoveItemPropsType) => {
     const svg = {
         display: 'inline-block',
         fontSize: '1.2rem',
@@ -20,4 +20,4 @@ export const RemoveItem = ({removeItem, disabled, ...rest}: RemoveItemPropsType)
     return <IconButton disabled={disabled} onClick={removeItem} {...rest}>
         <RemoveCircleIcon fontSize={"inherit"} sx={svg}/>
     </IconButton>
-}
+})
