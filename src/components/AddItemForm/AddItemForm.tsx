@@ -1,9 +1,7 @@
 import React from "react";
-import IconButton from "@mui/material/IconButton/IconButton";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import TextField from "@mui/material/TextField/TextField";
 import {useAddItemForm} from "./hooks/useAddItemForm";
-
+import { IconButton ,  TextField } from "@mui/material";
+import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
@@ -25,7 +23,7 @@ const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             onKeyUp={enterKeyPressHandler}
         />
         <IconButton disabled={props.disabled}  onClick={addItem} color={'primary'}>
-            <AddCircleIcon/>
+            <AddCircleOutlinedIcon/>
         </IconButton>
     </>
 }
