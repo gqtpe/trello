@@ -7,11 +7,8 @@ import {AxiosError} from "axios";
 const initialState = {
     isAuth: false as boolean
 }
-export const login = createAsyncThunk<undefined, LoginParamsType, { rejectValue: { errors: Array<string>, fieldsErrors?: Array<FieldErrorType> } }>('auth/login', async (param, {
-    dispatch,
-    rejectWithValue
-}) => {
-    dispatch(setAppStatus({status: 'loading'}))
+const login = createAsyncThunk<undefined,LoginParamsType, ThunkErrorType>('auth/login', async (param: LoginParamsType, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await authAPI.login(param)
         if (response.data.resultCode === 0) {
@@ -29,8 +26,8 @@ export const login = createAsyncThunk<undefined, LoginParamsType, { rejectValue:
     }
 })
 
-export const logout = createAsyncThunk('auth/logout', async (param, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus({status: 'loading'}))
+const logout = createAsyncThunk<undefined, undefined, ThunkErrorType>('auth/logout', async (param, thunkAPI) => {
+    thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await authAPI.logout()
         if (response.data.resultCode === 0) {
