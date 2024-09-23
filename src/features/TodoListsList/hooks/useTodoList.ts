@@ -1,4 +1,3 @@
-
 import React, {useCallback, useEffect} from "react";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";
 import {tasksActions, todoListActions} from "../index";
