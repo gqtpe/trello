@@ -78,9 +78,12 @@ const removeTodoList = createAsyncThunk('todoLists/removeTodoListTC', async (id:
 type ChangeTodoTitleParam = { id: string, title: string }
 const changeTodoListTitle = createAsyncThunk<ChangeTodoTitleParam, ChangeTodoTitleParam, ThunkErrorType>('todoLists/changeTodoListTitleTC', async (param, thunkAPI) => {
     const {id, title} = param
+    const {dispatch} = thunkAPI
+    dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await todoListsAPI.updateTodoList(id, title)
         if (response.data.resultCode === 0) {
+            dispatch(setAppStatus({status: 'succeeded'}))
             return param
         } else {
             return handleAsyncServerAppError(response.data, thunkAPI, true)
