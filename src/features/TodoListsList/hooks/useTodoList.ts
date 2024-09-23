@@ -30,8 +30,18 @@ export const useTodoList = (demo: boolean, todoList: TodoListsDomainType, tasks:
     const filterToggleHandler = useCallback((event: React.MouseEvent<HTMLElement, MouseEvent>, value: FilterTypeValuesType) => {
         changeTodoListFilter({id: todoList.id, filter: value})
     }, [todoList.id])
-    const changeTodolistTitleCallback = useCallback((value: string) => {
-        changeTodoListTitle({id: todoList.id, title: value})
+    const changeTodolistTitleCallback = useCallback(async (value: string, helper: EditableSubmitHelper) => {
+        const action = await changeTodoListTitle({id: todoList.id, title: value})
+        if (todoListActions.changeTodoListTitle.rejected.match(action)) {
+            if (action.payload?.errors[0]) {
+                helper.setError(action.payload?.errors[0])
+            } else {
+                helper.setError('some error')
+            }
+        } else {
+            helper.setEditMode(false)
+        }
+
     }, [changeTodoListTitle, todoList.id])
     const removeTodoListCallback = useCallback(() => {
         removeTodoList(todoList.id)
