@@ -18,7 +18,9 @@ import RequireAuth from "../common/hoc/RequireAuth/RequireAuth";
 type PropsType = {
     demo?: boolean
 }
-
+//TODO: 1.1: add centralized imports
+//      1.2: create App feature
+//      1.3: add selectors to Todolist feature(filtering inside selector)
 function App({demo = false}: PropsType) {
     const {status, isInitialized, logout} = useAuth(demo)
     const {theme, changeThemeHandler} = useTheme()
