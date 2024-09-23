@@ -7,7 +7,7 @@ import {AxiosError} from "axios";
 const initialState = {
     isAuth: false as boolean
 }
-const login = createAsyncThunk<undefined,LoginParamsType, ThunkErrorType>('auth/login', async (param: LoginParamsType, thunkAPI) => {
+const login = createAsyncThunk<undefined, LoginParamsType, ThunkErrorType>('auth/login', async (param: LoginParamsType, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await authAPI.login(param)
