@@ -46,9 +46,7 @@ const TodoList: React.FC<PropsType> = ({
             <RemoveItem className={s.todolist__remove} sx={{position: 'absolute'}}
                         removeItem={removeTodoList}
                         disabled={todoList.entityStatus === 'loading'}/>
-            <div className={s.addForm}>
-                <AddItemForm addItem={addTask} disabled={todoList.entityStatus === 'loading'}/>
-            </div>
+                <div className={s.addForm}><AddItemForm addItem={addTask} disabled={todoList.entityStatus === 'loading'}/></div>
             <List className={`${s.todolist__list} ${s.list}`} disablePadding>
                 {
                     tasks.length === 0 ? <Typography variant={"subtitle1"} color={'gray'}>no tasks</Typography> :
