@@ -34,10 +34,8 @@ const fetchTodoLists = createAsyncThunk('todoLists/fetchTodoListsThunk', async (
 
 
 
-const addTodoList = createAsyncThunk('todoLists/addTodoListTC', async (title: string, {
-    dispatch,
-    rejectWithValue
-}) => {
+const addTodoList = createAsyncThunk<{ todoList: TodoListType }, string, ThunkErrorType>('todoLists/addTodoListTC', async (title, thunkAPI) => {
+    const {dispatch} = thunkAPI
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await todoListsAPI.createTodoList(title)
@@ -79,10 +77,10 @@ const removeTodoList = createAsyncThunk('todoLists/removeTodoListTC', async (id:
     }
 
 })
-const changeTodoListTitle = createAsyncThunk('todoLists/changeTodoListTitleTC', async (param: { id: string, title: string }, {
-    dispatch,
-    rejectWithValue
-}) => {
+
+
+type ChangeTodoTitleParam = { id: string, title: string }
+const changeTodoListTitle = createAsyncThunk<ChangeTodoTitleParam, ChangeTodoTitleParam, ThunkErrorType>('todoLists/changeTodoListTitleTC', async (param, thunkAPI) => {
     const {id, title} = param
     try {
         const response = await todoListsAPI.updateTodoList(id, title)
