@@ -16,10 +16,8 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasksTC', async (todoList
     return {todoListID: todoListID, tasks: response.data.items}
 })
 
-export const addTask = createAsyncThunk('tasks/addTaskTC', async (param: { todoListID: string, title: string }, {
-    dispatch,
-    rejectWithValue
-}) => {
+export const addTask = createAsyncThunk<TaskType,{ todoListID: string, title: string },ThunkErrorType >('tasks/addTaskTC', async (param , thunkAPI) => {
+    const {dispatch} = thunkAPI
     dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await todoListsAPI.createTask(param.todoListID, param.title)
@@ -63,11 +61,8 @@ export const removeTask = createAsyncThunk('tasks/removeTaskTC', async (param: {
 
     }
 )
-export const updateTask = createAsyncThunk('tasks/updateTaskTC', async (param: { todoListID: string, taskID: string, model: UpdateDomainTaskPayload }, {
-    dispatch,
-    rejectWithValue,
-    getState
-}) => {
+export const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskID: string, model: UpdateDomainTaskPayload }, ThunkErrorType>('tasks/updateTaskTC', async (param,thunkAPI) => {
+    const {getState, dispatch, rejectWithValue} = thunkAPI
     const {todoListID, taskID, model} = param
     const state = getState() as AppRootStateType
     const previousTask = state.tasks[todoListID].find(t => t.id === taskID)
