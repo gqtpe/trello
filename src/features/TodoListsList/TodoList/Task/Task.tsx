@@ -4,11 +4,12 @@ import s from "../TodoList.module.scss";
 import {RemoveItem} from "../../../../components/RemoveItem/RemoveItem";
 import EditableSpan from "../../../../components/EditableSpan/EditableSpan";
 import {TaskStatuses, TaskType} from "../../../../common/types";
+import {EditableSubmitHelper} from "../../../../utils/types";
 
 type TaskPropsType = {
     task: TaskType
     removeTask: ( id: string,) => void
-    changeTaskTitle: ( id: string, newValue: string) => void
+    changeTaskTitle: ( id: string, newValue: string, helper: EditableSubmitHelper) => void
     changeTaskStatus: ( id: string, status: TaskStatuses) => void
 }
 export const Task: React.FC<TaskPropsType> = ({
@@ -21,8 +22,8 @@ export const Task: React.FC<TaskPropsType> = ({
     const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
         changeTaskStatus( task.id, e.currentTarget.checked?TaskStatuses.Completed: TaskStatuses.New)
     }
-    const changeTaskTitleC = useCallback((value: string) => {
-        changeTaskTitle( task.id, value)
+    const changeTaskTitleC = useCallback((value: string, helper: EditableSubmitHelper) => {
+        changeTaskTitle( task.id, value,helper)
     }, [task.id, changeTaskTitle])
     const removeTaskC = useCallback(()=>{
         removeTask(task.id)
