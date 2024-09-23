@@ -15,13 +15,10 @@ const login = createAsyncThunk<undefined,LoginParamsType, ThunkErrorType>('auth/
             dispatch(setAppStatus({status: 'succeeded'}))
             return
         } else {
-            handleServerAppError(response.data, dispatch)
-            return rejectWithValue({errors: response.data.messages, fieldsErrors: response.data.fieldsErrors})
+            return handleAsyncServerAppError(response.data, thunkAPI)
         }
     } catch (e) {
-        const error = e as AxiosError
-        handleServerNetworkError(error, dispatch)
-        return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI, true)
 
     }
 })
@@ -34,13 +31,10 @@ const logout = createAsyncThunk<undefined, undefined, ThunkErrorType>('auth/logo
             dispatch(setAppStatus({status: 'succeeded'}))
             return
         } else {
-            handleServerAppError(response.data, dispatch)
+            return handleAsyncServerAppError(response.data, thunkAPI, true)
         }
     } catch (e) {
-        const error = e as AxiosError
-        handleServerNetworkError(error, dispatch)
-        return rejectWithValue({errors: [error.message], fieldsErrors: undefined})
-
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI, true)
     }
 })
 
