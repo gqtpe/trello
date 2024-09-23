@@ -15,7 +15,6 @@ export const useLogin = () => {
     const [clearValues, setClearValues] = useState(false)
     const {login} = useActions(authActions)
 
-
     const location = useLocation()
     const fromPage = location.state?.from?.pathname || '/';
     const formik = useFormik({
@@ -24,7 +23,7 @@ export const useLogin = () => {
             password: '',
             rememberMe: false,
         },
-        validateOnChange: false,
+        validateOnChange: true,
         validateOnBlur: false,
         validate: values => {
             const errors: FormikErrorType = {}
@@ -40,7 +39,7 @@ export const useLogin = () => {
         },
         onSubmit: async (values, formikHelper) => {
             const action = await login(values)
-            if (login.rejected.match(action)) {
+            if (authActions.login.rejected.match(action)) {
                 if (action.payload?.errors?.length) {
                     const error = action.payload?.errors
                     formikHelper.setFieldError('email', error[0])
