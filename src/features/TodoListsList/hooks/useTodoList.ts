@@ -69,12 +69,21 @@ export const useTodoList = (demo: boolean, todoList: TodoListsDomainType, tasks:
             model: {status}
         })
     }, [todoList.id])
-    const changeTaskTitle = useCallback(( taskID: string, title: string) => {
-        updateTask({
+    const changeTaskTitle = useCallback(async (taskID: string, title: string, helper: EditableSubmitHelper) => {
+        const action = await updateTask({
             todoListID: todoList.id,
             taskID,
             model: {title}
         })
+        if (tasksActions.updateTask.rejected.match(action)) {
+            if (action.payload?.errors[0]) {
+                helper.setError(action.payload?.errors[0])
+            } else {
+                helper.setError('some error')
+            }
+        } else {
+            helper.setEditMode(false)
+        }
     }, [todoList.id])
 
     return {
