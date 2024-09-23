@@ -1,14 +1,14 @@
 import React, {KeyboardEvent, useState} from "react";
 import {ErrorType} from "../../../common/types";
+import {AddItemSubmitHelper} from "../../../utils/types";
 
-export const useAddItemForm = (onItemAdded: (title: string)=>void) =>{
+export const useAddItemForm = (onItemAdded: (title: string, helper:AddItemSubmitHelper)=>void) =>{
     let [title, setTitle] = useState<string>('');
     let [error, setError] = useState<ErrorType>(null)
 
     const addItem = () => {
         if (title.trim() !== '') {
-            onItemAdded(title)
-            setTitle('')
+            onItemAdded(title, {setError, setValue: setTitle})
         } else {
             setError('Title is required')
         }
