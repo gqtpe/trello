@@ -10,7 +10,7 @@ import {AddItemSubmitHelper, EditableSubmitHelper} from "../../../utils/types";
 export const useTodoList = (demo: boolean, todoList: TodoListsDomainType, tasks: TaskType[]) => {
     const {useActions} = appHooks
 
-    const {changeTodoListFilter, changeTodoListTitle,removeTodoList} = useActions(todoListActions)
+    const {changeTodoListFilter, changeTodoListTitle, removeTodoList} = useActions(todoListActions)
     const {fetchTasks, addTask, removeTask, updateTask} = useActions(tasksActions)
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export const useTodoList = (demo: boolean, todoList: TodoListsDomainType, tasks:
     const removeTaskCallback = useCallback((taskID: string) => {
         removeTask({todoListID: todoList.id, taskID})
     }, [todoList.id, removeTask])
-    const changeTaskStatus = useCallback(( taskID: string, status: TaskStatuses) => {
+    const changeTaskStatus = useCallback((taskID: string, status: TaskStatuses) => {
         updateTask({
             todoListID: todoList.id,
             taskID,
