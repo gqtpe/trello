@@ -25,14 +25,10 @@ export const addTask = createAsyncThunk<TaskType,{ todoListID: string, title: st
             dispatch(setAppStatus({status: 'succeeded'}))
             return response.data.data.item
         } else {
-            handleServerAppError(response.data, dispatch)
-            return rejectWithValue(null)
+            return handleAsyncServerAppError(response.data, thunkAPI)
         }
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
-        }
-        return rejectWithValue(null)
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI)
     }
 })
 
@@ -54,7 +50,7 @@ export const removeTask = createAsyncThunk('tasks/removeTaskTC', async (param: {
             }
         } catch (e) {
             if (axios.isAxiosError(e)) {
-                handleServerNetworkError(e, dispatch)
+                handleNetworkError(e, dispatch)
             }
             return rejectWithValue(null)
         }
@@ -86,14 +82,10 @@ export const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskI
         if (response.data.resultCode === 0) {
             return response.data.data.item
         } else {
-            handleServerAppError(response.data, dispatch)
-            return rejectWithValue(null)
+            return handleAsyncServerAppError(response.data, thunkAPI, true)
         }
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
-        }
-        return rejectWithValue(null)
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI, false)
     }
 
 })
