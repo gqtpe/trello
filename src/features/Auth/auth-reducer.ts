@@ -29,7 +29,7 @@ const logout = createAsyncThunk<undefined, undefined, ThunkErrorType>('auth/logo
     try {
         const response = await authAPI.logout()
         if (response.data.resultCode === 0) {
-            dispatch(setAppStatus({status: 'succeeded'}))
+            thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
             return
         } else {
             return handleAsyncServerAppError(response.data, thunkAPI, true)
