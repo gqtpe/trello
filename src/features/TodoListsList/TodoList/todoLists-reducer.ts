@@ -1,9 +1,15 @@
 import {FilterTypeValuesType, TodoListType} from "../../../common/types";
 import {todoListsAPI} from "../../../api/todo-listsAPI";
 import {RequestStatusType, setAppStatus} from "../../../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
+import {
+    handleServerAppError,
+    handleNetworkError,
+    handleAsyncServerAppError,
+    handleAsyncNetworkError
+} from "../../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
+import {ThunkErrorType} from "../../../utils/types";
 
 const initialState = [] as TodoListsDomainType[]
 
@@ -19,7 +25,7 @@ const fetchTodoLists = createAsyncThunk('todoLists/fetchTodoListsThunk', async (
         return {todoLists: response.data}
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
+            handleNetworkError(e, dispatch)
         }
         return rejectWithValue(null)
     }
