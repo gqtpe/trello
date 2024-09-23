@@ -11,11 +11,7 @@ type ThunkAPI = {
 
 
 export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: ErrorUtilsDispatchType) => {
-    if (data.messages.length) {
-        dispatch(setAppError({error: data.messages[0]}))
-    } else {
-        dispatch(setAppError({error: 'Some error occurred'}))
-    }
+    dispatch(setAppError( data.messages.length?{error: data.messages[0]}:{error: 'Some error occurred'}))
     dispatch(setAppStatus({status:'failed'}))
 }
 
