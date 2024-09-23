@@ -1,11 +1,17 @@
-import {TaskPriorities, TasksStateType, TaskStatuses} from "../../../../common/types";
+import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../../../../common/types";
 import {todoListsAPI, UpdateTaskPayload} from "../../../../api/todo-listsAPI";
 import {AppRootStateType} from "../../../../app/store";
 import {setAppStatus} from "../../../../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../../../utils/error-utils";
+import {
+    handleServerAppError,
+    handleNetworkError,
+    handleAsyncServerAppError,
+    handleAsyncNetworkError
+} from "../../../../utils/error-utils";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {asyncActions as todoListAsyncActions} from "../todoLists-reducer";
+import {ThunkErrorType} from "../../../../utils/types";
 
 
 //thunks
@@ -63,9 +69,10 @@ export const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskI
     const state = getState() as AppRootStateType
     const previousTask = state.tasks[todoListID].find(t => t.id === taskID)
 
+    dispatch(setAppStatus({status: 'loading'}))
     if (!previousTask) {
         console.warn('task not found ins the state')
-        return rejectWithValue(null)
+        return rejectWithValue({errors: ['task not found in the state'], fieldsErrors: undefined})
     }
 
     const payload: UpdateTaskPayload = {
@@ -80,6 +87,7 @@ export const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskI
     try {
         const response = await todoListsAPI.updateTask(todoListID, taskID, payload)
         if (response.data.resultCode === 0) {
+            dispatch(setAppStatus({status: 'succeeded'}))
             return response.data.data.item
         } else {
             return handleAsyncServerAppError(response.data, thunkAPI, true)
