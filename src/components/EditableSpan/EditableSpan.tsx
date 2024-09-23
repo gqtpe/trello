@@ -1,5 +1,5 @@
 import {TextField} from '@mui/material';
-import React, {useState} from 'react';
+import React from 'react';
 import {ErrorType} from "../../common/types";
 import {useEditableSpan} from "./useEditableSpan";
 import {EditableSubmitHelper} from "../../utils/types";
@@ -7,7 +7,7 @@ import {EditableSubmitHelper} from "../../utils/types";
 
 type PropsType = {
     value: string
-    setValue: (newTitle: string) => void
+    setValue: (newTitle: string, helper: EditableSubmitHelper) => void
     edit?: boolean
     error?: ErrorType
     setError?: (error: ErrorType) => void
