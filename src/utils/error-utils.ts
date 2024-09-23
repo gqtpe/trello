@@ -1,6 +1,7 @@
 import {setAppError, SetAppErrorActionType, setAppStatus, SetAppStatusActionType} from "../app/app-reducer";
 import {ResponseType} from '../api/todo-listsAPI'
 import {Dispatch} from "redux";
+import {AxiosError} from "axios";
 
 type ErrorUtilsDispatchType = Dispatch<SetAppErrorActionType | SetAppStatusActionType>
 
