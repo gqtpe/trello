@@ -13,8 +13,8 @@ const login = createAsyncThunk<undefined, LoginParamsType, ThunkErrorType>('auth
     try {
         const response = await authAPI.login(param)
         if (response.data.resultCode === 0) {
-            dispatch(setAppStatus({status: 'succeeded'}))
-            return
+            thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
+            return;
         } else {
             return handleAsyncServerAppError(response.data, thunkAPI)
         }
