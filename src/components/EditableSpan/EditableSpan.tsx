@@ -11,17 +11,15 @@ type PropsType = {
     setError?: (error: ErrorType) => void
 }
 const EditableSpan = (props: PropsType) => {
-    let [editMode, setEditMode] = useState<boolean>(()=>false)
-    let [title, setTitle] = useState<string>(props.value)
-    let [error, setError] = useState<ErrorType>(null)
-    const activateEditMode = () => setEditMode(true)
-    const deactivateEditMode = () => {
-        if (title.trim() !== '') {
-            setEditMode(false)
-            props.setValue(title)
-        } else {
-            setError('Title is required')
-        }
+    const {
+        enterHandler,
+        onChange,
+        onBlurHandler,
+        activateEditMode,
+        editMode,
+        title,
+        error
+    } = useEditableSpan(props.value, props.setValue)
 
     }
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
