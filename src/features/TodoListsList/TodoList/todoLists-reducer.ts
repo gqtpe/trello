@@ -43,14 +43,10 @@ const addTodoList = createAsyncThunk<{ todoList: TodoListType }, string, ThunkEr
             dispatch(setAppStatus({status: 'succeeded'}))
             return {todoList: response.data.data.item}
         } else {
-            handleServerAppError(response.data, dispatch)
-            return rejectWithValue(null)
+            return handleAsyncServerAppError(response.data, thunkAPI)
         }
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
-        }
-        return rejectWithValue(null)
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI)
     }
 
 })
@@ -71,7 +67,7 @@ const removeTodoList = createAsyncThunk('todoLists/removeTodoListTC', async (id:
         }
     } catch (e) {
         if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
+            handleNetworkError(e, dispatch)
         }
         return rejectWithValue(null)
     }
@@ -87,14 +83,10 @@ const changeTodoListTitle = createAsyncThunk<ChangeTodoTitleParam, ChangeTodoTit
         if (response.data.resultCode === 0) {
             return param
         } else {
-            handleServerAppError(response.data, dispatch)
-            return rejectWithValue(null)
+            return handleAsyncServerAppError(response.data, thunkAPI, true)
         }
     } catch (e) {
-        if (axios.isAxiosError(e)) {
-            handleServerNetworkError(e, dispatch)
-        }
-        return rejectWithValue(null)
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI, true)
     }
 })
 
