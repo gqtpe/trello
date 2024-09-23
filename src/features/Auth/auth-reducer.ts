@@ -1,6 +1,6 @@
-import {authAPI, FieldErrorType, LoginParamsType} from "../../api/todo-listsAPI";
+import {authAPI, LoginParamsType} from "../../api/todo-listsAPI";
 import {setAppStatus} from "../../app/app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {handleAsyncNetworkError, handleAsyncServerAppError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
 import {ThunkErrorType} from "../../utils/types";
