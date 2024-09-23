@@ -32,7 +32,7 @@ export function useTodoLists(demo: boolean = false) {
 
     return {
         todoLists,
-        addTodoList,
+        addTodoList: addTodoListHandler,
         tasks,
     }
 }
