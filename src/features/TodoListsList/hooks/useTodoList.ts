@@ -47,8 +47,17 @@ export const useTodoList = (demo: boolean, todoList: TodoListsDomainType, tasks:
         removeTodoList(todoList.id)
     }, [todoList.id, removeTodoList])
 
-    const addItem = useCallback((title: string) => {
-        addTask({todoListID: todoList.id, title})
+    const addItem = useCallback(async (title: string, helper: AddItemSubmitHelper) => {
+        const action = await addTask({todoListID: todoList.id, title})
+        if (tasksActions.addTask.rejected.match(action)) {
+            if (action.payload?.errors[0]) {
+                helper.setError(action.payload?.errors[0])
+            } else {
+                helper.setError('some error')
+            }
+        } else {
+            helper.setValue('')
+        }
     }, [todoList.id, addTask])
     const removeTaskCallback = useCallback((taskID: string) => {
         removeTask({todoListID: todoList.id, taskID})
