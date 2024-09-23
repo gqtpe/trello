@@ -1,6 +1,8 @@
 import {TextField} from '@mui/material';
 import React, {useState} from 'react';
 import {ErrorType} from "../../common/types";
+import {useEditableSpan} from "./useEditableSpan";
+import {EditableSubmitHelper} from "../../utils/types";
 
 
 type PropsType = {
