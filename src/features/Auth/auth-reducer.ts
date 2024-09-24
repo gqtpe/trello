@@ -1,5 +1,5 @@
 import {authAPI, LoginParamsType} from "../../api/todo-listsAPI";
-import {setAppStatus} from "../../app/app-reducer";
+import {setAppStatus} from "../Application/app-reducer";
 import {handleAsyncNetworkError, handleAsyncServerAppError} from "../../utils/error-utils";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AxiosError} from "axios";
@@ -64,6 +64,5 @@ export const slice = createSlice({
 
 export const {setIsAuth} = slice.actions
 
-export const authReducer = slice.reducer
 
 
