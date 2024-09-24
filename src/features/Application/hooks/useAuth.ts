@@ -1,7 +1,6 @@
 import {useEffect} from "react";
-import {initializeApp} from "../app-reducer";
-import {appHooks, appSelectors} from "../";
-import {authActions} from "../../features/Auth";
+import {appActions, appHooks, appSelectors} from "../index";
+import {authActions} from "../../Auth";
 
 export const useAuth = (demo = false) => {
     console.log('App is called')
@@ -13,7 +12,7 @@ export const useAuth = (demo = false) => {
 
     useEffect(() => {
         if (!demo) {
-            dispatch(initializeApp())
+            dispatch(appActions.initializeApp())
         }
     }, [demo, dispatch])
 
