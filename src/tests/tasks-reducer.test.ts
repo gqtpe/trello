@@ -1,17 +1,10 @@
 import {v4} from "uuid"
-import {
-    addTask,
-    fetchTasks,
-    removeTask,
-    tasksReducer,
-    updateTask
-} from "../features/TodoListsList/TodoList/Task/tasks-reducer";
 import {TaskPriorities, TasksStateType, TaskStatuses, TaskType, TodoListType} from "../common/types";
-import {todoListActions} from "../features/TodoListsList";
+import {tasksActions, tasksReducer, todoListActions} from "../features/TodoListsList";
 
 
 
-
+const {addTask,updateTask,removeTask,fetchTasks} = tasksActions
 const {addTodoList, fetchTodoLists, removeTodoList} = todoListActions
 let todolistID1: string
 let todolistID2: string

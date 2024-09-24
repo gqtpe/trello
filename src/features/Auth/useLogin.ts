@@ -2,7 +2,7 @@ import {useLocation} from "react-router-dom";
 import {useFormik} from "formik";
 import {useState} from "react";
 import {authActions, authSelectors} from "./";
-import {appHooks} from "../../app";
+import {appHooks} from "../Application";
 
 type FormikErrorType = {
     email?: string

@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from "react";
 import {FilterTypeValuesType, TaskStatuses, TaskType} from "../../../common/types";
 import {tasksActions, todoListActions} from "../index";
 import {TodoListsDomainType} from "../TodoList/todoLists-reducer";
-import {appHooks} from "../../../app";
+import {appHooks} from "../../Application";
 import {AddItemSubmitHelper, EditableSubmitHelper} from "../../../utils/types";
 
 

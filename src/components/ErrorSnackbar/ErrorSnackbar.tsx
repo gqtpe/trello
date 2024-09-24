@@ -1,7 +1,7 @@
 import {Alert, Snackbar} from "@mui/material";
 import React from "react";
-import {setAppError} from "../../app/app-reducer";
-import {appHooks, appSelectors} from "../../app";
+import {setAppError} from "../../features/Application/app-reducer";
+import {appHooks, appSelectors} from "../../features/Application";
 
 
 export const ErrorSnackbar = () => {

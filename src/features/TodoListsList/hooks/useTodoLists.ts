@@ -1,5 +1,5 @@
 import {useCallback, useEffect} from "react";
-import {appHooks} from "../../../app";
+import {appHooks} from "../../Application";
 import {todoListActions, todoListSelectors} from "../index";
 
 import {AddItemSubmitHelper} from "../../../utils/types";

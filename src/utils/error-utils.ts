@@ -1,4 +1,4 @@
-import {setAppError, SetAppErrorActionType, setAppStatus, SetAppStatusActionType} from "../app/app-reducer";
+import {setAppError, SetAppErrorActionType, setAppStatus, SetAppStatusActionType} from "../features/Application/app-reducer";
 import {ResponseType} from '../api/todo-listsAPI'
 import {Dispatch} from "redux";
 import {AxiosError} from "axios";

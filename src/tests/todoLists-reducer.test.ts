@@ -1,22 +1,18 @@
 import {v4} from "uuid";
-import {
-    TodoListsDomainType,
-    todoListsReducer,
-} from "../features/TodoListsList/TodoList/todoLists-reducer";
+import {TodoListsDomainType} from "../features/TodoListsList/TodoList/todoLists-reducer";
 import {FilterTypeValuesType, TodoListType} from "../common/types";
-import {RequestStatusType} from "../app/app-reducer";
-import {todoListActions} from "../features/TodoListsList";
+import {RequestStatusType} from "../features/Application/app-reducer";
+import {todoListActions, todoListsReducer} from "../features/TodoListsList";
 
 
-
-
-
-const {    changeTodolistEntityStatus,
+const {
+    changeTodolistEntityStatus,
     changeTodoListFilter,
     fetchTodoLists,
     removeTodoList,
     addTodoList,
-    changeTodoListTitle,} = todoListActions
+    changeTodoListTitle,
+} = todoListActions
 let todolistID1: string;
 let todolistID2: string;
 let startState: TodoListsDomainType[];
@@ -24,13 +20,13 @@ beforeEach(() => {
     todolistID1 = v4()
     todolistID2 = v4()
     startState = [
-        {id: todolistID1, title: "What to learn",entityStatus:'idle', filter: "ACTIVE", addedDate: '', order: -1},
-        {id: todolistID2, title: "What to do",entityStatus:'idle', filter: "ALL", addedDate: '', order: 0},
+        {id: todolistID1, title: "What to learn", entityStatus: 'idle', filter: "ACTIVE", addedDate: '', order: -1},
+        {id: todolistID2, title: "What to do", entityStatus: 'idle', filter: "ALL", addedDate: '', order: 0},
     ]
 })
 
 test('todoListReducer have to  remove todoList', () => {
-    const endState = todoListsReducer(startState, removeTodoList.fulfilled(todolistID1,'requestId', todolistID1))
+    const endState = todoListsReducer(startState, removeTodoList.fulfilled(todolistID1, 'requestId', todolistID1))
     expect(endState.length).toBe(startState.length - 1)
     expect(endState[0].id).toBe(todolistID2)
 })
@@ -59,14 +55,14 @@ test('todoListReducer have to  change todoList filter', () => {
     expect(endState[0].filter).toBe(newFilter)
 })
 
-test('todoListsReducer have to set todoLists', ()=>{
-    const endState = todoListsReducer([], fetchTodoLists.fulfilled({todoLists:startState}, 'requestId', ))
+test('todoListsReducer have to set todoLists', () => {
+    const endState = todoListsReducer([], fetchTodoLists.fulfilled({todoLists: startState}, 'requestId',))
     expect(endState.length).toBe(2)
 })
 
-test('todoListReducer have to set entityStatus for correct todolist', ()=>{
+test('todoListReducer have to set entityStatus for correct todolist', () => {
     const status: RequestStatusType = 'succeeded'
-    const endState = todoListsReducer(startState, changeTodolistEntityStatus({id:todolistID1,entity:status}))
+    const endState = todoListsReducer(startState, changeTodolistEntityStatus({id: todolistID1, entity: status}))
 
     expect(endState[0].entityStatus).toBe(status)
     expect(endState[1].entityStatus).toBe('idle')

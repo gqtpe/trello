@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Switch from "@mui/material/Switch";
-import {useTheme} from "../../hooks/useTheme";
+import {useTheme} from "../../../features/Application/hooks/useTheme";
 import {TodoListsList} from "../../../features/TodoListsList";
 
 const drawerWidth = 240;
