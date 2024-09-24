@@ -1,4 +1,4 @@
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../../utils/redux-utils";
 
 export const selectAppStatus = (state: AppRootStateType) =>state.app.status
 
