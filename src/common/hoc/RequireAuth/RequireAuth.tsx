@@ -1,6 +1,6 @@
 import {Navigate, useLocation} from 'react-router-dom'
 import React from 'react';
-import {appHooks} from "../../../app";
+import {appHooks} from "../../../features/Application";
 import {authSelectors} from "../../../features/Auth";
 
 type Props = {
