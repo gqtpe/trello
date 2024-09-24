@@ -24,6 +24,7 @@ const initializeApp = createAsyncThunk<number,undefined,ThunkErrorType >('app/in
 })
 export const asyncActions = {initializeApp}
 
+
 const slice = createSlice({
     name: 'app',
     initialState,
@@ -50,3 +51,4 @@ export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type SetAppStatusActionType = ReturnType<typeof setAppStatus>
 export type SetAppErrorActionType = ReturnType<typeof setAppError>
 
+export default slice;
