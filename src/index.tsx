@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
 import reportWebVitals from './reportWebVitals';
-import {App, store} from "./app";
-import {Provider} from "react-redux";
 import {createBrowserRouter, Navigate, RouterProvider} from 'react-router-dom';
+import {Provider} from "react-redux";
+import {store} from "./app/store";
+import App from "./app/App";
 import {TodoListsList} from "./features/TodoListsList";
 import {Login} from "./features/Auth";
 import {ErrorPage} from "./components/ErrorPage/ErrorPage";
 import RequireAuth from "./common/hoc/RequireAuth/RequireAuth";
+import './index.scss';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
