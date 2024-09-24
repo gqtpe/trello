@@ -1,7 +1,10 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {ErrorType} from "../common/types"
-import {authAPI} from "../api/todo-listsAPI";
-import {setIsAuth} from "../features/Auth/auth-reducer";
+import {ErrorType} from "../../common/types"
+import {authAPI} from "../../api/todo-listsAPI";
+import {setIsAuth} from "../Auth/auth-reducer";
+import {handleAsyncNetworkError, handleAsyncServerAppError} from "../../utils/error-utils";
+import {AxiosError} from "axios";
+import {ThunkErrorType} from "../../utils/types";
 
 const initialState = {
     status: 'idle' as RequestStatusType,
