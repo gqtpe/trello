@@ -5,10 +5,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {ThemeProvider} from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 import CssBaseline from '@mui/material/CssBaseline'
-import {useTheme} from "./hooks/useTheme";
+import {useAuth, useTheme} from "../features/Application";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {Outlet, Route, Routes} from "react-router-dom";
-import {useAuth} from "./hooks/useAuth";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import {TodoListsList} from "../features/TodoListsList";
@@ -18,9 +17,6 @@ import RequireAuth from "../common/hoc/RequireAuth/RequireAuth";
 type PropsType = {
     demo?: boolean
 }
-//TODO: 1.1: add centralized imports
-//      1.2: create App feature
-//      1.3: add selectors to Todolist feature(filtering inside selector)
 function App({demo = false}: PropsType) {
     const {status, isInitialized, logout} = useAuth(demo)
     const {theme, changeThemeHandler} = useTheme()
