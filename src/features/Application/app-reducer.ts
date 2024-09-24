@@ -8,12 +8,18 @@ const initialState = {
     error: null as ErrorType,
     isInitialized: false as boolean,
 }
-export const initializeApp = createAsyncThunk('app/init', async (param, {dispatch}) => {
-    const response = await authAPI.me()
-    if (response.data.resultCode === 0) {
-        dispatch(setIsAuth({value: true}))
-    } else {
+const initializeApp = createAsyncThunk<number,undefined,ThunkErrorType >('app/init', async (param, thunkAPI) => {
 
+    try {
+        const response = await authAPI.me()
+        if (response.data.resultCode === 0) {
+            thunkAPI.dispatch(setIsAuth({value: true}))
+            return response.data.data.id
+        } else {
+            return handleAsyncServerAppError(response.data, thunkAPI)
+        }
+    }catch (e) {
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI,true)
     }
 })
 
