@@ -22,6 +22,7 @@ const initializeApp = createAsyncThunk<number,undefined,ThunkErrorType >('app/in
         return handleAsyncNetworkError(e as AxiosError, thunkAPI,true)
     }
 })
+export const asyncActions = {initializeApp}
 
 const slice = createSlice({
     name: 'app',
