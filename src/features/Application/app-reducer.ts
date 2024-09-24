@@ -43,7 +43,6 @@ const slice = createSlice({
 
 export const {setAppStatus, setAppError} = slice.actions
 
-export const appReducer = slice.reducer
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
