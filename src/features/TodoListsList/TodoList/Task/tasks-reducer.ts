@@ -1,7 +1,6 @@
 import {TaskPriorities, TasksStateType, TaskStatuses, TaskType} from "../../../../common/types";
 import {todoListsAPI, UpdateTaskPayload} from "../../../../api/todo-listsAPI";
-import {AppRootStateType} from "../../../../app/store";
-import {setAppStatus} from "../../../../app/app-reducer";
+import {setAppStatus} from "../../../Application/app-reducer";
 import {
     handleServerAppError,
     handleNetworkError,
@@ -12,17 +11,18 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import axios, {AxiosError} from "axios";
 import {asyncActions as todoListAsyncActions} from "../todoLists-reducer";
 import {ThunkErrorType} from "../../../../utils/types";
+import {AppRootStateType} from "../../../../utils/redux-utils";
 
 
 //thunks
-export const fetchTasks = createAsyncThunk('tasks/fetchTasksTC', async (todoListID: string, thunkAPI) => {
+const fetchTasks = createAsyncThunk('tasks/fetchTasksTC', async (todoListID: string, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     const response = await todoListsAPI.getTasks(todoListID)
     thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
     return {todoListID: todoListID, tasks: response.data.items}
 })
 
-export const addTask = createAsyncThunk<TaskType,{ todoListID: string, title: string },ThunkErrorType >('tasks/addTaskTC', async (param , thunkAPI) => {
+const addTask = createAsyncThunk<TaskType,{ todoListID: string, title: string },ThunkErrorType >('tasks/addTaskTC', async (param , thunkAPI) => {
     const {dispatch} = thunkAPI
     dispatch(setAppStatus({status: 'loading'}))
     try {
@@ -39,7 +39,7 @@ export const addTask = createAsyncThunk<TaskType,{ todoListID: string, title: st
 })
 
 
-export const removeTask = createAsyncThunk('tasks/removeTaskTC', async (param: { todoListID: string, taskID: string }, {
+const removeTask = createAsyncThunk('tasks/removeTaskTC', async (param: { todoListID: string, taskID: string }, {
         dispatch,
         rejectWithValue
     }) => {
@@ -63,7 +63,7 @@ export const removeTask = createAsyncThunk('tasks/removeTaskTC', async (param: {
 
     }
 )
-export const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskID: string, model: UpdateDomainTaskPayload }, ThunkErrorType>('tasks/updateTaskTC', async (param,thunkAPI) => {
+const updateTask = createAsyncThunk<TaskType, { todoListID: string, taskID: string, model: UpdateDomainTaskPayload }, ThunkErrorType>('tasks/updateTaskTC', async (param,thunkAPI) => {
     const {getState, dispatch, rejectWithValue} = thunkAPI
     const {todoListID, taskID, model} = param
     const state = getState() as AppRootStateType
@@ -138,10 +138,6 @@ const slice = createSlice({
         })
     }
 })
-
-
-export const tasksReducer = slice.reducer
-
 export type UpdateDomainTaskPayload = {
     title?: string
     description?: string
@@ -150,3 +146,5 @@ export type UpdateDomainTaskPayload = {
     startDate?: string
     deadline?: string
 }
+
+export default slice;

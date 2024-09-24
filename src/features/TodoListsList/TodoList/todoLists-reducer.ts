@@ -1,6 +1,6 @@
 import {FilterTypeValuesType, TodoListType} from "../../../common/types";
 import {todoListsAPI} from "../../../api/todo-listsAPI";
-import {RequestStatusType, setAppStatus} from "../../../app/app-reducer";
+import {RequestStatusType, setAppStatus} from "../../Application/app-reducer";
 import {
     handleServerAppError,
     handleNetworkError,
@@ -55,10 +55,12 @@ const removeTodoList = createAsyncThunk('todoLists/removeTodoListTC', async (id:
     rejectWithValue
 }) => {
     dispatch(changeTodolistEntityStatus({id, entity: 'loading'}))
+    dispatch(setAppStatus({status: 'loading'}))
     try {
         const response = await todoListsAPI.deleteTodoList(id)
         if (response.data.resultCode === 0) {
             dispatch(changeTodolistEntityStatus({id, entity: 'succeeded'}))
+            dispatch(setAppStatus({status: 'succeeded'}))
             return id
         } else {
             dispatch(changeTodolistEntityStatus({id, entity: 'failed'}))
@@ -102,7 +104,7 @@ export const asyncActions = {
 
 
 
-export const slice = createSlice({
+const slice = createSlice({
     name: 'todoLists',
     initialState,
     reducers: {
@@ -133,8 +135,6 @@ export const slice = createSlice({
     }
 })
 const {changeTodolistEntityStatus} = slice.actions
-export const todoListsReducer = slice.reducer
-//Thunk
 
 
 //types
@@ -142,3 +142,5 @@ export type TodoListsDomainType = TodoListType & {
     filter: FilterTypeValuesType
     entityStatus: RequestStatusType
 }
+
+export default slice;
