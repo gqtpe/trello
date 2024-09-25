@@ -6,7 +6,8 @@ import {AxiosError} from "axios";
 import {ThunkErrorType} from "../../utils/types";
 
 const initialState = {
-    isAuth: false as boolean
+    isAuth: false as boolean,
+    captchaURL: null as string | null
 }
 
 const getCaptcha = createAsyncThunk<string, undefined, ThunkErrorType>('auth/getCaptcha', async (param, thunkAPI) => {
