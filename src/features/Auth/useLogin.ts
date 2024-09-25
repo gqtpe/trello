@@ -8,12 +8,16 @@ type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
+    captcha?: string
+
 }
 export const useLogin = () => {
     const {useAppSelector, useActions} = appHooks
     const isAuth = useAppSelector(authSelectors.selectIsAuth)
+    const captchaURL = useAppSelector(authSelectors.selectCaptchaURL)
     const [clearValues, setClearValues] = useState(false)
     const {login} = useActions(authActions)
+
 
     const location = useLocation()
     const fromPage = location.state?.from?.pathname || '/';
@@ -22,6 +26,7 @@ export const useLogin = () => {
             email: '',
             password: '',
             rememberMe: false,
+            captcha: '',
         },
         validateOnChange: true,
         validateOnBlur: false,
@@ -44,6 +49,7 @@ export const useLogin = () => {
                     const error = action.payload?.errors
                     formikHelper.setFieldError('email', error[0])
                     formikHelper.setFieldError('password', error[0])
+                    formikHelper.setFieldError('captcha', error[0])
                 } else {
 
                 }
@@ -56,15 +62,17 @@ export const useLogin = () => {
                 email: 'free@samuraijs.com',
                 password: 'free',
                 rememberMe: false,
+                captcha: formik.values.captcha
             })
         } else {
             formik.setValues({
                 email: '',
                 password: '',
                 rememberMe: false,
+                captcha: formik.values.captcha
             })
         }
         setClearValues(state => !state)
     }
-    return {formik, fromPage, isAuth, paste}
+    return {formik, fromPage, isAuth, paste, captchaURL}
 }
