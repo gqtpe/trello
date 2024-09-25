@@ -1,5 +1,6 @@
 {
   "name": "trello",
+  "homepage": "https://gqtpe.github.io/trello",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -40,7 +41,9 @@
     "build-storybook": "storybook build",
     "jest:integration": "jest -c integration/jest.config.js",
     "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration",
-    "chromatic": "npx chromatic --project-token=chpt_d179dd16795448e"
+    "chromatic": "npx chromatic --project-token=chpt_d179dd16795448e",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "jest": {
     "moduleNameMapper": {
@@ -79,6 +82,7 @@
     "@storybook/test": "^8.1.10",
     "chromatic": "^11.5.4",
     "eslint-plugin-storybook": "^0.8.0",
+    "gh-pages": "^6.1.1",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-image-snapshot": "^6.4.0",
