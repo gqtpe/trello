@@ -17,6 +17,7 @@ import RequireAuth from "../common/hoc/RequireAuth/RequireAuth";
 type PropsType = {
     demo?: boolean
 }
+// todo: tasks, todoLists reordering
 function App({demo = false}: PropsType) {
     const {status, isInitialized, logout} = useAuth(demo)
     const {theme, changeThemeHandler} = useTheme()
