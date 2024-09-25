@@ -18,6 +18,6 @@ export const RemoveItem = React.memo(({removeItem, disabled, ...rest}: RemoveIte
     }
 
     return <IconButton disabled={disabled} onClick={removeItem} {...rest}>
-        <RemoveCircleIcon fontSize={"inherit"} sx={svg}/>
+        <RemoveCircleIcon sx={svg}/>
     </IconButton>
 })
