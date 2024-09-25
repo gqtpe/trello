@@ -58,9 +58,11 @@ const logout = createAsyncThunk<undefined, undefined, ThunkErrorType>('auth/logo
     }
 })
 
+
 export const asyncActions = {
     login,
-    logout
+    logout,
+    getCaptcha,
 }
 
 export const slice = createSlice({
