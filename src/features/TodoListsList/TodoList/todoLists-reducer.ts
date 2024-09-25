@@ -10,6 +10,7 @@ import {
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios, {AxiosError} from "axios";
 import {ThunkErrorType} from "../../../utils/types";
+import {authActions} from "../../Auth";
 
 const initialState = [] as TodoListsDomainType[]
 
@@ -131,6 +132,9 @@ const slice = createSlice({
         builder.addCase(changeTodoListTitle.fulfilled, (state, action) => {
             const index = state.findIndex(tl => tl.id === action.payload.id)
             state[index].title = action.payload.title
+        })
+        builder.addCase(authActions.logout.fulfilled, (state, action)=>{
+            return []
         })
     }
 })
