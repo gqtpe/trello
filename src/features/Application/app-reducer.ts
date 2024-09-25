@@ -2,9 +2,6 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {ErrorType} from "../../common/types"
 import {authAPI} from "../../api/todo-listsAPI";
 import {setIsAuth} from "../Auth/auth-reducer";
-import {handleAsyncNetworkError, handleAsyncServerAppError} from "../../utils/error-utils";
-import {AxiosError} from "axios";
-import {ThunkErrorType} from "../../utils/types";
 
 const initialState = {
     status: 'idle' as RequestStatusType,
@@ -12,11 +9,11 @@ const initialState = {
     isInitialized: false as boolean,
 }
 const initializeApp = createAsyncThunk('app/init', async (param, thunkAPI) => {
-        const response = await authAPI.me()
-        if (response.data.resultCode === 0) {
-            thunkAPI.dispatch(setIsAuth({value: true}))
-            return response.data.data.id
-        }
+    const response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+        thunkAPI.dispatch(setIsAuth({value: true}))
+        return response.data.data.id
+    }
 })
 export const asyncActions = {initializeApp}
 
