@@ -1,4 +1,4 @@
-import {Login} from "./Login"
+import {Login} from "./Login/Login"
 import * as authSelectors from "./selectors"
 import {asyncActions, slice} from "./auth-reducer";
 
