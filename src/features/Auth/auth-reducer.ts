@@ -8,6 +8,17 @@ import {ThunkErrorType} from "../../utils/types";
 const initialState = {
     isAuth: false as boolean
 }
+
+const getCaptcha = createAsyncThunk<string, undefined, ThunkErrorType>('auth/getCaptcha', async (param, thunkAPI) => {
+    try {
+        debugger;
+        const response = await authAPI.getCaptcha()
+        return response.data.url
+    } catch (e) {
+        return handleAsyncNetworkError(e as AxiosError, thunkAPI, true)
+    }
+})
+
 const login = createAsyncThunk<undefined, LoginParamsType, ThunkErrorType>('auth/login', async (param: LoginParamsType, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     try {
