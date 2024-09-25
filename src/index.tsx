@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter, createHashRouter, Navigate, RouterProvider} from 'react-router-dom';
+import {createHashRouter, Navigate, RouterProvider} from 'react-router-dom';
 import {Provider} from "react-redux";
 import {store} from "./app/store";
 import App from "./app/App";
