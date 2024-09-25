@@ -7,10 +7,10 @@ const settings = {
 }
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1',
-    headers: {
-        "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
-    },
     withCredentials: true,
+    headers: {
+        "API-KEY": "cafb0950-ccaf-4e48-82a9-9481369a4244"
+    },
 })
 
 export type FieldErrorType = {
@@ -77,5 +77,8 @@ export const authAPI = {
     },
     logout(){
         return instance.delete<ResponseType<{}>>('/auth/login')
+    },
+    getCaptcha(){
+        return instance.get('security/get-captcha-url')
     }
 }

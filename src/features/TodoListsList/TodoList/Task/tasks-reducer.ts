@@ -12,6 +12,7 @@ import axios, {AxiosError} from "axios";
 import {asyncActions as todoListAsyncActions} from "../todoLists-reducer";
 import {ThunkErrorType} from "../../../../utils/types";
 import {AppRootStateType} from "../../../../utils/redux-utils";
+import {authActions} from "../../../Auth";
 
 
 //thunks
@@ -135,6 +136,9 @@ const slice = createSlice({
             const tasks = state[action.payload.todoListId]
             const index = tasks.findIndex(t => t.id === action.payload.id)
             tasks[index] = action.payload
+        })
+        builder.addCase(authActions.logout.fulfilled, (state)=>{
+            return {}
         })
     }
 })
