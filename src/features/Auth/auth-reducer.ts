@@ -80,6 +80,9 @@ export const slice = createSlice({
         builder.addCase(logout.fulfilled, (state) => {
             state.isAuth = false
         })
+        builder.addCase(getCaptcha.fulfilled, (state, action) => {
+            state.captchaURL = action.payload
+        })
     }
 })
 
