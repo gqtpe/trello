@@ -5,6 +5,7 @@ let startState: StateType
 beforeEach(() => {
     startState = {
      isAuth: false,
+        captchaURL: null,
     }
 })
 
