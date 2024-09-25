@@ -24,3 +24,19 @@
     align-items: center;
   }
 }
+
+.captcha{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  align-items: flex-start;
+  gap: 15px;
+  &__input{
+    display: flex;
+    align-items: flex-start;
+  }
+  &__img{
+
+  }
+
+}

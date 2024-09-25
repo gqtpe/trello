@@ -6,14 +6,15 @@ import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import {Navigate} from "react-router-dom"
-import {useLogin} from "./useLogin"
+import {useLogin} from "../useLogin"
 import {Checkbox, Paper, Typography} from "@mui/material"
 import s from "./Login.module.scss"
 import IconButton from "@mui/material/IconButton";
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import {CaptchaDialog} from "./Captcha/CaptchaDialog";
 
 export const Login = () => {
-    const {formik, isAuth, fromPage, paste} = useLogin()
+    const {formik, isAuth, fromPage, paste, captchaURL} = useLogin()
     if (isAuth) {
         return <Navigate to={fromPage} replace/>
     }
@@ -22,13 +23,14 @@ export const Login = () => {
         <Paper elevation={6} className={s.login}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>
-                    <Typography  variant="h5" gutterBottom className={s.login__title}>Log In</Typography>
+                    <Typography variant="h5" gutterBottom className={s.login__title}>Log In</Typography>
                     <FormLabel className={s.login__description}>
                         <Typography variant="body2">
                             Don't have an account? <a href={'https://social-network.samuraijs.com/'}>Sign Up</a>
                         </Typography>
                         <Typography variant="body2">or use common test account credentials:</Typography>
-                        <Typography className={s.login__p} variant="body1"><span>Email</span>: free@samuraijs.com</Typography>
+                        <Typography className={s.login__p} variant="body1"><span>Email</span>:
+                            free@samuraijs.com</Typography>
                         <Typography className={s.login__p} variant="body1"><span>Password</span>: free</Typography>
                         <IconButton color={'primary'} size="small" onClick={paste}>
                             <ContentPasteGoIcon/>
@@ -63,6 +65,13 @@ export const Login = () => {
                                 />
                             }
                         />
+                        {captchaURL &&
+                            <CaptchaDialog
+                                captchaURL={captchaURL}
+                                error={formik.errors.captcha}
+                                onSubmit={(value: string)=>formik.setFieldValue('captcha',value)}
+                            />
+                        }
                         <Button type={'submit'} variant={'contained'} color={'primary'}
                                 disabled={!!(formik.errors.email || formik.errors.password)}>
                             Login
@@ -73,3 +82,5 @@ export const Login = () => {
         </Paper>
     )
 }
+
+
