@@ -76,6 +76,7 @@ export const slice = createSlice({
     extraReducers: builder => {
         builder.addCase(login.fulfilled, (state) => {
             state.isAuth = true
+            state.captchaURL = null
         })
         builder.addCase(logout.fulfilled, (state) => {
             state.isAuth = false
