@@ -126,7 +126,7 @@ const initialGlobalState: AppRootStateType = {
     ],
     auth: {
         isAuth: true,
-
+        captchaURL: null,
     }
 }
 
