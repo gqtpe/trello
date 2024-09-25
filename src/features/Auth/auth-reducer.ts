@@ -27,7 +27,16 @@ const login = createAsyncThunk<undefined, LoginParamsType, ThunkErrorType>('auth
         if (response.data.resultCode === 0) {
             thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
             return;
-        } else {
+        }
+        else if(response.data.resultCode === 10){
+
+            debugger;
+            //Incorrect anti bot symbols
+            thunkAPI.dispatch(getCaptcha())
+            console.log(response.data.messages[0])
+            return handleAsyncServerAppError(response.data, thunkAPI, true)
+        }
+        else {
             return handleAsyncServerAppError(response.data, thunkAPI)
         }
     } catch (e) {
