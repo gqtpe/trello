@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import Button from "@mui/material/Button";
 import {Dialog, DialogContent, DialogTitle, IconButton, Paper} from "@mui/material";
 import TextField from "@mui/material/TextField";
@@ -12,7 +12,7 @@ type CaptchaProps = {
     onSubmit: (value: string) => void
     error?: string
 }
-export const CaptchaDialog: React.FC<CaptchaProps> = ({captchaURL, error, onSubmit}) => {
+export const CaptchaDialog: React.FC<CaptchaProps> = memo(({captchaURL,onSubmit, error}) => {
     const {
         open,
         value,
@@ -22,7 +22,7 @@ export const CaptchaDialog: React.FC<CaptchaProps> = ({captchaURL, error, onSubm
         handleSubmit,
         onChange,
         enterKeyPress
-    } = useCaptcha(onSubmit,error)
+    } = useCaptcha(onSubmit, error)
     return <>
         <Button variant="outlined" onClick={handleClickOpen} sx={{marginBottom: '10px'}}>
             Insert Captcha
@@ -58,4 +58,4 @@ export const CaptchaDialog: React.FC<CaptchaProps> = ({captchaURL, error, onSubm
             </DialogContent>
         </Dialog>
     </>
-}
+})
