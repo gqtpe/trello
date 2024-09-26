@@ -6,7 +6,7 @@ import {TaskType} from "../../../common/types";
 import AddItemForm from "../../../components/AddItemForm/AddItemForm";
 import s from './TodoList.module.scss'
 import Typography from "@mui/material/Typography";
-import {Task} from "./Task/Task";
+import Task from "./Task/Task";
 import {TodoListsDomainType} from "./todoLists-reducer";
 import {useTodoList} from "../hooks/useTodoList";
 import HelpIcon from '@mui/icons-material/Help';

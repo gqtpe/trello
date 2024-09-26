@@ -16,7 +16,7 @@ export const RemoveItem = React.memo(({removeItem, disabled, ...rest}: RemoveIte
             transition: '0.3s'
         }
     }
-
+    console.log('removeItem' )
     return <IconButton disabled={disabled} onClick={removeItem} {...rest}>
         <RemoveCircleIcon sx={svg}/>
     </IconButton>

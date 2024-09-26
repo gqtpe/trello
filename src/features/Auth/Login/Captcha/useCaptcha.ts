@@ -2,7 +2,7 @@ import {ChangeEvent, KeyboardEvent, useCallback, useState} from "react";
 
 
 export const useCaptcha = (onSubmit: (value:string)=>void, error?:string) =>{
-
+    console.log('captcha')
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState<string>('')
@@ -15,14 +15,14 @@ export const useCaptcha = (onSubmit: (value:string)=>void, error?:string) =>{
         setOpen(false);
     };
 
-    const handleSubmit = useCallback(() => {
+    const handleSubmit = () => {
         if (value.trim() !== '') {
             handleClose()
             onSubmit(value)
         } else {
             setErrorMessage('Invalid captcha')
         }
-    },[])
+    }
 
 
     const onChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {

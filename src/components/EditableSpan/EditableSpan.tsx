@@ -13,6 +13,7 @@ type PropsType = {
     setError?: (error: ErrorType) => void
 }
 const EditableSpan = (props: PropsType) => {
+    console.log('editable span')
     const {
         enterHandler,
         onChange,

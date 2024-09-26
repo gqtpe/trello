@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {memo, useCallback} from "react";
 import {Checkbox, ListItem, Typography} from "@mui/material";
 import s from "../TodoList.module.scss";
 import {RemoveItem} from "../../../../components/RemoveItem/RemoveItem";
@@ -12,13 +12,14 @@ type TaskPropsType = {
     changeTaskTitle: ( id: string, newValue: string, helper: EditableSubmitHelper) => void
     changeTaskStatus: ( id: string, status: TaskStatuses) => void
 }
-export const Task: React.FC<TaskPropsType> = ({
+const Task: React.FC<TaskPropsType> = ({
 
                                                   removeTask,
                                                   changeTaskStatus,
                                                   changeTaskTitle,
                                                   task
                                               }) => {
+    console.log('Task' + task.id)
     const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
         changeTaskStatus( task.id, e.currentTarget.checked?TaskStatuses.Completed: TaskStatuses.New)
     }
@@ -39,3 +40,5 @@ export const Task: React.FC<TaskPropsType> = ({
         <RemoveItem size="small" removeItem={removeTaskC}/>
     </ListItem>
 }
+
+export default memo(Task)
