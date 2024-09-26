@@ -14,7 +14,7 @@ import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
 import {CaptchaDialog} from "./Captcha/CaptchaDialog";
 
 export const Login = () => {
-    const {formik, isAuth, fromPage, paste, captchaURL} = useLogin()
+    const {formik, isAuth, fromPage, paste, captchaURL, captchaSubmitValue} = useLogin()
     if (isAuth) {
         return <Navigate to={fromPage} replace/>
     }
@@ -69,7 +69,7 @@ export const Login = () => {
                             <CaptchaDialog
                                 captchaURL={captchaURL}
                                 error={formik.errors.captcha}
-                                onSubmit={(value: string)=>formik.setFieldValue('captcha',value)}
+                                onSubmit={captchaSubmitValue}
                             />
                         }
                         <Button type={'submit'} variant={'contained'} color={'primary'}

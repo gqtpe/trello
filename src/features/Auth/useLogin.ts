@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {useFormik} from "formik";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {authActions, authSelectors} from "./";
 import {appHooks} from "../Application";
 
@@ -74,5 +74,8 @@ export const useLogin = () => {
         }
         setClearValues(state => !state)
     }
-    return {formik, fromPage, isAuth, paste, captchaURL}
+    const captchaSubmitValue = useCallback((value: string)=>formik.setFieldValue('captcha',value),[formik.setValues])
+
+
+    return {formik, fromPage, isAuth, paste, captchaURL, captchaSubmitValue}
 }
