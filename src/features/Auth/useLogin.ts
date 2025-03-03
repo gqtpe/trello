@@ -59,8 +59,8 @@ export const useLogin = () => {
     const paste = () => {
         if (!clearValues) {
             formik.setValues({
-                email: 'free@samuraijs.com',
-                password: 'free',
+                email: 'osbelkz@gmail.com',
+                password: 'system32',
                 rememberMe: false,
                 captcha: formik.values.captcha
             })

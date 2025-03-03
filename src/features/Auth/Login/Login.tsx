@@ -30,8 +30,8 @@ export const Login = () => {
                         </Typography>
                         <Typography variant="body2">or use common test account credentials:</Typography>
                         <Typography className={s.login__p} variant="body1"><span>Email</span>:
-                            free@samuraijs.com</Typography>
-                        <Typography className={s.login__p} variant="body1"><span>Password</span>: free</Typography>
+                            osbelkz@gmail.com</Typography>
+                        <Typography className={s.login__p} variant="body1"><span>Password</span>: system32</Typography>
                         <IconButton color={'primary'} size="small" onClick={paste}>
                             <ContentPasteGoIcon/>
                         </IconButton>
