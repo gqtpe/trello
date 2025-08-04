@@ -1,46 +1,148 @@
-# Getting Started with Create React App
+# TRELLO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*Transforming Ideas into Action, Effortlessly*
 
-## Available Scripts
+[![](https://img.shields.io/badge/last%20commit-august-informational)]()  
+[![](https://img.shields.io/badge/repo%20top%20language-TypeScript-3178C6)]()  
+[![](https://img.shields.io/badge/languages-4-informational)]()
 
-In the project directory, you can run:
+_Built with the tools and technologies:_
 
-### `yarn start`
+![JSON](https://img.shields.io/badge/-JSON-black?logo=json)
+![Markdown](https://img.shields.io/badge/-Markdown-000000?logo=markdown)
+![npm](https://img.shields.io/badge/-npm-CB3837?logo=npm)
+![Chromatic](https://img.shields.io/badge/-Chromatic-FF4785?logo=chromatic)
+![Puppeteer](https://img.shields.io/badge/-Puppeteer-40B5A4?logo=puppeteer)
+![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black)
+![Yarn](https://img.shields.io/badge/-Yarn-2C8EBB?logo=yarn)
+![Webpack](https://img.shields.io/badge/-Webpack-8DD6F9?logo=webpack&logoColor=black)
+![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript)
+![Formik](https://img.shields.io/badge/-Formik-E2B007?logo=formik)
+![Axios](https://img.shields.io/badge/-Axios-5A29E4?logo=axios)
+![Redux](https://img.shields.io/badge/-Redux-764ABC?logo=redux&logoColor=white)
+![Sass](https://img.shields.io/badge/-Sass-CC6699?logo=sass&logoColor=white)
+![Storybook](https://img.shields.io/badge/-Storybook-FF4785?logo=storybook)
+![Jest](https://img.shields.io/badge/-Jest-C21325?logo=jest)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Table of Contents
 
-### `yarn test`
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Testing](#testing)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `yarn build`
+## Overview
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Trello** is a modern, **React-based** clone of the popular task management platform, built with a focus on scalability, maintainability, and visual consistency.  
+It leverages **TypeScript** for type safety, **Redux** for state management, and **Storybook** for component documentation and testing.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Why Trello?
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project empowers developers to build, test, and deploy feature-rich task management applications efficiently. The core features include:
 
-### `yarn eject`
+- 🎨 **Visual Testing**: Streamlined visual regression detection with Chromatic, ensuring UI consistency  
+- 🛠️ **Type Safety**: Robust TypeScript configurations that facilitate reliable, modern JavaScript development  
+- 📚 **Modular Components**: Reusable, well-documented UI components with Storybook integration  
+- ⚙️ **State & API Management**: Seamless handling of tasks, lists, and user authentication via Redux and API interactions  
+- 🔒 **Secure Routing**: Route protection and authentication flows to safeguard user data  
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+---
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Prerequisites
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This project requires the following dependencies:
 
-## Learn More
+- **Programming Language**: TypeScript
+- **Package Manager**: npm or Yarn
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Installation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Build **trello** from source and install dependencies.
+
+#### 1. Clone the repository
+
+```bash
+git clone https://github.com/gqtpe/trello
+```
+
+#### 2. Navigate to the project directory
+
+```bash
+cd trello
+```
+
+#### 3. Install dependencies
+
+Using **npm**:
+
+```bash
+npm install
+```
+
+Using **Yarn**:
+
+```bash
+yarn install
+```
+
+---
+
+## Usage
+
+### Run the project in development
+
+Using **npm**:
+
+```bash
+npm start
+```
+
+Using **Yarn**:
+
+```bash
+yarn start
+```
+
+### Build for production
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+### Preview the production build
+
+```bash
+npm run preview
+# or
+yarn preview
+```
+
+---
+
+## Testing
+
+Trello uses the `{test_framework}` test framework. Run the test suite with:
+
+Using **npm**:
+
+```bash
+npm test
+```
+
+Using **Yarn**:
+
+```bash
+yarn test
+```
+
+> _(Note: replace `{test_framework}` with the actual tool you're using, e.g., Vitest, Jest, etc.)_
